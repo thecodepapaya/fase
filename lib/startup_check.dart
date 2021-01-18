@@ -1,3 +1,5 @@
+/// This class contains a set of functions to perform security and stability
+/// checks at application startup and before registering attendance.
 class StartupCheck {
   /// Checks if the device is an actual device or an emulator.
   /// Emulators cannot be allowed for registering attendance.
@@ -16,8 +18,9 @@ class StartupCheck {
     throw UnimplementedError();
   }
 
-  /// Checks if the device is connected to the institute WiFi. This function
-  /// checks for the obtained BSSID and WiFi name for the Institute WiFi
+  /// Checks if the device is connected to the IIITV Institute WiFi. This
+  /// function checks for the obtained BSSID and WiFi name for the
+  /// Institute WiFi
   bool isIIITVWifiConnected() {
     throw UnimplementedError();
   }
