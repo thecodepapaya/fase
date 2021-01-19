@@ -1,3 +1,3 @@
 class StringsResource {
-  static const String methodChannel = 'com.iiitvadodara.fase/rooted';
+  static const String methodChannel = 'in.ac.iiitvadodara.fase/rooted';
 }

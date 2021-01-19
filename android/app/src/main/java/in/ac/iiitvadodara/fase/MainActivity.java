@@ -9,7 +9,7 @@ import com.scottyab.rootbeer.RootBeer;
 import com.scottyab.rootbeer.util.Utils;
 
 public class MainActivity extends FlutterActivity {
-  private static final String CHANNEL = "com.iiitvadodara.fase/rooted";
+  private static final String CHANNEL = "in.ac.iiitvadodara.fase/rooted";
 
   @Override
   public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
@@ -19,12 +19,7 @@ public class MainActivity extends FlutterActivity {
           // Note: this method is invoked on the main thread.
           if (call.method.equals("getRootStatus")) {
             boolean rootStatus = getRootStatus();
-
-            // if (rootStatus != -1) {
             result.success(rootStatus);
-            // } else {
-            // result.error("UNAVAILABLE", "Battery level not available.", null);
-            // }
           } else {
             result.notImplemented();
           }
