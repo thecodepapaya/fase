@@ -11,8 +11,7 @@ void main() async {
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
 
-  var g = await Globals.initialize();
-  g.androidId;
+  await Globals.initialize();
   // print('model on:   ${androidInfo.model}');
   // print('isPhysicalDevice on:  ${androidInfo.isPhysicalDevice}');
   // print('brand on:   ${androidInfo.brand}');
@@ -70,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("com.iiitvadodara.fase"),
+        title: Text("in.ac.iiitvadodara.fase"),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

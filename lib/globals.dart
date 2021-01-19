@@ -26,9 +26,7 @@ class Globals {
   static String _tags;
   static bool _isPhysicalDevice;
 
-  Globals._();
-
-  static Future<Globals> initialize() async {
+  static Future<void> initialize() async {
     _androidInfo = await _deviceInfo.androidInfo;
     _packageInfo = await PackageInfo.fromPlatform();
 
@@ -50,8 +48,6 @@ class Globals {
     _androidId = _androidInfo.androidId;
     _device = _androidInfo.device;
     _tags = _androidInfo.tags;
-
-    return Globals._();
   }
 
   String get wifiBSSID => _wifiBSSID;
