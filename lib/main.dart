@@ -1,5 +1,6 @@
 import 'package:device_info/device_info.dart';
 import 'package:fase/globals.dart';
+import 'package:fase/startup_check.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -72,25 +73,28 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text("com.iiitvadodara.fase"),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          var status = await Permission.location.status;
-          if (status.isUndetermined) {
-            print("We didn't ask for permission yet");
-            PermissionStatus status = await Permission.location.request();
-            print(status);
-          }
-          // You can can also directly ask the permission about its status.
-          if (await Permission.location.isRestricted) {
-            print(
-                "The OS restricts access, for example because of parental controls");
-          }
-          if (await Permission.locationWhenInUse.serviceStatus.isEnabled) {
-            print("Location enabled");
-          }
-          if (await Permission.locationWhenInUse.serviceStatus.isDisabled) {
-            print("Location Disabled");
-          }
+        onPressed: () {
+          StartupCheck().isRooted();
         },
+        // onPressed: () async {
+        //   var status = await Permission.location.status;
+        //   if (status.isUndetermined) {
+        //     print("We didn't ask for permission yet");
+        //     PermissionStatus status = await Permission.location.request();
+        //     print(status);
+        //   }
+        //   // You can can also directly ask the permission about its status.
+        //   if (await Permission.location.isRestricted) {
+        //     print(
+        //         "The OS restricts access, for example because of parental controls");
+        //   }
+        //   if (await Permission.locationWhenInUse.serviceStatus.isEnabled) {
+        //     print("Location enabled");
+        //   }
+        //   if (await Permission.locationWhenInUse.serviceStatus.isDisabled) {
+        //     print("Location Disabled");
+        //   }
+        // },
         child: Icon(Icons.wifi),
       ),
     );

@@ -23,8 +23,8 @@ class StartupCheck {
       print('''Failed to get root status, reverting to default false.
       Error stack $e''');
     }
-
-    throw UnimplementedError();
+    print("Result is Rooted: $isRooted");
+    return isRooted;
   }
 
   /// Checks if the device is connected to a WiFi network.
