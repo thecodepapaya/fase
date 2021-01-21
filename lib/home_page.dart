@@ -1,4 +1,5 @@
 import 'package:fase/location_permission.dart';
+import 'package:fase/startup_check.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,7 +21,9 @@ class _HomePageState extends State<HomePage> {
         title: Text("in.ac.iiitvadodara.fase"),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          StartupCheck().isRooted();
+        },
         child: Icon(Icons.wifi),
       ),
     );
