@@ -1,10 +1,10 @@
 import 'package:fase/globals.dart';
-import 'package:fase/home_page.dart';
+import 'package:fase/ui/sign_in_handler.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_performance/firebase_performance.dart';
 import 'package:flutter/material.dart';
 import 'package:wifi_info_flutter/wifi_info_flutter.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,7 +54,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      darkTheme: ThemeData.dark(),
+      themeMode: ThemeMode.system,
+      home: SignInHandler(),
     );
   }
 }
