@@ -1,3 +1,4 @@
+import 'package:fase/string_resource.dart';
 import 'package:fase/utils/google_sign_in.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +8,7 @@ class SignInScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: RaisedButton(
-          child: Text("Sign In"),
+          child: Text(StringsResource.signIn),
           onPressed: () {
             signInWithGoogle();
           },

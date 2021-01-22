@@ -24,8 +24,9 @@ class StringsResource {
   static const String permissionRestrictedBody =
       "Location access has been restricted on this device. Please enable location access.";
 
-  //static const String name = "";
-  //static const String name = "";
+  static const String emailDomain = "@iiitvadodara.ac.in";
+  static const String signOut = "Sign Out";
+  static const String signIn = "Sign In";
   //static const String name = "";
   //static const String name = "";
   //static const String name = "";

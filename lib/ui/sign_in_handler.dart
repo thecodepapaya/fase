@@ -1,5 +1,7 @@
+import 'package:fase/string_resource.dart';
 import 'package:fase/ui/home_page.dart';
 import 'package:fase/ui/loading_screen.dart';
+import 'package:fase/ui/not_iiitv_email.dart';
 import 'package:fase/ui/sign_in_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +9,7 @@ import 'package:flutter/material.dart';
 class SignInHandler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new StreamBuilder<User>(
+    return StreamBuilder<User>(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting ||
@@ -15,7 +17,33 @@ class SignInHandler extends StatelessWidget {
           return LoadingScreen();
         } else {
           if (snapshot.hasData) {
-            return HomePage();
+            print("displayName: ${snapshot.data.displayName}");
+            print("displayName: ${snapshot.data.email}");
+            print("uid: ${snapshot.data.uid}");
+            print("emailVerified: ${snapshot.data.emailVerified}");
+            if (snapshot.data.email.endsWith(StringsResource.emailDomain)) {
+              return HomePage();
+            } else {
+              return NotIIITVEmail();
+              // showDialog(
+              //   context: context,
+              //   barrierDismissible: false,
+              //   builder: (BuildContext context) {
+              //     return AlertDialog(
+              //       title: Text("Not IIITV"),
+              //       content: Text(""),
+              //       actions: [
+              //         FlatButton(
+              //           onPressed: () {
+              //             Navigator.of(context).pop();
+              //           },
+              //           child: Text("Sign Out"),
+              //         ),
+              //       ],
+              //     );
+              //   },
+              // );
+            }
           }
           return SignInScreen();
         }
