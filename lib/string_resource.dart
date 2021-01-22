@@ -27,7 +27,7 @@ class StringsResource {
   static const String emailDomain = "@iiitvadodara.ac.in";
   static const String signOut = "Sign Out";
   static const String signIn = "Sign In";
-  //static const String name = "";
+  static const String useIIITV = "Use your Institute email ID to login";
   //static const String name = "";
   //static const String name = "";
   //static const String name = "";
