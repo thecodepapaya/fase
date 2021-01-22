@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "11202985363",
+    "project_id": "fase-35702",
+    "storage_bucket": "fase-35702.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:11202985363:android:cfd6b1294d68a44da1fc66",
+        "android_client_info": {
+          "package_name": "in.ac.iiitvadodara.fase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "11202985363-mrslghbhrlt35k1u5fomqdn8j6uu9742.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.ac.iiitvadodara.fase",
+            "certificate_hash": "11d45edcd0298e99853ec5b95bb6f23b48601bb7"
+          }
+        },
+        {
+          "client_id": "11202985363-pl8fj05c03re0phi5qid31ll4n4j66es.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2g7ukNEocEmVp4A35RW7kIoqadfZ5_qA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "11202985363-pl8fj05c03re0phi5qid31ll4n4j66es.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
