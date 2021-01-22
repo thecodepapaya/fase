@@ -18,31 +18,12 @@ class SignInHandler extends StatelessWidget {
         } else {
           if (snapshot.hasData) {
             print("displayName: ${snapshot.data.displayName}");
-            print("displayName: ${snapshot.data.email}");
+            print("email: ${snapshot.data.email}");
             print("uid: ${snapshot.data.uid}");
-            print("emailVerified: ${snapshot.data.emailVerified}");
             if (snapshot.data.email.endsWith(StringsResource.emailDomain)) {
               return HomePage();
             } else {
               return NotIIITVEmail();
-              // showDialog(
-              //   context: context,
-              //   barrierDismissible: false,
-              //   builder: (BuildContext context) {
-              //     return AlertDialog(
-              //       title: Text("Not IIITV"),
-              //       content: Text(""),
-              //       actions: [
-              //         FlatButton(
-              //           onPressed: () {
-              //             Navigator.of(context).pop();
-              //           },
-              //           child: Text("Sign Out"),
-              //         ),
-              //       ],
-              //     );
-              //   },
-              // );
             }
           }
           return SignInScreen();
