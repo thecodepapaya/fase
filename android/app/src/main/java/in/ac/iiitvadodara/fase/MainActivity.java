@@ -28,10 +28,6 @@ public class MainActivity extends FlutterActivity {
 
   private boolean getRootStatus() {
     RootBeer rootBeer = new RootBeer(this);
-    if (rootBeer.isRooted()) {
-      return true;
-    } else {
-      return false;
-    }
+    return rootBeer.isRooted();
   }
 }

@@ -103,7 +103,6 @@ class LocationPermission {
                       } else {
                         await openAppSettings();
                         Navigator.of(context).pop();
-                        // if (!await Permission.location.request().isGranted) {}
                       }
                     },
                     child: Text(StringsResource.ok),

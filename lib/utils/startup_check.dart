@@ -32,8 +32,7 @@ class StartupCheck {
     const platform = const MethodChannel(StringsResource.methodChannel);
     bool isRooted = false;
     try {
-      final bool result = await platform.invokeMethod('getRootStatus');
-      isRooted = result;
+      isRooted = await platform.invokeMethod('getRootStatus');
     } on PlatformException catch (e) {
       print('''Failed to get root status, reverting to default false.
       Error stack $e''');
