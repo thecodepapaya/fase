@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'app_info.g.dart';
@@ -20,14 +21,14 @@ class AppInfo {
 
   /// The build number accociated with the version string. Would always be a
   /// positive integer.
-  @JsonKey(name: 'buildNumber')
+  @JsonKey(name: 'buildNumber', nullable: false)
   int buildNumber;
 
   AppInfo({
     this.appName,
-    this.buildNumber,
+    @required this.buildNumber,
     this.packageName,
-    this.version,
+    @required this.version,
   });
 
   factory AppInfo.fromJson(Map<String, dynamic> json) =>
