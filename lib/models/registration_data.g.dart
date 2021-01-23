@@ -17,6 +17,9 @@ RegistrationData _$RegistrationDataFromJson(Map<String, dynamic> json) {
     studentData: json['studentData'] == null
         ? null
         : StudentData.fromJson(json['studentData'] as Map<String, dynamic>),
+    wifiInfo: json['wifiInfo'] == null
+        ? null
+        : WiFiInfo.fromJson(json['wifiInfo'] as Map<String, dynamic>),
   );
 }
 
@@ -25,4 +28,5 @@ Map<String, dynamic> _$RegistrationDataToJson(RegistrationData instance) =>
       'device': instance.device,
       'studentData': instance.studentData,
       'appInfo': instance.appInfo,
+      'wifiInfo': instance.wifiInfo,
     };

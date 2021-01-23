@@ -14,8 +14,8 @@ class Course {
 
   Course({
     @required this.courseCode,
-    @required this.courseName,
-    @required this.instructorName,
+    this.courseName,
+    this.instructorName,
   });
 
   factory Course.fromJson(Map<String, dynamic> json) => _$CourseFromJson(json);
