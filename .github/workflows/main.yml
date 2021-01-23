@@ -1,6 +1,8 @@
 name: Build and Release apk
 on: 
-  push: [ * ]
+  push: 
+    brancher:
+     - '*'
   pull_request:
     branches: [ dev ]
 jobs:
