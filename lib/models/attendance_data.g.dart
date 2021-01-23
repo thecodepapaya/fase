@@ -17,6 +17,12 @@ AttendanceData _$AttendanceDataFromJson(Map<String, dynamic> json) {
     studentData: json['studentData'] == null
         ? null
         : StudentData.fromJson(json['studentData'] as Map<String, dynamic>),
+    wifiInfo: json['wifiInfo'] == null
+        ? null
+        : WiFiInfo.fromJson(json['wifiInfo'] as Map<String, dynamic>),
+    appInfo: json['appInfo'] == null
+        ? null
+        : AppInfo.fromJson(json['appInfo'] as Map<String, dynamic>),
   );
 }
 
@@ -25,4 +31,6 @@ Map<String, dynamic> _$AttendanceDataToJson(AttendanceData instance) =>
       'studentData': instance.studentData,
       'device': instance.device,
       'course': instance.course,
+      'wifiInfo': instance.wifiInfo,
+      'appInfo': instance.appInfo,
     };

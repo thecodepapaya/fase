@@ -4,7 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'wifi_info.g.dart';
 
 @JsonSerializable()
-class WifiInfo {
+class WiFiInfo {
   /// SSID aka the name of the WIFI network
   @JsonKey(name: 'ssid')
   String ssid;
@@ -19,14 +19,14 @@ class WifiInfo {
   @JsonKey(name: 'localIP')
   String localIP;
 
-  WifiInfo({
+  WiFiInfo({
     @required this.bssid,
     @required this.localIP,
     @required this.ssid,
   });
 
-  factory WifiInfo.fromJson(Map<String, dynamic> json) =>
-      _$WifiInfoFromJson(json);
+  factory WiFiInfo.fromJson(Map<String, dynamic> json) =>
+      _$WiFiInfoFromJson(json);
 
-  Map<String, dynamic> toJson() => _$WifiInfoToJson(this);
+  Map<String, dynamic> toJson() => _$WiFiInfoToJson(this);
 }
