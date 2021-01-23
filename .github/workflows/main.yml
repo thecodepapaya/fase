@@ -21,7 +21,6 @@ jobs:
     - run: flutter analyze
     # - run: flutter test
     - run: flutter build apk
-    - name: Push APK to Releases
     # - uses: actions/upload-artifact@v1
     #   with:
     #     name: release-apk
