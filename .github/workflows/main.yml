@@ -1,7 +1,7 @@
 name: Build and Release apk
 on: 
   push: 
-    branches: [dev, '*']
+    branches: ['*']
   pull_request:
     branches: [ dev ]
 jobs:
@@ -29,5 +29,5 @@ jobs:
       uses: ncipollo/release-action@v1.7.3
       with:
         artifacts: "build/app/outputs/flutter-apk/app-release.apk"
-        token: ${{ secrets.TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         tag: v0.0.${{ github.run_number }}
