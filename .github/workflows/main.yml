@@ -15,9 +15,11 @@ jobs:
       with:
         flutter-version: 1.25.0-8.3.pre
         channel: beta
-    - run: flutter pub get
-    - run: flutter build apk
-    - name: Create Release
+    - name: Get Dependencies
+      run: flutter pub get
+    - name: Build Apk
+      run: flutter build apk
+    - name: Create and Publish Release
       uses: ncipollo/release-action@v1.7.3
       with:
         artifacts: "build/app/outputs/flutter-apk/app-release.apk"
