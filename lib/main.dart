@@ -1,3 +1,4 @@
+import 'package:device_info/device_info.dart';
 import 'package:fase/globals.dart';
 import 'package:fase/ui/sign_in_handler.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -30,7 +31,7 @@ void main() async {
   // print('fingerprint on:   ${androidInfo.fingerprint}');
   // print('id on:  ${androidInfo.id}');
   // print('type on:  ${androidInfo.type}');
-  // print('version on:   ${androidInfo.version.baseOS}');
+  // print('sdkInt on:   ${androidInfo.version.sdkInt}');
   // print('androidId on:   ${androidInfo.androidId}');
   // print('device on:  ${androidInfo.device}');
   // print('tags on:  ${androidInfo.tags}');
@@ -42,6 +43,11 @@ void main() async {
   print(wifiBSSID);
   // print(wifiIP);
   // print(wifiName);
+
+  // print("${Globals().appName}");
+  // print("${Globals().packageName}");
+  // print("${Globals().version}");
+  // print("${Globals().buildNumber}");
 
   runApp(MyApp());
 }

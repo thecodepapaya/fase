@@ -34,7 +34,8 @@ dependencies:
   firebase_core: ^0.7.0
   firebase_auth: ^0.20.0+1
   google_sign_in: ^4.5.9
-  hive: ^1.4.4+1
+  json_annotation: ^3.1.1
+  # hive: ^1.4.4+1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -46,6 +47,8 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   flutter_launcher_icons: ^0.8.1
+  json_serializable: ^3.5.1
+  build_runner: ^1.11.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
