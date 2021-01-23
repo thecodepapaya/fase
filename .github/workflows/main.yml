@@ -1,9 +1,7 @@
 name: Build and Release apk
 on: 
-  push: 
-    branches: ['*']
   pull_request:
-    branches: [ dev ]
+    branches: [ release ]
 jobs:
   build:
     name: Build APK
@@ -18,13 +16,7 @@ jobs:
         flutter-version: 1.25.0-8.3.pre
         channel: beta
     - run: flutter pub get
-    # - run: flutter analyze
-    # - run: flutter test
     - run: flutter build apk
-    # - uses: actions/upload-artifact@v1
-    #   with:
-    #     name: release-apk
-    #     path: build/app/outputs/flutter-apk/app-release.apk
     - name: Create Release
       uses: ncipollo/release-action@v1.7.3
       with:
