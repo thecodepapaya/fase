@@ -1,6 +1,6 @@
-name: Test, Build and Release apk
+name: Build and Release apk
 on: 
-  push:
+  push: [ * ]
   pull_request:
     branches: [ dev ]
 jobs:
@@ -21,12 +21,12 @@ jobs:
     # - run: flutter test
     - run: flutter build apk
     - name: Push APK to Releases
-    - uses: actions/upload-artifact@v1
-      with:
-        name: release-apk
-        path: build/app/outputs/flutter-apk/app-release.apk
-    # - uses: ncipollo/release-action@v1
+    # - uses: actions/upload-artifact@v1
     #   with:
-    #     artifacts: "build/app/outputs/flutter-apk/app-release.apk"
-    #     token: ${{ secrets.TOKEN }}
-    #     tag: v0.0.${{ github.run_number }}
+    #     name: release-apk
+    #     path: build/app/outputs/flutter-apk/app-release.apk
+    - uses: ncipollo/release-action@v1
+      with:
+        artifacts: "build/app/outputs/flutter-apk/app-release.apk"
+        token: ${{ secrets.TOKEN }}
+        tag: v0.0.${{ github.run_number }}
