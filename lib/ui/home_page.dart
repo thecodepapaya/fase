@@ -1,7 +1,6 @@
 import 'package:fase/utils/location_permission.dart';
-import 'package:fase/utils/startup_check.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   @override
@@ -22,9 +21,10 @@ class _HomePageState extends State<HomePage> {
         title: Text("in.ac.iiitvadodara.fase"),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          StartupCheck().isRooted();
-          FirebaseCrashlytics.instance.crash();
+        onPressed: () async {
+          http.Response response = await http.get(
+              'https://fase.centralindia.cloudapp.azure.com/course/?format=json');
+          print("Response: ${response.body}");
         },
         child: Icon(Icons.wifi),
       ),
