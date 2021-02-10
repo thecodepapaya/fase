@@ -43,7 +43,6 @@ class Globals {
     _isPhysicalDevice = _androidInfo.isPhysicalDevice;
     _brand = _androidInfo.brand;
     _fingerprint = _androidInfo.fingerprint;
-    _id = _androidInfo.id;
     _type = _androidInfo.type;
     _androidId = _androidInfo.androidId;
     _device = _androidInfo.device;

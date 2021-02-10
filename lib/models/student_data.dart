@@ -1,25 +1,46 @@
-import 'package:flutter/material.dart';
-import 'package:json_annotation/json_annotation.dart';
+// To parse this JSON data, do
+//
+//     final studentData = studentDataFromJson(jsonString);
 
-part 'student_data.g.dart';
+import 'package:meta/meta.dart';
+import 'dart:convert';
 
-@JsonSerializable()
 class StudentData {
-  @JsonKey(name: 'name')
-  String name;
-  @JsonKey(name: 'googleUid')
-  String googleUid;
-  @JsonKey(name: 'instituteEmail')
-  String instituteEmail;
-
   StudentData({
-    @required this.googleUid,
     @required this.instituteEmail,
+    @required this.googleUid,
     @required this.name,
   });
 
-  factory StudentData.fromJson(Map<String, dynamic> json) =>
-      _$StudentDataFromJson(json);
+  final String instituteEmail;
+  final String googleUid;
+  final String name;
 
-  Map<String, dynamic> toJson() => _$StudentDataToJson(this);
+  StudentData copyWith({
+    String instituteEmail,
+    String googleUid,
+    String name,
+  }) =>
+      StudentData(
+        instituteEmail: instituteEmail ?? this.instituteEmail,
+        googleUid: googleUid ?? this.googleUid,
+        name: name ?? this.name,
+      );
+
+  factory StudentData.fromRawJson(String str) =>
+      StudentData.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory StudentData.fromJson(Map<String, dynamic> json) => StudentData(
+        instituteEmail: json["institute_email"],
+        googleUid: json["google_uid"],
+        name: json["name"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "institute_email": instituteEmail,
+        "google_uid": googleUid,
+        "name": name,
+      };
 }

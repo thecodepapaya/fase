@@ -22,19 +22,19 @@ void main() async {
 
   // await LocationPermission().requestPermisson();
 
-  // DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-  // AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+  AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
 
-  // print('model on:   ${androidInfo.model}');
-  // print('isPhysicalDevice on:  ${androidInfo.isPhysicalDevice}');
-  // print('brand on:   ${androidInfo.brand}');
-  // print('fingerprint on:   ${androidInfo.fingerprint}');
-  // print('id on:  ${androidInfo.id}');
-  // print('type on:  ${androidInfo.type}');
-  // print('sdkInt on:   ${androidInfo.version.sdkInt}');
-  // print('androidId on:   ${androidInfo.androidId}');
-  // print('device on:  ${androidInfo.device}');
-  // print('tags on:  ${androidInfo.tags}');
+  print('model on:   ${androidInfo.model}');
+  print('isPhysicalDevice on:  ${androidInfo.isPhysicalDevice}');
+  print('brand on:   ${androidInfo.brand}');
+  print('fingerprint on:   ${androidInfo.fingerprint}');
+  print('id on:  ${androidInfo.id}');
+  print('type on:  ${androidInfo.type}');
+  print('sdkInt on:   ${androidInfo.version.sdkInt}');
+  print('androidId on:   ${androidInfo.androidId}');
+  print('device on:  ${androidInfo.device}');
+  print('tags on:  ${androidInfo.tags}');
 
   var wifiBSSID = await WifiInfo().getWifiBSSID();
   // var wifiIP = await WifiInfo().getWifiIP();

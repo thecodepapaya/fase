@@ -12,7 +12,7 @@
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize"
             android:allowBackup="false"
-            android:hasFragileUserData="true"
+            android:fullBackupContent="false"
             android:requiredAccountType="com.google"
             >
             <!-- Specifies an Android theme to apply to this Activity as soon as

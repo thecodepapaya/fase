@@ -44,11 +44,7 @@ class StartupCheck {
   /// Checks if the device is connected to a WiFi network.
   Future<bool> isWifiConnected() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.wifi) {
-      return true;
-    } else {
-      return false;
-    }
+    return connectivityResult == ConnectivityResult.wifi;
   }
 
   /// Checks if the device is connected to the IIITV Institute WiFi. This
@@ -81,20 +77,12 @@ class StartupCheck {
   /// permission is necessary for getting WiFi details like SSID and BSSID
   /// which are used to verify that the device is connected to IIITV WLAN.
   Future<bool> isLocationGranted() async {
-    if (await Permission.location.status.isGranted) {
-      return true;
-    } else {
-      return false;
-    }
+    return await Permission.location.status.isGranted;
   }
 
   /// Checks if location services are enabled or not. Location permissions
   /// must have been granted to check for service status.
   Future<bool> isLocationEnabled() async {
-    if (await Permission.locationWhenInUse.serviceStatus.isEnabled) {
-      return true;
-    } else {
-      return false;
-    }
+    return await Permission.locationWhenInUse.serviceStatus.isEnabled;
   }
 }
