@@ -37,7 +37,7 @@ class StartupCheck {
       print('''Failed to get root status, reverting to default false.
       Error stack $e''');
     }
-    print("Result is Rooted: $isRooted");
+    // print("Result is Rooted: $isRooted");
     return isRooted;
   }
 

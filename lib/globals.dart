@@ -1,4 +1,5 @@
 import 'package:device_info/device_info.dart';
+import 'package:fase/utils/startup_check.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:package_info/package_info.dart';
 import 'package:wifi_info_flutter/wifi_info_flutter.dart';
@@ -27,6 +28,7 @@ class Globals {
   static String _tags;
   static int _sdk;
   static bool _isPhysicalDevice;
+  static bool _isRooted;
 
   static Future<void> initialize() async {
     _androidInfo = await _deviceInfo.androidInfo;
@@ -43,7 +45,6 @@ class Globals {
     _buildNumber = int.parse(_packageInfo.buildNumber);
 
     _model = _androidInfo.model;
-    _isPhysicalDevice = _androidInfo.isPhysicalDevice;
     _brand = _androidInfo.brand;
     _fingerprint = _androidInfo.fingerprint;
     _type = _androidInfo.type;
@@ -51,6 +52,8 @@ class Globals {
     _device = _androidInfo.device;
     _tags = _androidInfo.tags;
     _sdk = _androidInfo.version.sdkInt;
+    _isPhysicalDevice = _androidInfo.isPhysicalDevice;
+    _isRooted = await StartupCheck().isRooted();
   }
 
   static FlutterSecureStorage get secureStorage => _secureStorage;
@@ -98,4 +101,7 @@ class Globals {
 
   /// Wheather of not the application is running on a real device or emulator
   static bool get isPhysicalDevice => _isPhysicalDevice;
+
+  /// Checks if the device is rooted or not
+  static bool get isRooted => _isRooted;
 }

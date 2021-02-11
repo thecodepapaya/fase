@@ -4,7 +4,6 @@ import 'package:fase/models/student_data.dart';
 import 'package:fase/string_resource.dart';
 import 'package:fase/utils/api.dart';
 import 'package:fase/utils/location_permission.dart';
-import 'package:fase/utils/startup_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -25,6 +24,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(StringResources.fase),
+        actions: [_getIcon()],
       ),
       body: Center(
         child: FutureBuilder<bool>(
@@ -65,14 +65,14 @@ class _HomePageState extends State<HomePage> {
               ),
               deviceId: Globals.androidId,
               isPhysical: Globals.isPhysicalDevice,
-              isRooted: await StartupCheck().isRooted(),
+              isRooted: Globals.isRooted,
               fingerprint: Globals.fingerprint,
               sdkInt: Globals.sdk,
               appVersionString: Globals.version,
               appBuildNumber: Globals.buildNumber,
-              ssid: Globals.wifiName,
-              bssid: Globals.wifiBSSID,
-              localIp: Globals.wifiIP,
+              ssid: Globals.wifiName ?? 'no-wifi-ssid',
+              bssid: Globals.wifiBSSID ?? 'no-bssid',
+              localIp: Globals.wifiIP ?? 'no-local-ip',
             );
             Registration registration =
                 await RegistrationAPi.postRegistration(registrationData);
@@ -84,6 +84,49 @@ class _HomePageState extends State<HomePage> {
           },
         ),
       ],
+    );
+  }
+
+  IconButton _getIcon() {
+    if (!Globals.isPhysicalDevice) {
+      return IconButton(
+          icon: Icon(Icons.error, color: Colors.red),
+          onPressed: () {
+            dialog(StringResources.error, StringResources.emulatorDetected);
+          });
+    } else if (Globals.isRooted) {
+      return IconButton(
+          icon: Icon(Icons.warning, color: Colors.yellow),
+          onPressed: () {
+            dialog(StringResources.warning, StringResources.rootDetected);
+          });
+    } else {
+      return IconButton(
+        icon: Icon(Icons.check_circle_rounded, color: Colors.green),
+        onPressed: () {
+          dialog(StringResources.allGood, StringResources.trustable);
+        },
+      );
+    }
+  }
+
+  Future dialog(String title, String body) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(body),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(StringResources.ok),
+            )
+          ],
+        );
+      },
     );
   }
 }

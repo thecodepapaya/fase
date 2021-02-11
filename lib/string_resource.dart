@@ -34,6 +34,15 @@ class StringResources {
 
   static const String register = "Register";
   static const String registerPrompt = "You are not registered with the server";
+
+  static const String warning = "Warning!";
+  static const String error = "Error!";
+  static const String allGood = "All Good";
+  static const String rootDetected = "Root Detected!";
+  static const String emulatorDetected = "Emulator detected!";
+  static const String trustable = "Device running in trustable environment";
+  //static const String name = "";
+  //static const String name = "";
   //static const String name = "";
   //static const String name = "";
   //static const String name = "";

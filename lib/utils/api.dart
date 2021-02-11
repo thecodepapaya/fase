@@ -8,6 +8,19 @@ import 'package:http/http.dart' as http;
 const String BASE_URL = 'https://fase.centralindia.cloudapp.azure.com/';
 const format = '?format=json';
 
+class MetadataApi {
+  static const _endpoint = 'meta/';
+
+  static Future<List<Course>> getMetadata() async {
+    http.Response response = await http.get(BASE_URL + _endpoint + format);
+    List<Course> courses = [];
+    json.decode(response.body).forEach((courseJson) {
+      courses.add(Course.fromJson(courseJson));
+    });
+    return courses;
+  }
+}
+
 class CourseApi {
   static const _endpoint = 'course/';
 
