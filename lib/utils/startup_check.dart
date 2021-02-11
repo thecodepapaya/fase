@@ -23,13 +23,13 @@ class StartupCheck {
   /// Checks if the device is an actual device or an emulator.
   /// Emulators cannot be allowed for registering attendance.
   bool isPhysicalDevice() {
-    return Globals().isPhysicalDevice;
+    return Globals.isPhysicalDevice;
   }
 
   /// Checks if the device is rooted. Rooted devices are less trust-worthy and
   /// so it's worth collecting the info before registering attendance.
   Future<bool> isRooted() async {
-    const platform = const MethodChannel(StringsResource.methodChannel);
+    const platform = const MethodChannel(StringResources.methodChannel);
     bool isRooted = false;
     try {
       isRooted = await platform.invokeMethod('getRootStatus');
@@ -37,18 +37,14 @@ class StartupCheck {
       print('''Failed to get root status, reverting to default false.
       Error stack $e''');
     }
-    print("Result is Rooted: $isRooted");
+    // print("Result is Rooted: $isRooted");
     return isRooted;
   }
 
   /// Checks if the device is connected to a WiFi network.
   Future<bool> isWifiConnected() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.wifi) {
-      return true;
-    } else {
-      return false;
-    }
+    return connectivityResult == ConnectivityResult.wifi;
   }
 
   /// Checks if the device is connected to the IIITV Institute WiFi. This
@@ -60,9 +56,9 @@ class StartupCheck {
         await this.isLocationEnabled()) {
       // check for harcoded BSSID and SSID here
       // TODO: add wifi verification here
-      Globals().wifiBSSID;
-      Globals().wifiName;
-      Globals().wifiIP;
+      Globals.wifiBSSID;
+      Globals.wifiName;
+      Globals.wifiIP;
       throw UnimplementedError();
     } else {
       return false;
@@ -81,20 +77,12 @@ class StartupCheck {
   /// permission is necessary for getting WiFi details like SSID and BSSID
   /// which are used to verify that the device is connected to IIITV WLAN.
   Future<bool> isLocationGranted() async {
-    if (await Permission.location.status.isGranted) {
-      return true;
-    } else {
-      return false;
-    }
+    return await Permission.location.status.isGranted;
   }
 
   /// Checks if location services are enabled or not. Location permissions
   /// must have been granted to check for service status.
   Future<bool> isLocationEnabled() async {
-    if (await Permission.locationWhenInUse.serviceStatus.isEnabled) {
-      return true;
-    } else {
-      return false;
-    }
+    return await Permission.locationWhenInUse.serviceStatus.isEnabled;
   }
 }

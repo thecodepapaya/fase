@@ -1,4 +1,5 @@
-import 'package:device_info/device_info.dart';
+import 'dart:io';
+
 import 'package:fase/globals.dart';
 import 'package:fase/ui/sign_in_handler.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -17,6 +18,7 @@ void main() async {
   myTrace.start();
 
   await Globals.initialize();
+  HttpOverrides.global = new MyHttpOverrides();
 
   myTrace.stop();
 
@@ -64,5 +66,16 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       home: SignInHandler(),
     );
+  }
+}
+
+// Allowing all certificates including self signed ones
+// https://stackoverflow.com/questions/54285172/how-to-solve-flutter-certificate-verify-failed-error-while-performing-a-post-req
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

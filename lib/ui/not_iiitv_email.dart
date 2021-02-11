@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class NotIIITVEmail extends StatelessWidget {
+  static const route = '/notIIITVEmail';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,14 +13,14 @@ class NotIIITVEmail extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(StringsResource.useIIITV),
+            Text(StringResources.useIIITV),
             SizedBox(height: 10),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
                 FirebaseAuth.instance.signOut();
                 GoogleSignIn().signOut();
               },
-              child: Text(StringsResource.signOut),
+              child: Text(StringResources.signOut),
             ),
           ],
         ),

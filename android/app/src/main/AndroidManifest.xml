@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="in.ac.iiitvadodara.fase">
    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+   <uses-permission android:name="android.permission.INTERNET" />
+   <!-- <application android:usesCleartextTraffic="true"></application> -->
    <application
         android:label="fase"
         android:icon="@mipmap/ic_launcher">
@@ -12,7 +14,7 @@
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize"
             android:allowBackup="false"
-            android:hasFragileUserData="true"
+            android:fullBackupContent="false"
             android:requiredAccountType="com.google"
             >
             <!-- Specifies an Android theme to apply to this Activity as soon as

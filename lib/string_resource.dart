@@ -1,12 +1,16 @@
-class StringsResource {
+class StringResources {
   //static const String name = "";
   static const String methodChannel = 'in.ac.iiitvadodara.fase/rooted';
+  static const String serverKey = "server-key";
+  static const String emailDomain = "@iiitvadodara.ac.in";
 
+  /* Display Text */
+
+  static const String fase = "FASE";
   static const String ok = "OK";
   static const String grant = "Grant";
   static const String cancel = "Cancel";
   static const String confirm = "Confirm";
-  // static const String deny = "Deny";
   static const String quit = "Quit";
   static const String openSettings = "Open Settings";
 
@@ -24,10 +28,19 @@ class StringsResource {
   static const String permissionRestrictedBody =
       "Location access has been restricted on this device. Please enable location access.";
 
-  static const String emailDomain = "@iiitvadodara.ac.in";
   static const String signOut = "Sign Out";
   static const String signIn = "Sign In";
   static const String useIIITV = "Use your Institute email ID to login";
+
+  static const String register = "Register";
+  static const String registerPrompt = "You are not registered with the server";
+
+  static const String warning = "Warning!";
+  static const String error = "Error!";
+  static const String allGood = "All Good";
+  static const String rootDetected = "Root Detected!";
+  static const String emulatorDetected = "Emulator detected!";
+  static const String trustable = "Device running in trustable environment";
   //static const String name = "";
   //static const String name = "";
   //static const String name = "";

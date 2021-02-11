@@ -1,24 +1,45 @@
-import 'package:flutter/material.dart';
-import 'package:json_annotation/json_annotation.dart';
+// To parse this JSON data, do
+//
+//     final course = courseFromJson(jsonString);
 
-part 'course.g.dart';
+import 'package:meta/meta.dart';
+import 'dart:convert';
 
-@JsonSerializable()
 class Course {
-  @JsonKey(name: 'courseCode')
-  String courseCode;
-  @JsonKey(name: 'courseName')
-  String courseName;
-  @JsonKey(name: 'instructorName')
-  String instructorName;
-
   Course({
     @required this.courseCode,
-    this.courseName,
-    this.instructorName,
+    @required this.courseName,
+    @required this.instructorName,
   });
 
-  factory Course.fromJson(Map<String, dynamic> json) => _$CourseFromJson(json);
+  final String courseCode;
+  final String courseName;
+  final String instructorName;
 
-  Map<String, dynamic> toJson() => _$CourseToJson(this);
+  Course copyWith({
+    String courseCode,
+    String courseName,
+    String instructorName,
+  }) =>
+      Course(
+        courseCode: courseCode ?? this.courseCode,
+        courseName: courseName ?? this.courseName,
+        instructorName: instructorName ?? this.instructorName,
+      );
+
+  factory Course.fromRawJson(String str) => Course.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Course.fromJson(Map<String, dynamic> json) => Course(
+        courseCode: json["course_code"],
+        courseName: json["course_name"],
+        instructorName: json["instructor_name"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "course_code": courseCode,
+        "course_name": courseName,
+        "instructor_name": instructorName,
+      };
 }

@@ -31,17 +31,17 @@ class LocationPermission {
                   return Future.value(false);
                 },
                 child: AlertDialog(
-                  title: Text(StringsResource.permissionRationaleTitle),
-                  content: Text(StringsResource.permissionRationaleBody),
+                  title: Text(StringResources.permissionRationaleTitle),
+                  content: Text(StringResources.permissionRationaleBody),
                   actions: [
-                    FlatButton(
-                      child: Text(StringsResource.quit),
+                    TextButton(
+                      child: Text(StringResources.quit),
                       onPressed: () {
                         SystemNavigator.pop();
                       },
                     ),
-                    FlatButton(
-                      child: Text(StringsResource.grant),
+                    TextButton(
+                      child: Text(StringResources.grant),
                       onPressed: () async {
                         status = await Permission.location.request();
                         if (Navigator.of(context).canPop()) {
@@ -67,14 +67,14 @@ class LocationPermission {
                 return Future.value(false);
               },
               child: AlertDialog(
-                title: Text(StringsResource.permissionRestrictedTitle),
-                content: Text(StringsResource.permissionRestrictedBody),
+                title: Text(StringResources.permissionRestrictedTitle),
+                content: Text(StringResources.permissionRestrictedBody),
                 actions: [
-                  FlatButton(
+                  TextButton(
                     onPressed: () {
                       SystemNavigator.pop();
                     },
-                    child: Text(StringsResource.quit),
+                    child: Text(StringResources.quit),
                   ),
                 ],
               ),
@@ -93,10 +93,10 @@ class LocationPermission {
                 return Future.value(false);
               },
               child: AlertDialog(
-                title: Text(StringsResource.permissionPermanentDeniedTitle),
-                content: Text(StringsResource.permissionPermanentDeniedBody),
+                title: Text(StringResources.permissionPermanentDeniedTitle),
+                content: Text(StringResources.permissionPermanentDeniedBody),
                 actions: [
-                  FlatButton(
+                  TextButton(
                     onPressed: () async {
                       if (await Permission.location.request().isGranted) {
                         Navigator.of(context).pop();
@@ -105,7 +105,7 @@ class LocationPermission {
                         Navigator.of(context).pop();
                       }
                     },
-                    child: Text(StringsResource.ok),
+                    child: Text(StringResources.ok),
                   ),
                 ],
               ),
