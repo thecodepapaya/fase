@@ -54,6 +54,9 @@ class _HomePageState extends State<HomePage> {
         ElevatedButton(
           child: Text(StringResources.register),
           onPressed: () async {
+            // Necessary since it's initialized first time before accessing
+            // location permissions
+            await Globals.initialize();
             Registration registrationData = Registration(
               studentData: StudentData(
                 instituteEmail: FirebaseAuth.instance.currentUser.email,
