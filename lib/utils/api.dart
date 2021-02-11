@@ -3,17 +3,16 @@ import 'dart:convert';
 import 'package:fase/models/attendance_data.dart';
 import 'package:fase/models/course.dart';
 import 'package:fase/models/registration_data.dart';
-import 'package:fase/models/student_data.dart';
 import 'package:http/http.dart' as http;
 
 const String BASE_URL = 'https://fase.centralindia.cloudapp.azure.com/';
 const format = '?format=json';
 
 class CourseApi {
-  static const endpoint = 'course/';
+  static const _endpoint = 'course/';
 
-  Future<List<Course>> getCourses() async {
-    http.Response response = await http.get(BASE_URL + endpoint + format);
+  static Future<List<Course>> getCourses() async {
+    http.Response response = await http.get(BASE_URL + _endpoint + format);
     List<Course> courses = [];
     json.decode(response.body).forEach((courseJson) {
       courses.add(Course.fromJson(courseJson));
@@ -23,7 +22,7 @@ class CourseApi {
 }
 
 class RegistrationAPi {
-  static const endpoint = 'registration/';
+  static const _endpoint = 'registration/';
 
   // static RegistrationData _registrationData = RegistrationData(
   //   studentData: StudentData(
@@ -41,9 +40,10 @@ class RegistrationAPi {
   //   localIp: 'localIp',
   // );
 
-  Future<Registration> postRegistration(Registration registrationData) async {
+  static Future<Registration> postRegistration(
+      Registration registrationData) async {
     http.Response response = await http.post(
-      BASE_URL + endpoint,
+      BASE_URL + _endpoint,
       body: registrationData.toRawJson(),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
@@ -53,8 +53,8 @@ class RegistrationAPi {
     return data;
   }
 
-  Future<List<Registration>> getRegistration() async {
-    http.Response response = await http.get(BASE_URL + endpoint + format);
+  static Future<List<Registration>> getRegistration() async {
+    http.Response response = await http.get(BASE_URL + _endpoint + format);
     List<Registration> registration = [];
     json.decode(response.body).forEach((registrationJson) {
       registration.add(Registration.fromJson(registrationJson));
@@ -64,7 +64,7 @@ class RegistrationAPi {
 }
 
 class AttendanceAPi {
-  static const endpoint = 'attendance/';
+  static const _endpoint = 'attendance/';
 
   // static Attendance _attendanceData = Attendance(
   //   studentData: StudentData(
@@ -90,9 +90,9 @@ class AttendanceAPi {
   //   serverKey: "366f2a61058b6e49cc3c3b49ff6ffd0d175c33f3",
   // );
 
-  Future<Attendance> postAttendance(Attendance attendanceData) async {
+  static Future<Attendance> postAttendance(Attendance attendanceData) async {
     http.Response response = await http.post(
-      BASE_URL + endpoint,
+      BASE_URL + _endpoint,
       body: attendanceData.toRawJson(),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
@@ -102,8 +102,8 @@ class AttendanceAPi {
     return data;
   }
 
-  Future<List<Attendance>> getAttendance() async {
-    http.Response response = await http.get(BASE_URL + endpoint + format);
+  static Future<List<Attendance>> getAttendance() async {
+    http.Response response = await http.get(BASE_URL + _endpoint + format);
     List<Attendance> attendance = [];
     json.decode(response.body).forEach((attendanceJson) {
       attendance.add(Attendance.fromJson(attendanceJson));

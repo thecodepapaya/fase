@@ -23,7 +23,7 @@ class StartupCheck {
   /// Checks if the device is an actual device or an emulator.
   /// Emulators cannot be allowed for registering attendance.
   bool isPhysicalDevice() {
-    return Globals().isPhysicalDevice;
+    return Globals.isPhysicalDevice;
   }
 
   /// Checks if the device is rooted. Rooted devices are less trust-worthy and
@@ -56,9 +56,9 @@ class StartupCheck {
         await this.isLocationEnabled()) {
       // check for harcoded BSSID and SSID here
       // TODO: add wifi verification here
-      Globals().wifiBSSID;
-      Globals().wifiName;
-      Globals().wifiIP;
+      Globals.wifiBSSID;
+      Globals.wifiName;
+      Globals.wifiIP;
       throw UnimplementedError();
     } else {
       return false;

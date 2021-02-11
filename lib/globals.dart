@@ -16,16 +16,16 @@ class Globals {
   static String _appName;
   static String _packageName;
   static String _version;
-  static String _buildNumber;
+  static int _buildNumber;
 
   static String _model;
   static String _brand;
   static String _fingerprint;
-  static String _id;
   static String _type;
   static String _androidId;
   static String _device;
   static String _tags;
+  static int _sdk;
   static bool _isPhysicalDevice;
 
   static Future<void> initialize() async {
@@ -40,7 +40,7 @@ class Globals {
     _appName = _packageInfo.appName;
     _packageName = _packageInfo.packageName;
     _version = _packageInfo.version;
-    _buildNumber = _packageInfo.buildNumber;
+    _buildNumber = int.parse(_packageInfo.buildNumber);
 
     _model = _androidInfo.model;
     _isPhysicalDevice = _androidInfo.isPhysicalDevice;
@@ -50,26 +50,52 @@ class Globals {
     _androidId = _androidInfo.androidId;
     _device = _androidInfo.device;
     _tags = _androidInfo.tags;
+    _sdk = _androidInfo.version.sdkInt;
   }
 
-  FlutterSecureStorage get secureStorage => _secureStorage;
+  static FlutterSecureStorage get secureStorage => _secureStorage;
 
-  String get wifiBSSID => _wifiBSSID;
-  String get wifiIP => _wifiIP;
-  String get wifiName => _wifiName;
+  /// The unique access point of the WLAN
+  static String get wifiBSSID => _wifiBSSID;
 
-  String get appName => _appName;
-  String get packageName => _packageName;
-  String get version => _version;
-  String get buildNumber => _buildNumber;
+  /// Local IP of the device connecetd to WLAN
+  static String get wifiIP => _wifiIP;
 
-  String get model => _model;
-  String get brand => _brand;
-  String get fingerprint => _fingerprint;
-  String get id => _id;
-  String get type => _type;
-  String get androidId => _androidId;
-  String get device => _device;
-  String get tags => _tags;
-  bool get isPhysicalDevice => _isPhysicalDevice;
+  /// Also known as SSID, the display name of the WLAN network
+  static String get wifiName => _wifiName;
+
+  /// The display name of the application. FASE.
+  static String get appName => _appName;
+
+  /// The unique package name of the application. in.ac.iiitvadodara.fase
+  static String get packageName => _packageName;
+
+  /// The version string of the application. eg v1.0.5
+  static String get version => _version;
+
+  /// The build number of the application tied to the [_version]. Must be a natural number
+  static int get buildNumber => _buildNumber;
+
+  /// The model of the android device. eg Zenfone
+  static String get model => _model;
+
+  /// Manufacturer brand of the application. eg ASUS, Google
+  static String get brand => _brand;
+
+  /// Combination of many fields like brand, model, tags, etc
+  static String get fingerprint => _fingerprint;
+  static String get type => _type;
+
+  /// Unique device ID of the application
+  static String get androidId => _androidId;
+  static String get device => _device;
+
+  /// Wheather user release tags of build tags
+  static String get tags => _tags;
+
+  /// The Android SDK version the application is running on
+  static int get sdk => _sdk;
+
+  /// Wheather of not the application is running on a real device or emulator
+  static bool get isPhysicalDevice => _isPhysicalDevice;
 }

@@ -1,9 +1,12 @@
 import 'package:fase/globals.dart';
+import 'package:fase/models/registration_data.dart';
+import 'package:fase/models/student_data.dart';
 import 'package:fase/string_resource.dart';
 import 'package:fase/utils/api.dart';
 import 'package:fase/utils/location_permission.dart';
+import 'package:fase/utils/startup_check.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   @override
@@ -15,12 +18,6 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     LocationPermission(context).requestPermisson();
-    // Globals().secureStorage.containsKey(key: StringResources.serverKey);
-    // CourseApi().getCourses();
-    // RegistrationAPi().postRegistration();
-    // RegistrationAPi().getRegistration();
-    // AttendanceAPi().getAttendance();
-    // AttendanceAPi().postAttendance();
   }
 
   @override
@@ -29,19 +26,61 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(StringResources.fase),
       ),
-      // body: Center(
-      //   child: ,
-      // ),
+      body: Center(
+        child: FutureBuilder<bool>(
+          future:
+              Globals.secureStorage.containsKey(key: StringResources.serverKey),
+          builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data) return Text("Registered");
+            }
+            return _register();
+          },
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          // http.Response response = await http.get(
-          //     'https://fase.centralindia.cloudapp.azure.com/course/?format=json');
-          // print("Response: ${response.body}");
-          // print("Response: ${response.statusCode}");
-          CourseApi().getCourses();
-        },
+        onPressed: () async {},
         child: Icon(Icons.wifi),
       ),
+    );
+  }
+
+  Widget _register() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(StringResources.registerPrompt),
+        SizedBox(height: 20),
+        ElevatedButton(
+          child: Text(StringResources.register),
+          onPressed: () async {
+            Registration registrationData = Registration(
+              studentData: StudentData(
+                instituteEmail: FirebaseAuth.instance.currentUser.email,
+                googleUid: FirebaseAuth.instance.currentUser.uid,
+                name: FirebaseAuth.instance.currentUser.displayName,
+              ),
+              deviceId: Globals.androidId,
+              isPhysical: Globals.isPhysicalDevice,
+              isRooted: await StartupCheck().isRooted(),
+              fingerprint: Globals.fingerprint,
+              sdkInt: Globals.sdk,
+              appVersionString: Globals.version,
+              appBuildNumber: Globals.buildNumber,
+              ssid: Globals.wifiName,
+              bssid: Globals.wifiBSSID,
+              localIp: Globals.wifiIP,
+            );
+            Registration registration =
+                await RegistrationAPi.postRegistration(registrationData);
+            setState(() {
+              Globals.secureStorage.write(
+                  key: StringResources.serverKey,
+                  value: registration.serverKey);
+            });
+          },
+        ),
+      ],
     );
   }
 }
