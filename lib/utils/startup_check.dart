@@ -29,7 +29,7 @@ class StartupCheck {
   /// Checks if the device is rooted. Rooted devices are less trust-worthy and
   /// so it's worth collecting the info before registering attendance.
   Future<bool> isRooted() async {
-    const platform = const MethodChannel(StringsResource.methodChannel);
+    const platform = const MethodChannel(StringResources.methodChannel);
     bool isRooted = false;
     try {
       isRooted = await platform.invokeMethod('getRootStatus');

@@ -6,11 +6,11 @@ import 'package:fase/models/student_data.dart';
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-class RegistrationData {
-  RegistrationData({
-    @required this.registrationId,
+class Registration {
+  Registration({
+    this.registrationId,
     @required this.studentData,
-    @required this.timestamp,
+    this.timestamp,
     @required this.deviceId,
     @required this.isPhysical,
     @required this.isRooted,
@@ -21,7 +21,7 @@ class RegistrationData {
     @required this.ssid,
     @required this.bssid,
     @required this.localIp,
-    @required this.serverKey,
+    this.serverKey,
   });
 
   final int registrationId;
@@ -39,7 +39,7 @@ class RegistrationData {
   final String localIp;
   final String serverKey;
 
-  RegistrationData copyWith({
+  Registration copyWith({
     int registrationId,
     StudentData studentData,
     DateTime timestamp,
@@ -55,7 +55,7 @@ class RegistrationData {
     String localIp,
     String serverKey,
   }) =>
-      RegistrationData(
+      Registration(
         registrationId: registrationId ?? this.registrationId,
         studentData: studentData ?? this.studentData,
         timestamp: timestamp ?? this.timestamp,
@@ -72,13 +72,12 @@ class RegistrationData {
         serverKey: serverKey ?? this.serverKey,
       );
 
-  factory RegistrationData.fromRawJson(String str) =>
-      RegistrationData.fromJson(json.decode(str));
+  factory Registration.fromRawJson(String str) =>
+      Registration.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory RegistrationData.fromJson(Map<String, dynamic> json) =>
-      RegistrationData(
+  factory Registration.fromJson(Map<String, dynamic> json) => Registration(
         registrationId: json["registration_id"],
         studentData: StudentData.fromJson(json["student_data"]),
         timestamp: DateTime.parse(json["timestamp"]),
@@ -96,9 +95,9 @@ class RegistrationData {
       );
 
   Map<String, dynamic> toJson() => {
-        "registration_id": registrationId,
+        // "registration_id": registrationId,
         "student_data": studentData.toJson(),
-        "timestamp": timestamp.toIso8601String(),
+        // "timestamp": timestamp.toIso8601String(),
         "device_id": deviceId,
         "is_physical": isPhysical,
         "is_rooted": isRooted,
@@ -109,7 +108,7 @@ class RegistrationData {
         "ssid": ssid,
         "bssid": bssid,
         "local_ip": localIp,
-        "server_key": serverKey,
+        // "server_key": serverKey,
       };
 }
 

@@ -1,12 +1,15 @@
-class StringsResource {
+class StringResources {
   //static const String name = "";
   static const String methodChannel = 'in.ac.iiitvadodara.fase/rooted';
+  static const String serverKey = "server-key";
 
+  /* Display Text */
+
+  static const String fase = "FASE";
   static const String ok = "OK";
   static const String grant = "Grant";
   static const String cancel = "Cancel";
   static const String confirm = "Confirm";
-  // static const String deny = "Deny";
   static const String quit = "Quit";
   static const String openSettings = "Open Settings";
 

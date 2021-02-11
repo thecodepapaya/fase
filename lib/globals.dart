@@ -1,4 +1,5 @@
 import 'package:device_info/device_info.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:package_info/package_info.dart';
 import 'package:wifi_info_flutter/wifi_info_flutter.dart';
 
@@ -6,6 +7,7 @@ class Globals {
   static DeviceInfoPlugin _deviceInfo = DeviceInfoPlugin();
   static AndroidDeviceInfo _androidInfo;
   static PackageInfo _packageInfo;
+  static FlutterSecureStorage _secureStorage;
 
   static String _wifiBSSID;
   static String _wifiIP;
@@ -29,6 +31,7 @@ class Globals {
   static Future<void> initialize() async {
     _androidInfo = await _deviceInfo.androidInfo;
     _packageInfo = await PackageInfo.fromPlatform();
+    _secureStorage = FlutterSecureStorage();
 
     _wifiBSSID = await WifiInfo().getWifiBSSID();
     _wifiIP = await WifiInfo().getWifiIP();
@@ -48,6 +51,8 @@ class Globals {
     _device = _androidInfo.device;
     _tags = _androidInfo.tags;
   }
+
+  FlutterSecureStorage get secureStorage => _secureStorage;
 
   String get wifiBSSID => _wifiBSSID;
   String get wifiIP => _wifiIP;

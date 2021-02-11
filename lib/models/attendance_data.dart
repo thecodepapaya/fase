@@ -2,16 +2,18 @@
 //
 //     final course = courseFromJson(jsonString);
 
-import 'package:fase/models/student_data.dart';
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
-class Course {
-  Course({
-    @required this.attendanceId,
+import 'package:fase/models/course.dart';
+import 'package:fase/models/student_data.dart';
+import 'package:meta/meta.dart';
+
+class Attendance {
+  Attendance({
+    this.attendanceId,
     @required this.studentData,
     @required this.course,
-    @required this.timestamp,
+    this.timestamp,
     @required this.deviceId,
     @required this.isPhysical,
     @required this.isRooted,
@@ -41,10 +43,10 @@ class Course {
   final String localIp;
   final String serverKey;
 
-  Course copyWith({
+  Attendance copyWith({
     int attendanceId,
     StudentData studentData,
-    Course course,
+    Attendance course,
     DateTime timestamp,
     String deviceId,
     bool isPhysical,
@@ -58,7 +60,7 @@ class Course {
     String localIp,
     String serverKey,
   }) =>
-      Course(
+      Attendance(
         attendanceId: attendanceId ?? this.attendanceId,
         studentData: studentData ?? this.studentData,
         course: course ?? this.course,
@@ -76,11 +78,12 @@ class Course {
         serverKey: serverKey ?? this.serverKey,
       );
 
-  factory Course.fromRawJson(String str) => Course.fromJson(json.decode(str));
+  factory Attendance.fromRawJson(String str) =>
+      Attendance.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Course.fromJson(Map<String, dynamic> json) => Course(
+  factory Attendance.fromJson(Map<String, dynamic> json) => Attendance(
         attendanceId: json["attendance_id"],
         studentData: StudentData.fromJson(json["student_data"]),
         course: Course.fromJson(json["course"]),
@@ -99,10 +102,10 @@ class Course {
       );
 
   Map<String, dynamic> toJson() => {
-        "attendance_id": attendanceId,
+        // "attendance_id": attendanceId,
         "student_data": studentData.toJson(),
         "course": course.toJson(),
-        "timestamp": timestamp.toIso8601String(),
+        // "timestamp": timestamp.toIso8601String(),
         "device_id": deviceId,
         "is_physical": isPhysical,
         "is_rooted": isRooted,

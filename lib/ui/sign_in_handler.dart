@@ -17,10 +17,10 @@ class SignInHandler extends StatelessWidget {
           return LoadingScreen();
         } else {
           if (snapshot.hasData) {
-            print("displayName: ${snapshot.data.displayName}");
-            print("email: ${snapshot.data.email}");
-            print("uid: ${snapshot.data.uid}");
-            if (snapshot.data.email.endsWith(StringsResource.emailDomain)) {
+            // print("displayName: ${snapshot.data.displayName}");
+            // print("email: ${snapshot.data.email}");
+            // print("uid: ${snapshot.data.uid}");
+            if (snapshot.data.email.endsWith(StringResources.emailDomain)) {
               return HomePage();
             } else {
               return NotIIITVEmail();

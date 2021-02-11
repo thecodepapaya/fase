@@ -11,14 +11,14 @@ class NotIIITVEmail extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(StringsResource.useIIITV),
+            Text(StringResources.useIIITV),
             SizedBox(height: 10),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
                 FirebaseAuth.instance.signOut();
                 GoogleSignIn().signOut();
               },
-              child: Text(StringsResource.signOut),
+              child: Text(StringResources.signOut),
             ),
           ],
         ),

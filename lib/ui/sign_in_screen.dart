@@ -7,8 +7,8 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: RaisedButton(
-          child: Text(StringsResource.signIn),
+        child: ElevatedButton(
+          child: Text(StringResources.signIn),
           onPressed: () {
             signInWithGoogle();
           },
