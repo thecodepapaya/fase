@@ -1,4 +1,6 @@
 import 'package:fase/globals.dart';
+import 'package:fase/models/attendance_data.dart';
+import 'package:fase/models/course.dart';
 import 'package:fase/models/registration_data.dart';
 import 'package:fase/models/student_data.dart';
 import 'package:fase/string_resource.dart';
@@ -15,6 +17,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Course> courses = [];
+
   @override
   void initState() {
     super.initState();
@@ -34,7 +38,7 @@ class _HomePageState extends State<HomePage> {
               Globals.secureStorage.containsKey(key: StringResources.serverKey),
           builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
             if (snapshot.hasData) {
-              if (snapshot.data) return Text("Registered");
+              if (snapshot.data) return _markAttendance();
             }
             return _register();
           },
@@ -43,6 +47,61 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {},
         child: Icon(Icons.wifi),
+      ),
+    );
+  }
+
+  Widget _markAttendance() {
+    List<Widget> tiles = [];
+
+    return FutureBuilder<List<Course>>(
+      future: CourseApi.getCourses(),
+      builder: (BuildContext context, AsyncSnapshot<List<Course>> snapshot) {
+        if (snapshot.hasData) {
+          snapshot.data.forEach((element) {
+            tiles.add(courseListTile(element));
+          });
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: tiles,
+          );
+        } else {
+          return Text("Fetching courses...");
+        }
+      },
+    );
+  }
+
+  Widget courseListTile(Course course) {
+    return Card(
+      child: ListTile(
+        title: Text("${course.courseName}(${course.courseCode})"),
+        subtitle: Text(course.instructorName),
+        onTap: () async {
+          await Globals.initialize();
+          String serverKey =
+              await Globals.secureStorage.read(key: StringResources.serverKey);
+          Attendance attendance = Attendance(
+            studentData: StudentData(
+              instituteEmail: FirebaseAuth.instance.currentUser.email,
+              googleUid: FirebaseAuth.instance.currentUser.uid,
+              name: FirebaseAuth.instance.currentUser.displayName,
+            ),
+            course: course,
+            deviceId: Globals.androidId,
+            isPhysical: Globals.isPhysicalDevice,
+            isRooted: Globals.isRooted,
+            fingerprint: Globals.fingerprint,
+            sdkInt: Globals.sdk,
+            appVersionString: Globals.version,
+            appBuildNumber: Globals.buildNumber,
+            ssid: Globals.wifiName,
+            bssid: Globals.wifiBSSID,
+            localIp: Globals.wifiIP,
+            serverKey: serverKey,
+          );
+          AttendanceAPi.postAttendance(attendance);
+        },
       ),
     );
   }
