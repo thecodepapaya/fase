@@ -8,6 +8,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
+  static const route = '/homePage';
+
   @override
   _HomePageState createState() => _HomePageState();
 }

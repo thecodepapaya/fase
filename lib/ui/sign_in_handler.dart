@@ -7,6 +7,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignInHandler extends StatelessWidget {
+  static const route = '/signInHandler';
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User>(
