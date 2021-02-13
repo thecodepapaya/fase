@@ -1,23 +1,27 @@
 import 'dart:convert';
 
+import 'package:fase/globals.dart';
 import 'package:fase/models/attendance_data.dart';
 import 'package:fase/models/course.dart';
+import 'package:fase/models/metadata.dart';
 import 'package:fase/models/registration_data.dart';
+import 'package:fase/string_resource.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 
 const String BASE_URL = 'https://fase.centralindia.cloudapp.azure.com/';
 const format = '?format=json';
+const postHeader = <String, String>{
+  'Content-Type': 'application/json; charset=UTF-8',
+};
 
 class MetadataApi {
   static const _endpoint = 'meta/';
 
-  static Future<List<Course>> getMetadata() async {
+  static Future<Metadata> getMetadata() async {
     http.Response response = await http.get(BASE_URL + _endpoint + format);
-    List<Course> courses = [];
-    json.decode(response.body).forEach((courseJson) {
-      courses.add(Course.fromJson(courseJson));
-    });
-    return courses;
+    Metadata metadata = Metadata.fromRawJson(response.body);
+    return metadata;
   }
 }
 
@@ -35,7 +39,8 @@ class CourseApi {
 }
 
 class RegistrationAPi {
-  static const _endpoint = 'registration/';
+  static const _endpointReg = 'registration/';
+  static const _endpointVer = 'registration/verify/';
 
   // static RegistrationData _registrationData = RegistrationData(
   //   studentData: StudentData(
@@ -56,23 +61,48 @@ class RegistrationAPi {
   static Future<Registration> postRegistration(
       Registration registrationData) async {
     http.Response response = await http.post(
-      BASE_URL + _endpoint,
+      BASE_URL + _endpointReg,
       body: registrationData.toRawJson(),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
+      headers: postHeader,
     );
     Registration data = Registration.fromRawJson(response.body);
     return data;
   }
 
   static Future<List<Registration>> getRegistration() async {
-    http.Response response = await http.get(BASE_URL + _endpoint + format);
+    http.Response response = await http.get(BASE_URL + _endpointReg + format);
     List<Registration> registration = [];
     json.decode(response.body).forEach((registrationJson) {
       registration.add(Registration.fromJson(registrationJson));
     });
     return registration;
+  }
+
+  static Future<bool> isRegistrationValid() async {
+    final email = FirebaseAuth.instance.currentUser.email;
+    final serverKey = await Globals.secureStorage.read(
+      key: StringResources.serverKey,
+    );
+    http.Response response = await http.post(
+      BASE_URL + _endpointVer,
+      headers: postHeader,
+      body: json.encode({
+        'institute_email': email,
+        'server_key': serverKey,
+      }),
+    );
+    switch (response.statusCode) {
+      case 200:
+        return true;
+      case 404:
+        return false;
+      case 400:
+        return false;
+      case 500:
+        return false;
+      default:
+        return false;
+    }
   }
 }
 
@@ -107,9 +137,7 @@ class AttendanceAPi {
     http.Response response = await http.post(
       BASE_URL + _endpoint,
       body: attendanceData.toRawJson(),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
+      headers: postHeader,
     );
     Attendance data = Attendance.fromRawJson(response.body);
     return data;
