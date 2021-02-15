@@ -1,11 +1,11 @@
 import 'package:fase/globals.dart';
-import 'package:fase/models/attendance_data.dart';
-import 'package:fase/models/course.dart';
 import 'package:fase/models/registration_data.dart';
 import 'package:fase/models/student_data.dart';
 import 'package:fase/string_resource.dart';
+import 'package:fase/styles.dart';
 import 'package:fase/utils/api.dart';
 import 'package:fase/utils/location_permission.dart';
+import 'package:fase/utils/startup_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -17,10 +17,27 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final StartupCheck _checks = StartupCheck();
+  bool _isloading = true;
+  bool _allCheckPass = false;
+
   @override
   void initState() {
     super.initState();
-    LocationPermission(context).requestPermisson();
+    LocationPermission(context)
+        .requestPermisson()
+        .then((value) => performChecks());
+    // performchecks();
+  }
+
+  void performChecks() async {
+    setState(() {
+      _isloading = true;
+    });
+    _allCheckPass = await _checks.check();
+    setState(() {
+      _isloading = false;
+    });
   }
 
   @override
@@ -28,99 +45,121 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(StringResources.fase),
-        actions: [_getIcon()],
       ),
-      body: Center(
-        child: FutureBuilder<bool>(
-          future:
-              Globals.secureStorage.containsKey(key: StringResources.serverKey),
-          builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-            if (snapshot.hasData) {
-              if (snapshot.data) return _markAttendance();
-            }
-            return _register();
-          },
+      body: Padding(
+        padding: const EdgeInsets.all(25.0),
+        child: Center(
+          child: _isloading ? CircularProgressIndicator() : _checkResult(),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {},
-        child: Icon(Icons.wifi),
-      ),
-    );
-  }
-
-  Widget _markAttendance() {
-    List<Widget> tiles = [];
-
-    return FutureBuilder<List<Course>>(
-      future: CourseApi.getCourses(),
-      builder: (BuildContext context, AsyncSnapshot<List<Course>> snapshot) {
-        if (snapshot.hasData) {
-          snapshot.data.forEach((element) {
-            tiles.add(courseListTile(element));
-          });
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: tiles,
-          );
-        } else {
-          return Text("Fetching courses...");
-        }
-      },
-    );
-  }
-
-  Widget courseListTile(Course course) {
-    return Card(
-      child: ListTile(
-        title: Text("${course.courseName}(${course.courseCode})"),
-        subtitle: Text(course.instructorName),
-        onTap: () async {
-          await Globals.initialize();
-          String serverKey =
-              await Globals.secureStorage.read(key: StringResources.serverKey);
-          Attendance attendance = Attendance(
-            studentData: StudentData(
-              instituteEmail: FirebaseAuth.instance.currentUser.email,
-              googleUid: FirebaseAuth.instance.currentUser.uid,
-              name: FirebaseAuth.instance.currentUser.displayName,
-            ),
-            course: course,
-            deviceId: Globals.androidId,
-            isPhysical: Globals.isPhysicalDevice,
-            isRooted: Globals.isRooted,
-            fingerprint: Globals.fingerprint,
-            sdkInt: Globals.sdk,
-            appVersionString: Globals.version,
-            appBuildNumber: Globals.buildNumber,
-            ssid: Globals.wifiName ?? 'no-wifi-ssid',
-            bssid: Globals.wifiBSSID ?? 'no-bssid',
-            localIp: Globals.wifiIP ?? 'no-local-ip',
-            serverKey: serverKey,
-          );
-          AttendanceAPi.postAttendance(attendance);
+        onPressed: () async {
+          performChecks();
         },
+        child: Icon(Icons.refresh),
       ),
     );
   }
 
-  Widget _register() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+  Widget _checkResult() {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          _table(),
+          SizedBox(height: 50),
+          Text(
+            _allCheckPass
+                ? StringResources.allCheckPass
+                : StringResources.someChecksFailed,
+            style: Styles.heading,
+          ),
+          SizedBox(height: 50),
+          _button(_allCheckPass, _checks.lastCheckIsRegistrationValid),
+        ],
+      ),
+    );
+  }
+
+  Widget _table() {
+    return Table(
+      children: <TableRow>[
+        _tableRow(
+          StringResources.physicalDevice,
+          _checkIcon(_checks.lastCheckIsPhysicalDevice),
+        ),
+        _tableRow(
+          StringResources.isUnRooted,
+          _checkIcon(!_checks.lastCheckIsRooted),
+        ),
+        _tableRow(
+          StringResources.locationGranted,
+          _checkIcon(_checks.lastCheckIsLocationGranted),
+        ),
+        _tableRow(
+          StringResources.locationEnabled,
+          _checkIcon(_checks.lastCheckIsLocationEnabled),
+        ),
+        _tableRow(
+          StringResources.wifiConnected,
+          _checkIcon(_checks.lastCheckIsWifiConnected),
+        ),
+        _tableRow(
+          StringResources.iiitvWifiConnected,
+          _checkIcon(_checks.lastCheckIsIIITVConnected),
+        ),
+        _tableRow(
+          StringResources.pingServer,
+          _checkIcon(_checks.lastCheckCanPing),
+        ),
+        _tableRow(
+          StringResources.uptoDateVersion,
+          _checkIcon(_checks.lastCheckIsMinVersion),
+        ),
+        _tableRow(
+          StringResources.registratonValid,
+          _checkIcon(_checks.lastCheckIsRegistrationValid),
+        ),
+      ],
+    );
+  }
+
+  TableRow _tableRow(String key, Widget icon) {
+    return TableRow(
       children: <Widget>[
-        Text(StringResources.registerPrompt),
-        SizedBox(height: 20),
-        ElevatedButton(
+        Text(key, style: Styles.heading2),
+        icon,
+      ],
+    );
+  }
+
+  Widget _checkIcon(bool correct) {
+    if (correct)
+      return Icon(Icons.check_circle_outline_rounded, color: Colors.green);
+    else
+      return Icon(Icons.error_outline_rounded, color: Colors.red);
+  }
+
+  Widget _button(bool allCheckPass, bool registrationValid) {
+    if (!allCheckPass) {
+      return Container();
+    } else {
+      if (registrationValid) {
+        return ElevatedButton(
+          child: Text(StringResources.proceed),
+          onPressed: () {
+            // Navigator.of(context).pushNamed(CoursePage.route);
+          },
+        );
+      } else {
+        return ElevatedButton(
           child: Text(StringResources.register),
           onPressed: () async {
-            // Necessary since it's initialized first time before accessing
-            // location permissions
-            await Globals.initialize();
+            User user = FirebaseAuth.instance.currentUser;
             Registration registrationData = Registration(
               studentData: StudentData(
-                instituteEmail: FirebaseAuth.instance.currentUser.email,
-                googleUid: FirebaseAuth.instance.currentUser.uid,
-                name: FirebaseAuth.instance.currentUser.displayName,
+                instituteEmail: user.email,
+                googleUid: user.uid,
+                name: user.displayName,
               ),
               deviceId: Globals.androidId,
               isPhysical: Globals.isPhysicalDevice,
@@ -135,57 +174,14 @@ class _HomePageState extends State<HomePage> {
             );
             Registration registration =
                 await RegistrationAPi.postRegistration(registrationData);
-            setState(() {
-              Globals.secureStorage.write(
-                  key: StringResources.serverKey,
-                  value: registration.serverKey);
-            });
+            performChecks();
+            Globals.secureStorage.write(
+              key: StringResources.serverKey,
+              value: registration.serverKey,
+            );
           },
-        ),
-      ],
-    );
-  }
-
-  IconButton _getIcon() {
-    if (!Globals.isPhysicalDevice) {
-      return IconButton(
-          icon: Icon(Icons.error, color: Colors.red),
-          onPressed: () {
-            dialog(StringResources.error, StringResources.emulatorDetected);
-          });
-    } else if (Globals.isRooted) {
-      return IconButton(
-          icon: Icon(Icons.warning, color: Colors.yellow),
-          onPressed: () {
-            dialog(StringResources.warning, StringResources.rootDetected);
-          });
-    } else {
-      return IconButton(
-        icon: Icon(Icons.check_circle_rounded, color: Colors.green),
-        onPressed: () {
-          dialog(StringResources.allGood, StringResources.trustable);
-        },
-      );
-    }
-  }
-
-  Future dialog(String title, String body) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(title),
-          content: Text(body),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(StringResources.ok),
-            )
-          ],
         );
-      },
-    );
+      }
+    }
   }
 }

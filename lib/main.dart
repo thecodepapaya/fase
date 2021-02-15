@@ -7,7 +7,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_performance/firebase_performance.dart';
 import 'package:flutter/material.dart';
-import 'package:wifi_info_flutter/wifi_info_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,34 +22,13 @@ void main() async {
 
   myTrace.stop();
 
-  // await LocationPermission().requestPermisson();
+  // Metadata metadata = await MetadataApi.getMetadata();
+  // print(metadata.minAppBuild);
+  // print(metadata.minAppVersion);
 
-  // DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-  // AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+  // var wifiBSSID = await WifiInfo().getWifiBSSID();
 
-  // print('model on:   ${androidInfo.model}');
-  // print('isPhysicalDevice on:  ${androidInfo.isPhysicalDevice}');
-  // print('brand on:   ${androidInfo.brand}');
-  // print('fingerprint on:   ${androidInfo.fingerprint}');
-  // print('id on:  ${androidInfo.id}');
-  // print('type on:  ${androidInfo.type}');
-  // print('sdkInt on:   ${androidInfo.version.sdkInt}');
-  // print('androidId on:   ${androidInfo.androidId}');
-  // print('device on:  ${androidInfo.device}');
-  // print('tags on:  ${androidInfo.tags}');
-
-  var wifiBSSID = await WifiInfo().getWifiBSSID();
-  // var wifiIP = await WifiInfo().getWifiIP();
-  // var wifiName = await WifiInfo().getWifiName();
-
-  print(wifiBSSID);
-  // print(wifiIP);
-  // print(wifiName);
-
-  // print("${Globals().appName}");
-  // print("${Globals().packageName}");
-  // print("${Globals().version}");
-  // print("${Globals().buildNumber}");
+  // print(wifiBSSID);
 
   runApp(MyApp());
 }
@@ -60,9 +38,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: StringResources.fase,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue),
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
       home: SignInHandler(),
@@ -70,8 +46,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// Allowing all certificates including self signed ones
-// https://stackoverflow.com/questions/54285172/how-to-solve-flutter-certificate-verify-failed-error-while-performing-a-post-req
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext context) {

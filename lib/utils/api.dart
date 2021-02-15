@@ -23,6 +23,11 @@ class MetadataApi {
     Metadata metadata = Metadata.fromRawJson(response.body);
     return metadata;
   }
+
+  static Future<bool> getPing() async {
+    http.Response response = await http.get(BASE_URL + format);
+    return response.statusCode == 200;
+  }
 }
 
 class CourseApi {

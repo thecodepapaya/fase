@@ -11,6 +11,7 @@ class StringResources {
   static const String grant = "Grant";
   static const String cancel = "Cancel";
   static const String confirm = "Confirm";
+  static const String proceed = "Proceed";
   static const String quit = "Quit";
   static const String openSettings = "Open Settings";
 
@@ -33,19 +34,36 @@ class StringResources {
   static const String useIIITV = "Use your Institute email ID to login";
 
   static const String register = "Register";
-  static const String registerPrompt = "You are not registered with the server";
+  // static const String registerPrompt = "You are not registered with the server";
+  static const String cannotConnect = "Cannot connect to the server";
 
-  static const String warning = "Warning!";
-  static const String error = "Error!";
-  static const String allGood = "All Good";
-  static const String rootDetected = "Root Detected!";
-  static const String emulatorDetected = "Emulator detected!";
-  static const String trustable = "Device running in trustable environment";
-  //static const String name = "";
-  //static const String name = "";
-  //static const String name = "";
-  //static const String name = "";
-  //static const String name = "";
-  //static const String name = "";
+  // static const String warning = "Warning!";
+  // static const String error = "Error!";
+  // static const String allGood = "All Good";
+  // static const String rootDetected = "Root Detected!";
+  // static const String emulatorDetected = "Emulator detected!";
+  // static const String trustable = "Device running in trustable environment";
+
+  static const String physicalDevice = "Physical Device";
+  static const String isUnRooted = "Un-Rooted";
+  static const String wifiConnected = "WIFI Connected";
+  static const String iiitvWifiConnected = "IIITV WIFI connected";
+  static const String locationGranted = "Location Permission";
+  static const String locationEnabled = "Location Enabled";
+  static const String pingServer = "Server Found";
+  static const String uptoDateVersion = "Up-to date Version";
+  static const String registratonValid = "Registration Valid";
+
+  static const String allCheckPass = "All Checks Passed!";
+  // static const String someCheckPass = "Some Checks Passed";
+  static const String someChecksFailed = "Some Checks Failed";
+
+  // static const String name = "";
+  // static const String name = "";
+  // static const String name = "";
+  // static const String name = "";
+  // static const String name = "";
+  // static const String name = "";
+  // static const String name = "";
 
 }
