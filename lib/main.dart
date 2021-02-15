@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:fase/globals.dart';
 import 'package:fase/string_resource.dart';
+import 'package:fase/ui/course_page.dart';
+import 'package:fase/ui/home_page.dart';
 import 'package:fase/ui/sign_in_handler.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -41,7 +43,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(primarySwatch: Colors.blue),
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
-      home: SignInHandler(),
+      // home: SignInHandler(),
+      initialRoute: SignInHandler.route,
+      routes: {
+        SignInHandler.route: (_) => SignInHandler(),
+        HomePage.route: (_) => HomePage(),
+        CoursePage.route: (_) => CoursePage(),
+      },
     );
   }
 }

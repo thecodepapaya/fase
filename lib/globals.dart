@@ -62,7 +62,7 @@ class Globals {
   static String get wifiBSSID => _wifiBSSID;
 
   /// Local IP of the device connecetd to WLAN
-  static String get wifiIP => _wifiIP;
+  static String get wifiLocalIP => _wifiIP;
 
   /// Also known as SSID, the display name of the WLAN network
   static String get wifiName => _wifiName;

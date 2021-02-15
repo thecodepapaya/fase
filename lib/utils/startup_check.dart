@@ -112,7 +112,7 @@ class StartupCheck {
       // TODO: add wifi verification here
       Globals.wifiBSSID;
       Globals.wifiName;
-      Globals.wifiIP;
+      Globals.wifiLocalIP;
       return true;
     } else {
       return false;

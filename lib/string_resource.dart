@@ -15,6 +15,9 @@ class StringResources {
   static const String quit = "Quit";
   static const String openSettings = "Open Settings";
 
+  static const String attendaneMarked = "Attendane Marked";
+  static const String success = "Success";
+
   static const String permissionRationaleTitle =
       'We need permission to access location services';
   static const String permissionRationaleBody =
@@ -40,10 +43,12 @@ class StringResources {
   // static const String warning = "Warning!";
   // static const String error = "Error!";
   // static const String allGood = "All Good";
-  // static const String rootDetected = "Root Detected!";
+  static const String rootDetected = "Root Detected";
+  static const String rootDetectedPrompt = "This information will be reported!";
   // static const String emulatorDetected = "Emulator detected!";
   // static const String trustable = "Device running in trustable environment";
 
+  static const String systemCheck = "System Check";
   static const String physicalDevice = "Physical Device";
   static const String isUnRooted = "Un-Rooted";
   static const String wifiConnected = "WIFI Connected";
@@ -55,15 +60,16 @@ class StringResources {
   static const String registratonValid = "Registration Valid";
 
   static const String allCheckPass = "All Checks Passed!";
-  // static const String someCheckPass = "Some Checks Passed";
+  static const String registrationPending = "Registration Pending";
   static const String someChecksFailed = "Some Checks Failed";
 
-  // static const String name = "";
-  // static const String name = "";
-  // static const String name = "";
-  // static const String name = "";
-  // static const String name = "";
-  // static const String name = "";
-  // static const String name = "";
+  static const String activeAttendances = "Active Attendances";
+  static const String fetchingActiveCourses = "Looking for active windows...";
+  static const String noActiveAttendance = "No active window found";
+  static const String noActiveAttendancePrompt =
+      "It looks like your instructor hasn't opened the attendance window yet.";
+  static const String instructor = "Instructor";
 
+  // static const String name = "";
+  // static const String name = "";
 }
