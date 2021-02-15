@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:fase/globals.dart';
+import 'package:fase/string_resource.dart';
 import 'package:fase/ui/sign_in_handler.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -58,7 +59,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FASE',
+      title: StringResources.fase,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

@@ -17,8 +17,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Course> courses = [];
-
   @override
   void initState() {
     super.initState();
@@ -95,9 +93,9 @@ class _HomePageState extends State<HomePage> {
             sdkInt: Globals.sdk,
             appVersionString: Globals.version,
             appBuildNumber: Globals.buildNumber,
-            ssid: Globals.wifiName,
-            bssid: Globals.wifiBSSID,
-            localIp: Globals.wifiIP,
+            ssid: Globals.wifiName ?? 'no-wifi-ssid',
+            bssid: Globals.wifiBSSID ?? 'no-bssid',
+            localIp: Globals.wifiIP ?? 'no-local-ip',
             serverKey: serverKey,
           );
           AttendanceAPi.postAttendance(attendance);

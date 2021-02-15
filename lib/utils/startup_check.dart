@@ -1,6 +1,8 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:fase/globals.dart';
+import 'package:fase/models/metadata.dart';
 import 'package:fase/string_resource.dart';
+import 'package:fase/utils/api.dart';
 import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -68,9 +70,12 @@ class StartupCheck {
   /// Checks if the application version is at-least the minimum specified by
   /// the server. This is necessary to restrict students from using older
   /// versions of the application which may contain exploitable bugs.
-  bool isMinVersion() {
-    // TODO: Add logic to verify app version ID
-    throw UnimplementedError();
+  Future<bool> isMinVersion() async {
+    Metadata metadata = await MetadataApi.getMetadata();
+    if (Globals.buildNumber >= metadata.minAppBuild)
+      return true;
+    else
+      return false;
   }
 
   /// Checks if the location permission has been granted or not. Location

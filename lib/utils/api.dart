@@ -39,8 +39,8 @@ class CourseApi {
 }
 
 class RegistrationAPi {
-  static const _endpointReg = 'registration/';
-  static const _endpointVer = 'registration/verify/';
+  static const _endpoint = 'registration/';
+  static const _verification = 'verify/';
 
   // static RegistrationData _registrationData = RegistrationData(
   //   studentData: StudentData(
@@ -61,7 +61,7 @@ class RegistrationAPi {
   static Future<Registration> postRegistration(
       Registration registrationData) async {
     http.Response response = await http.post(
-      BASE_URL + _endpointReg,
+      BASE_URL + _endpoint,
       body: registrationData.toRawJson(),
       headers: postHeader,
     );
@@ -70,7 +70,7 @@ class RegistrationAPi {
   }
 
   static Future<List<Registration>> getRegistration() async {
-    http.Response response = await http.get(BASE_URL + _endpointReg + format);
+    http.Response response = await http.get(BASE_URL + _endpoint + format);
     List<Registration> registration = [];
     json.decode(response.body).forEach((registrationJson) {
       registration.add(Registration.fromJson(registrationJson));
@@ -84,25 +84,29 @@ class RegistrationAPi {
       key: StringResources.serverKey,
     );
     http.Response response = await http.post(
-      BASE_URL + _endpointVer,
+      BASE_URL + _endpoint + _verification,
       headers: postHeader,
       body: json.encode({
         'institute_email': email,
         'server_key': serverKey,
       }),
     );
-    switch (response.statusCode) {
-      case 200:
-        return true;
-      case 404:
-        return false;
-      case 400:
-        return false;
-      case 500:
-        return false;
-      default:
-        return false;
-    }
+    if (response.statusCode == 200)
+      return true;
+    else
+      return false;
+    // switch (response.statusCode) {
+    //   case 200:
+    //     return true;
+    //   case 404:
+    //     return false;
+    //   case 400:
+    //     return false;
+    //   case 500:
+    //     return false;
+    //   default:
+    //     return false;
+    // }
   }
 }
 
