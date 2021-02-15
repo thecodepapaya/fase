@@ -54,6 +54,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// Allowing all certificates including self signed ones
+// https://stackoverflow.com/questions/54285172/how-to-solve-flutter-certificate-verify-failed-error-while-performing-a-post-req
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext context) {

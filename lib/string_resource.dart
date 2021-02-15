@@ -12,6 +12,7 @@ class StringResources {
   static const String cancel = "Cancel";
   static const String confirm = "Confirm";
   static const String proceed = "Proceed";
+  
   static const String quit = "Quit";
   static const String openSettings = "Open Settings";
 
