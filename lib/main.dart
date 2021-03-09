@@ -2,18 +2,20 @@ import 'dart:io';
 
 import 'package:fase/globals.dart';
 import 'package:fase/string_resource.dart';
-import 'package:fase/ui/course_page.dart';
-import 'package:fase/ui/home_page.dart';
 import 'package:fase/ui/sign_in_handler.dart';
+import 'package:fase/ui/student/course_page.dart';
+import 'package:fase/ui/student/student_home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_performance/firebase_performance.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+  if (!kIsWeb)
+    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
   final Trace myTrace = FirebasePerformance.instance.newTrace("test_trace");
 
@@ -47,8 +49,8 @@ class MyApp extends StatelessWidget {
       initialRoute: SignInHandler.route,
       routes: {
         SignInHandler.route: (_) => SignInHandler(),
-        HomePage.route: (_) => HomePage(),
-        CoursePage.route: (_) => CoursePage(),
+        StudentHomePage.route: (_) => StudentHomePage(),
+        StudentCoursePage.route: (_) => StudentCoursePage(),
       },
     );
   }

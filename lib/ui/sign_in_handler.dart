@@ -1,5 +1,5 @@
 import 'package:fase/string_resource.dart';
-import 'package:fase/ui/home_page.dart';
+import 'package:fase/ui/student/student_home.dart';
 import 'package:fase/ui/loading_screen.dart';
 import 'package:fase/ui/not_iiitv_email.dart';
 import 'package:fase/ui/sign_in_screen.dart';
@@ -23,7 +23,7 @@ class SignInHandler extends StatelessWidget {
             // print("email: ${snapshot.data.email}");
             // print("uid: ${snapshot.data.uid}");
             if (snapshot.data.email.endsWith(StringResources.emailDomain)) {
-              return HomePage();
+              return StudentHomePage();
             } else {
               return NotIIITVEmail();
             }

@@ -5,13 +5,13 @@
 import 'dart:convert';
 
 import 'package:fase/models/course.dart';
-import 'package:fase/models/student_data.dart';
+import 'package:fase/models/person.dart';
 import 'package:meta/meta.dart';
 
 class Attendance {
   Attendance({
     this.attendanceId,
-    @required this.studentData,
+    @required this.student,
     @required this.course,
     this.timestamp,
     @required this.deviceId,
@@ -28,7 +28,7 @@ class Attendance {
   });
 
   final int attendanceId;
-  final StudentData studentData;
+  final Person student;
   final Course course;
   final DateTime timestamp;
   final String deviceId;
@@ -45,7 +45,7 @@ class Attendance {
 
   Attendance copyWith({
     int attendanceId,
-    StudentData studentData,
+    Person student,
     Attendance course,
     DateTime timestamp,
     String deviceId,
@@ -62,7 +62,7 @@ class Attendance {
   }) =>
       Attendance(
         attendanceId: attendanceId ?? this.attendanceId,
-        studentData: studentData ?? this.studentData,
+        student: student ?? this.student,
         course: course ?? this.course,
         timestamp: timestamp ?? this.timestamp,
         deviceId: deviceId ?? this.deviceId,
@@ -85,7 +85,7 @@ class Attendance {
 
   factory Attendance.fromJson(Map<String, dynamic> json) => Attendance(
         attendanceId: json["attendance_id"],
-        studentData: StudentData.fromJson(json["student_data"]),
+        student: Person.fromJson(json["student_data"]),
         course: Course.fromJson(json["course"]),
         timestamp: DateTime.parse(json["timestamp"]),
         deviceId: json["device_id"],
@@ -103,7 +103,7 @@ class Attendance {
 
   Map<String, dynamic> toJson() => {
         // "attendance_id": attendanceId,
-        "student_data": studentData.toJson(),
+        "student_data": student.toJson(),
         "course": course.toJson(),
         // "timestamp": timestamp.toIso8601String(),
         "device_id": deviceId,

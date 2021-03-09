@@ -1,9 +1,9 @@
 import 'package:fase/globals.dart';
 import 'package:fase/models/registration_data.dart';
-import 'package:fase/models/student_data.dart';
+import 'package:fase/models/person.dart';
 import 'package:fase/string_resource.dart';
 import 'package:fase/styles.dart';
-import 'package:fase/ui/course_page.dart';
+import 'package:fase/ui/student/course_page.dart';
 import 'package:fase/utils/api.dart';
 import 'package:fase/utils/location_permission.dart';
 import 'package:fase/utils/startup_check.dart';
@@ -11,14 +11,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class HomePage extends StatefulWidget {
+class StudentHomePage extends StatefulWidget {
   static const route = '/homePage';
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _StudentHomePageState createState() => _StudentHomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _StudentHomePageState extends State<StudentHomePage> {
   final StartupCheck _checks = StartupCheck();
   bool _isloading = true;
   bool _allCheckPass = false;
@@ -150,7 +150,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           onPressed: () {
-            Navigator.of(context).pushNamed(CoursePage.route);
+            Navigator.of(context).pushNamed(StudentCoursePage.route);
           },
         );
       } else {
@@ -161,7 +161,7 @@ class _HomePageState extends State<HomePage> {
             await Globals.initialize();
             User user = FirebaseAuth.instance.currentUser;
             Registration registrationData = Registration(
-              studentData: StudentData(
+              student: Person(
                 instituteEmail: user.email,
                 googleUid: user.uid,
                 name: user.displayName,

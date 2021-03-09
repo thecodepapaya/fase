@@ -1,7 +1,7 @@
 import 'package:fase/globals.dart';
 import 'package:fase/models/attendance_data.dart';
 import 'package:fase/models/course.dart';
-import 'package:fase/models/student_data.dart';
+import 'package:fase/models/person.dart';
 import 'package:fase/string_resource.dart';
 import 'package:fase/styles.dart';
 import 'package:fase/utils/api.dart';
@@ -9,14 +9,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class CoursePage extends StatefulWidget {
+class StudentCoursePage extends StatefulWidget {
   static const route = '/CoursePage';
 
   @override
-  _CoursePageState createState() => _CoursePageState();
+  _StudentCoursePageState createState() => _StudentCoursePageState();
 }
 
-class _CoursePageState extends State<CoursePage> {
+class _StudentCoursePageState extends State<StudentCoursePage> {
   List<Course> courses = [];
   bool _isLoading = true;
 
@@ -101,7 +101,7 @@ class _CoursePageState extends State<CoursePage> {
     return Card(
       child: ListTile(
         title: Text("${course.courseCode} : ${course.courseName}"),
-        subtitle: Text(course.instructorName),
+        subtitle: Text(course.instructor.name),
         trailing: IconButton(
           icon: Icon(Icons.menu_book_outlined),
           onPressed: () async {
@@ -110,7 +110,7 @@ class _CoursePageState extends State<CoursePage> {
             String serverKey = await Globals.secureStorage
                 .read(key: StringResources.serverKey);
             Attendance attendance = Attendance(
-              studentData: StudentData(
+              student: Person(
                 instituteEmail: user.email,
                 googleUid: user.uid,
                 name: user.displayName,
