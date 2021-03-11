@@ -4,11 +4,12 @@
 
 import 'dart:convert';
 
-import 'package:fase/models/person.dart';
+import 'package:fase/models/faculty.dart';
 import 'package:meta/meta.dart';
 
 class Course {
   Course({
+    @required this.id,
     @required this.instructor,
     @required this.courseCode,
     @required this.courseName,
@@ -17,7 +18,8 @@ class Course {
     @required this.startTimestamp,
   });
 
-  final Person instructor;
+  final int id;
+  final Faculty instructor;
   final String courseCode;
   final String courseName;
   final String semester;
@@ -25,7 +27,8 @@ class Course {
   final DateTime startTimestamp;
 
   Course copyWith({
-    Person instructor,
+    int id,
+    Faculty instructor,
     String courseCode,
     String courseName,
     String semester,
@@ -33,6 +36,7 @@ class Course {
     DateTime startTimestamp,
   }) =>
       Course(
+        id: id ?? this.id,
         instructor: instructor ?? this.instructor,
         courseCode: courseCode ?? this.courseCode,
         courseName: courseName ?? this.courseName,
@@ -46,7 +50,8 @@ class Course {
   String toRawJson() => json.encode(toJson());
 
   factory Course.fromJson(Map<String, dynamic> json) => Course(
-        instructor: Person.fromJson(json["instructor"]),
+        id: json["id"],
+        instructor: Faculty.fromJson(json["instructor"]),
         courseCode: json["course_code"],
         courseName: json["course_name"],
         semester: json["semester"],
@@ -55,6 +60,7 @@ class Course {
       );
 
   Map<String, dynamic> toJson() => {
+        "id": id,
         "instructor": instructor.toJson(),
         "course_code": courseCode,
         "course_name": courseName,

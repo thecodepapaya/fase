@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:fase/globals.dart';
 import 'package:fase/models/attendance_data.dart';
 import 'package:fase/models/course.dart';
+import 'package:fase/models/faculty.dart';
 import 'package:fase/models/metadata.dart';
 import 'package:fase/models/registration_data.dart';
 import 'package:fase/string_resource.dart';
@@ -33,6 +34,25 @@ class MetadataApi {
 class CourseApi {
   static const _endpoint = 'course/';
 
+  static Course course = Course(
+    id: 2,
+    instructor: Faculty(
+      instituteEmail: 'hard@coded.com',
+      googleUid: 'googleUid',
+      name: 'name',
+    ),
+    courseCode: 'CS102',
+    courseName: 'courseName',
+    semester: 'autumn',
+    academicYear: '2020-2021',
+    startTimestamp: DateTime.now(),
+  );
+
+  static String accessToken =
+      '4c0c19b2612dbef17cb00ddf7689da3da9c94756d533c475daacdcda0a50bf12';
+
+  /// Gives a list of courses currently accepting attendance i.e courses
+  /// with open attendance window
   static Future<List<Course>> getCourses() async {
     http.Response response = await http.get(BASE_URL + _endpoint + format);
     List<Course> courses = [];
@@ -40,6 +60,27 @@ class CourseApi {
       courses.add(Course.fromJson(courseJson));
     });
     return courses;
+  }
+
+  /// Get details of a particular course using course ID
+  // static Future<Course> getCourse(int courseId) async {
+  static Future<Course> getCourse() async {
+    int courseId = 2;
+    http.Response response =
+        await http.get(BASE_URL + _endpoint + '$courseId' + '/' + format);
+    Course course = Course.fromRawJson(response.body);
+    return course;
+  }
+
+  // static Future<Course> postCourse(Course course, String accessToken) async {
+  static Future<Course> postCourse() async {
+    http.Response response = await http.post(
+      BASE_URL + _endpoint + '${course.id}' + '/?token=$accessToken',
+      body: course.toRawJson(),
+      headers: postHeader,
+    );
+    Course updatedCourse = Course.fromRawJson(response.body);
+    return updatedCourse;
   }
 }
 
@@ -159,5 +200,46 @@ class AttendanceAPi {
       attendance.add(Attendance.fromJson(attendanceJson));
     });
     return attendance;
+  }
+}
+
+class FacultyApi {
+  static const _endpoint = 'faculty/';
+
+  // static Faculty faculty = Faculty(
+  //   instituteEmail: 'hard@coded.com',
+  //   googleUid: 'googleUid',
+  //   name: 'name',
+  // );
+
+  // static String accessToken =
+  //     '4c0c19b2612dbef17cb00ddf7689da3da9c94756d533c475daacdcda0a50bf12';
+
+  static Future<String> postFaculty(Faculty faculty) async {
+    // static Future<String> postFaculty() async {
+    http.Response response = await http.post(
+      BASE_URL + _endpoint,
+      body: faculty.toRawJson(),
+      headers: postHeader,
+    );
+    String accessToken = json.decode(response.body)['access_token'];
+    return accessToken;
+  }
+
+  static Future<List<Course>> getFacultyCourses(
+      Faculty faculty, String accessToken) async {
+    // static Future<List<Course>> getFacultyCourses() async {
+    http.Response response = await http.get(
+      BASE_URL +
+          _endpoint +
+          faculty.instituteEmail +
+          '/?token=$accessToken' +
+          '&format=json',
+    );
+    List<Course> courses = [];
+    json.decode(response.body).forEach((courseJson) {
+      courses.add(Course.fromJson(courseJson));
+    });
+    return courses;
   }
 }

@@ -1,7 +1,7 @@
 import 'package:fase/globals.dart';
 import 'package:fase/models/attendance_data.dart';
 import 'package:fase/models/course.dart';
-import 'package:fase/models/person.dart';
+import 'package:fase/models/student.dart';
 import 'package:fase/string_resource.dart';
 import 'package:fase/styles.dart';
 import 'package:fase/utils/api.dart';
@@ -110,7 +110,7 @@ class _StudentCoursePageState extends State<StudentCoursePage> {
             String serverKey = await Globals.secureStorage
                 .read(key: StringResources.serverKey);
             Attendance attendance = Attendance(
-              student: Person(
+              student: Student(
                 instituteEmail: user.email,
                 googleUid: user.uid,
                 name: user.displayName,

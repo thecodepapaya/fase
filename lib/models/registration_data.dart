@@ -2,7 +2,7 @@
 //
 //     final registrationData = registrationDataFromJson(jsonString);
 
-import 'package:fase/models/person.dart';
+import 'package:fase/models/student.dart';
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
@@ -25,7 +25,7 @@ class Registration {
   });
 
   final int registrationId;
-  final Person student;
+  final Student student;
   final DateTime timestamp;
   final String deviceId;
   final bool isPhysical;
@@ -41,7 +41,7 @@ class Registration {
 
   Registration copyWith({
     int registrationId,
-    Person student,
+    Student student,
     DateTime timestamp,
     String deviceId,
     bool isPhysical,
@@ -79,7 +79,7 @@ class Registration {
 
   factory Registration.fromJson(Map<String, dynamic> json) => Registration(
         registrationId: json["registration_id"],
-        student: Person.fromJson(json["student_data"]),
+        student: Student.fromJson(json["student_data"]),
         timestamp: DateTime.parse(json["timestamp"]),
         deviceId: json["device_id"],
         isPhysical: json["is_physical"],

@@ -1,12 +1,12 @@
 // To parse this JSON data, do
 //
-//     final person = Person.FromJson(jsonString);
+//     final faculty = facultyFromJson(jsonString);
 
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-class Person {
-  Person({
+class Faculty {
+  Faculty({
     @required this.instituteEmail,
     @required this.googleUid,
     @required this.name,
@@ -16,22 +16,23 @@ class Person {
   final String googleUid;
   final String name;
 
-  Person copyWith({
+  Faculty copyWith({
     String instituteEmail,
     String googleUid,
     String name,
+    String accessToken,
   }) =>
-      Person(
+      Faculty(
         instituteEmail: instituteEmail ?? this.instituteEmail,
         googleUid: googleUid ?? this.googleUid,
         name: name ?? this.name,
       );
 
-  factory Person.fromRawJson(String str) => Person.fromJson(json.decode(str));
+  factory Faculty.fromRawJson(String str) => Faculty.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Person.fromJson(Map<String, dynamic> json) => Person(
+  factory Faculty.fromJson(Map<String, dynamic> json) => Faculty(
         instituteEmail: json["institute_email"],
         googleUid: json["google_uid"],
         name: json["name"],

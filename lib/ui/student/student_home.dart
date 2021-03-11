@@ -1,6 +1,6 @@
 import 'package:fase/globals.dart';
 import 'package:fase/models/registration_data.dart';
-import 'package:fase/models/person.dart';
+import 'package:fase/models/student.dart';
 import 'package:fase/string_resource.dart';
 import 'package:fase/styles.dart';
 import 'package:fase/ui/student/course_page.dart';
@@ -29,6 +29,10 @@ class _StudentHomePageState extends State<StudentHomePage> {
     LocationPermission(context)
         .requestPermisson()
         .then((value) => performChecks());
+    // FacultyApi.getFacultyCourses();
+    // FacultyApi.postFaculty();
+    CourseApi.postCourse();
+    // CourseApi.getCourse();
   }
 
   void performChecks() async {
@@ -161,7 +165,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
             await Globals.initialize();
             User user = FirebaseAuth.instance.currentUser;
             Registration registrationData = Registration(
-              student: Person(
+              student: Student(
                 instituteEmail: user.email,
                 googleUid: user.uid,
                 name: user.displayName,
