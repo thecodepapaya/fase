@@ -29,10 +29,6 @@ class _StudentHomePageState extends State<StudentHomePage> {
     LocationPermission(context)
         .requestPermisson()
         .then((value) => performChecks());
-    // FacultyApi.getFacultyCourses();
-    // FacultyApi.postFaculty();
-    CourseApi.postCourse();
-    // CourseApi.getCourse();
   }
 
   void performChecks() async {

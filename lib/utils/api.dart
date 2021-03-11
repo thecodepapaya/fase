@@ -34,22 +34,22 @@ class MetadataApi {
 class CourseApi {
   static const _endpoint = 'course/';
 
-  static Course course = Course(
-    id: 2,
-    instructor: Faculty(
-      instituteEmail: 'hard@coded.com',
-      googleUid: 'googleUid',
-      name: 'name',
-    ),
-    courseCode: 'CS102',
-    courseName: 'courseName',
-    semester: 'autumn',
-    academicYear: '2020-2021',
-    startTimestamp: DateTime.now(),
-  );
+  // static Course course = Course(
+  //   id: 2,
+  //   instructor: Faculty(
+  //     instituteEmail: 'hard@coded.com',
+  //     googleUid: 'googleUid',
+  //     name: 'name',
+  //   ),
+  //   courseCode: 'CS102',
+  //   courseName: 'courseName',
+  //   semester: 'autumn',
+  //   academicYear: '2020-2021',
+  //   startTimestamp: DateTime.now(),
+  // );
 
-  static String accessToken =
-      '4c0c19b2612dbef17cb00ddf7689da3da9c94756d533c475daacdcda0a50bf12';
+  // static String accessToken =
+  //     '4c0c19b2612dbef17cb00ddf7689da3da9c94756d533c475daacdcda0a50bf12';
 
   /// Gives a list of courses currently accepting attendance i.e courses
   /// with open attendance window
@@ -63,8 +63,7 @@ class CourseApi {
   }
 
   /// Get details of a particular course using course ID
-  // static Future<Course> getCourse(int courseId) async {
-  static Future<Course> getCourse() async {
+  static Future<Course> getCourse(int courseId) async {
     int courseId = 2;
     http.Response response =
         await http.get(BASE_URL + _endpoint + '$courseId' + '/' + format);
@@ -72,8 +71,7 @@ class CourseApi {
     return course;
   }
 
-  // static Future<Course> postCourse(Course course, String accessToken) async {
-  static Future<Course> postCourse() async {
+  static Future<Course> postCourse(Course course, String accessToken) async {
     http.Response response = await http.post(
       BASE_URL + _endpoint + '${course.id}' + '/?token=$accessToken',
       body: course.toRawJson(),
