@@ -92,8 +92,10 @@ class StringResources {
   // static const String name = "";
 
   static const String addEditCourse = "Add/Edit a course";
-  // static const String name = "";
-  // static const String name = "";
+  static const String courseCode = "Course Code";
+  static const String courseName = "Course Name";
+
+  static const String deviceInfo = "Device Info";
   // static const String name = "";
   // static const String name = "";
 }

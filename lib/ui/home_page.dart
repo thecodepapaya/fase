@@ -5,6 +5,7 @@ import 'package:fase/models/student.dart';
 import 'package:fase/string_resource.dart';
 import 'package:fase/styles.dart';
 import 'package:fase/ui/course_page.dart';
+import 'package:fase/ui/drawer.dart';
 import 'package:fase/utils/api.dart';
 import 'package:fase/utils/location_permission.dart';
 import 'package:fase/utils/startup_check.dart';
@@ -45,14 +46,14 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(StringResources.systemCheck),
-        leading: Tooltip(
-          child: Icon(
-            Globals.isFaculty ? Icons.person : Icons.person_outline_outlined,
-          ),
-          message: Globals.isFaculty
-              ? StringResources.loginAsFaculty
-              : StringResources.loginAsStudent,
-        ),
+        // leading: Tooltip(
+        //   child: Icon(
+        //     Globals.isFaculty ? Icons.person : Icons.person_outline_outlined,
+        //   ),
+        //   message: Globals.isFaculty
+        //       ? StringResources.loginAsFaculty
+        //       : StringResources.loginAsStudent,
+        // ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -60,6 +61,7 @@ class _HomePageState extends State<HomePage> {
           child: _isloading ? CircularProgressIndicator() : _checkResult(),
         ),
       ),
+      drawer: SideDrawer(),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           performChecks();

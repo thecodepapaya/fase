@@ -1,4 +1,3 @@
-import 'package:fase/globals.dart';
 import 'package:fase/string_resource.dart';
 import 'package:fase/ui/home_page.dart';
 import 'package:fase/ui/loading_screen.dart';
@@ -24,9 +23,9 @@ class SignInHandler extends StatelessWidget {
             // print("email: ${snapshot.data.email}");
             // print("uid: ${snapshot.data.uid}");
             if (snapshot.data.email.endsWith(StringResources.emailDomain)) {
-              //TODO: uncomment false value with validation
+              //TODO: add email validation for faculty and student
               // Globals.isFaculty = false;
-              Globals.isFaculty = true;
+              // Globals.isFaculty = true;
               return HomePage();
             } else {
               return NotIIITVEmail();

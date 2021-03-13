@@ -8,9 +8,7 @@ import 'package:flutter/material.dart';
 
 class CourseEditPage extends StatefulWidget {
   static const String route = '/CourseEditPage';
-  // final Course course;
 
-  // CourseEditPage(this.course);
   @override
   _CourseEditPageState createState() => _CourseEditPageState();
 }
@@ -23,11 +21,6 @@ class _CourseEditPageState extends State<CourseEditPage> {
   String semesterValue = StringResources.autumn;
   String academicYearValue =
       '${DateTime.now().year}-${DateTime.now().year + 1}';
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,55 +37,61 @@ class _CourseEditPageState extends State<CourseEditPage> {
         title: Text(StringResources.addEditCourse),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
         child: Form(
           key: _globalKey,
-          child: Column(
-            children: [
-              TextFormField(
-                controller: _courseCodeController,
-                autocorrect: true,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                decoration: InputDecoration(
-                  hintText: 'Course Code',
-                ),
-              ),
-              TextFormField(
-                controller: _courseNameController,
-                autocorrect: true,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                decoration: InputDecoration(
-                  hintText: 'Course Name',
-                ),
-              ),
-              DropdownButton(
-                value: semesterValue,
-                items: <DropdownMenuItem>[
-                  DropdownMenuItem(
-                    child: Text(StringResources.autumn),
-                    value: StringResources.autumn,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextFormField(
+                  controller: _courseCodeController,
+                  autocorrect: true,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  decoration: InputDecoration(
+                    hintText: StringResources.courseCode,
                   ),
-                  DropdownMenuItem(
-                    child: Text(StringResources.winter),
-                    value: StringResources.winter,
+                ),
+                SizedBox(height: 40),
+                TextFormField(
+                  controller: _courseNameController,
+                  autocorrect: true,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  decoration: InputDecoration(
+                    hintText: StringResources.courseName,
                   ),
-                ],
-                onChanged: (value) {
-                  setState(() {
-                    semesterValue = value;
-                  });
-                },
-              ),
-              DropdownButton(
-                value: academicYearValue,
-                items: years(),
-                onChanged: (value) {
-                  setState(() {
-                    academicYearValue = value;
-                  });
-                },
-              ),
-            ],
+                ),
+                SizedBox(height: 40),
+                DropdownButton(
+                  value: semesterValue,
+                  items: <DropdownMenuItem>[
+                    DropdownMenuItem(
+                      child: Text(StringResources.autumn),
+                      value: StringResources.autumn,
+                    ),
+                    DropdownMenuItem(
+                      child: Text(StringResources.winter),
+                      value: StringResources.winter,
+                    ),
+                  ],
+                  onChanged: (value) {
+                    setState(() {
+                      semesterValue = value;
+                    });
+                  },
+                ),
+                SizedBox(height: 40),
+                DropdownButton(
+                  value: academicYearValue,
+                  items: years(),
+                  onChanged: (value) {
+                    setState(() {
+                      academicYearValue = value;
+                    });
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
