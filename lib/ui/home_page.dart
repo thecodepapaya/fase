@@ -46,14 +46,6 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(StringResources.systemCheck),
-        // leading: Tooltip(
-        //   child: Icon(
-        //     Globals.isFaculty ? Icons.person : Icons.person_outline_outlined,
-        //   ),
-        //   message: Globals.isFaculty
-        //       ? StringResources.loginAsFaculty
-        //       : StringResources.loginAsStudent,
-        // ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -159,11 +151,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           onPressed: () {
-            // if (Globals.isFaculty) {
-            //   Navigator.of(context).pushNamed(FacultyCoursePage.route);
-            // } else {
             Navigator.of(context).pushNamed(CoursePage.route);
-            // }
           },
         );
       } else {
