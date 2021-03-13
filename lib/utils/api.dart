@@ -71,7 +71,9 @@ class CourseApi {
     return course;
   }
 
-  static Future<Course> postCourse(Course course, String accessToken) async {
+  static Future<Course> postCourse(Course course) async {
+    final String accessToken =
+        await Globals.secureStorage.read(key: StringResources.accessToken);
     http.Response response = await http.post(
       BASE_URL + _endpoint + '${course.id}' + '/?token=$accessToken',
       body: course.toRawJson(),
@@ -225,13 +227,15 @@ class FacultyApi {
     return accessToken;
   }
 
-  static Future<List<Course>> getFacultyCourses(
-      Faculty faculty, String accessToken) async {
-    // static Future<List<Course>> getFacultyCourses() async {
+  static Future<List<Course>> getFacultyCourses() async {
+    final String accessToken = await Globals.secureStorage.read(
+      key: StringResources.accessToken,
+    );
+    final String instituteEmail = FirebaseAuth.instance.currentUser.email;
     http.Response response = await http.get(
       BASE_URL +
           _endpoint +
-          faculty.instituteEmail +
+          instituteEmail +
           '/?token=$accessToken' +
           '&format=json',
     );

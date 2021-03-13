@@ -2,12 +2,9 @@ import 'dart:io';
 
 import 'package:fase/globals.dart';
 import 'package:fase/string_resource.dart';
-import 'package:fase/ui/faculty/course_page.dart';
-import 'package:fase/ui/faculty/faculty_home.dart';
+import 'package:fase/ui/course_page.dart';
 import 'package:fase/ui/home_page.dart';
 import 'package:fase/ui/sign_in_handler.dart';
-import 'package:fase/ui/student/course_page.dart';
-import 'package:fase/ui/student/student_home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_performance/firebase_performance.dart';
@@ -48,13 +45,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(primarySwatch: Colors.blue),
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
-      // home: SignInHandler(),
       initialRoute: SignInHandler.route,
       routes: {
         SignInHandler.route: (_) => SignInHandler(),
         HomePage.route: (_) => HomePage(),
-        StudentCoursePage.route: (_) => StudentCoursePage(),
-        FacultyCoursePage.route: (_) => FacultyCoursePage(),
+        CoursePage.route: (_) => CoursePage(),
       },
     );
   }

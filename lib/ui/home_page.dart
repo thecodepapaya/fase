@@ -4,6 +4,8 @@ import 'package:fase/models/registration_data.dart';
 import 'package:fase/models/student.dart';
 import 'package:fase/string_resource.dart';
 import 'package:fase/styles.dart';
+import 'package:fase/ui/course_page.dart';
+import 'package:fase/ui/faculty/course_page.dart';
 import 'package:fase/ui/student/course_page.dart';
 import 'package:fase/utils/api.dart';
 import 'package:fase/utils/location_permission.dart';
@@ -27,9 +29,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    LocationPermission(context)
-        .requestPermisson()
-        .then((value) => performChecks());
+    LocationPermission(context).requestPermisson().then((_) => performChecks());
   }
 
   void performChecks() async {
@@ -47,8 +47,13 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(StringResources.systemCheck),
-        leading: Icon(
-          Globals.isFaculty ? Icons.person : Icons.person_outline_outlined,
+        leading: Tooltip(
+          child: Icon(
+            Globals.isFaculty ? Icons.person : Icons.person_outline_outlined,
+          ),
+          message: Globals.isFaculty
+              ? StringResources.loginAsFaculty
+              : StringResources.loginAsStudent,
         ),
       ),
       body: Padding(
@@ -154,11 +159,11 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           onPressed: () {
-            if (Globals.isFaculty) {
-              print('hello');
-            } else {
-              Navigator.of(context).pushNamed(StudentCoursePage.route);
-            }
+            // if (Globals.isFaculty) {
+            //   Navigator.of(context).pushNamed(FacultyCoursePage.route);
+            // } else {
+            Navigator.of(context).pushNamed(CoursePage.route);
+            // }
           },
         );
       } else {

@@ -73,12 +73,15 @@ class StringResources {
   static const String instructor = "Instructor";
 
   static const String courses = "Courses";
-  // static const String name = "";
-  // static const String name = "";
-  // static const String name = "";
-  // static const String name = "";
-  // static const String name = "";
-  // static const String name = "";
+  static const String loginAsStudent = "Logged in as Student";
+  static const String loginAsFaculty = "Logged in as Faculty";
+  static const String yourCourses = "Your Courses";
+  static const String fetchingCourses = "Fetching your courses ...";
+  static const String noCourseRegistered = "No courses registered";
+  static const String noCourseRegisteredPrompt =
+      "You have not registered any course for this semester. Tap the + icon to add new courses";
+  static const String fetchingRegisteredCourses =
+      "Looking for registered courses...";
   // static const String name = "";
   // static const String name = "";
 }
