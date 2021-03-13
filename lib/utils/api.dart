@@ -203,6 +203,7 @@ class AttendanceAPi {
 
 class FacultyApi {
   static const _endpoint = 'faculty/';
+  static const _verification = 'faculty-verify/';
 
   // static Faculty faculty = Faculty(
   //   instituteEmail: 'hard@coded.com',
@@ -239,5 +240,22 @@ class FacultyApi {
       courses.add(Course.fromJson(courseJson));
     });
     return courses;
+  }
+
+  static Future<bool> isFacultyVerified() async {
+    final User user = FirebaseAuth.instance.currentUser;
+    final String email = user.email;
+    final String googleUid = user.uid;
+    final String accessToken =
+        await Globals.secureStorage.read(key: StringResources.accessToken);
+    http.Response response = await http.get(
+      BASE_URL +
+          _verification +
+          '?' +
+          'token=$accessToken' +
+          '&email=$email' +
+          '&uid=$googleUid',
+    );
+    return response.statusCode == 200;
   }
 }

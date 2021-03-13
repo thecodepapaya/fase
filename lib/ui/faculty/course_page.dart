@@ -6,12 +6,13 @@ import 'package:fase/utils/api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class StudentCoursePage extends StatefulWidget {
+class FacultyCoursePage extends StatefulWidget {
+  static const String route = '/FacultyCoursePage';
   @override
-  _StudentCoursePageState createState() => _StudentCoursePageState();
+  _FacultyCoursePageState createState() => _FacultyCoursePageState();
 }
 
-class _StudentCoursePageState extends State<StudentCoursePage> {
+class _FacultyCoursePageState extends State<FacultyCoursePage> {
   bool _isLoading = true;
 
   List<Course> courses = [];

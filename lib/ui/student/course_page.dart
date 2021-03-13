@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class StudentCoursePage extends StatefulWidget {
-  static const route = '/CoursePage';
+  static const route = '/StudentCoursePage';
 
   @override
   _StudentCoursePageState createState() => _StudentCoursePageState();

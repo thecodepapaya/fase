@@ -151,7 +151,10 @@ class StartupCheck {
   /// allowed to mark attendance
   Future<bool> isRegistrationValid(bool canPing) async {
     if (canPing) {
-      return await RegistrationAPi.isRegistrationValid();
+      if (Globals.isFaculty)
+        return await FacultyApi.isFacultyVerified();
+      else
+        return await RegistrationAPi.isRegistrationValid();
     } else {
       return Future.value(false);
     }

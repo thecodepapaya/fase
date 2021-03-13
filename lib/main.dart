@@ -2,6 +2,9 @@ import 'dart:io';
 
 import 'package:fase/globals.dart';
 import 'package:fase/string_resource.dart';
+import 'package:fase/ui/faculty/course_page.dart';
+import 'package:fase/ui/faculty/faculty_home.dart';
+import 'package:fase/ui/home_page.dart';
 import 'package:fase/ui/sign_in_handler.dart';
 import 'package:fase/ui/student/course_page.dart';
 import 'package:fase/ui/student/student_home.dart';
@@ -49,8 +52,9 @@ class MyApp extends StatelessWidget {
       initialRoute: SignInHandler.route,
       routes: {
         SignInHandler.route: (_) => SignInHandler(),
-        StudentHomePage.route: (_) => StudentHomePage(),
+        HomePage.route: (_) => HomePage(),
         StudentCoursePage.route: (_) => StudentCoursePage(),
+        FacultyCoursePage.route: (_) => FacultyCoursePage(),
       },
     );
   }
