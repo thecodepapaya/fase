@@ -11,14 +11,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class StudentHomePage extends StatefulWidget {
-  static const route = '/studentHomePage';
+class FacultyHomePage extends StatefulWidget {
+  static const route = '/facultyHomePage';
 
   @override
-  _StudentHomePageState createState() => _StudentHomePageState();
+  _FacultyHomePageState createState() => _FacultyHomePageState();
 }
 
-class _StudentHomePageState extends State<StudentHomePage> {
+class _FacultyHomePageState extends State<FacultyHomePage> {
   final StartupCheck _checks = StartupCheck();
   bool _isloading = true;
   bool _allCheckPass = false;

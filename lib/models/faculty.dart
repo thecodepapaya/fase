@@ -2,8 +2,9 @@
 //
 //     final faculty = facultyFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
+
+import 'package:meta/meta.dart';
 
 class Faculty {
   Faculty({
