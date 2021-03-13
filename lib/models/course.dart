@@ -9,7 +9,7 @@ import 'package:meta/meta.dart';
 
 class Course {
   Course({
-    @required this.id,
+    this.id,
     @required this.instructor,
     @required this.courseCode,
     @required this.courseName,

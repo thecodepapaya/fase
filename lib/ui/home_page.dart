@@ -5,8 +5,6 @@ import 'package:fase/models/student.dart';
 import 'package:fase/string_resource.dart';
 import 'package:fase/styles.dart';
 import 'package:fase/ui/course_page.dart';
-import 'package:fase/ui/faculty/course_page.dart';
-import 'package:fase/ui/student/course_page.dart';
 import 'package:fase/utils/api.dart';
 import 'package:fase/utils/location_permission.dart';
 import 'package:fase/utils/startup_check.dart';

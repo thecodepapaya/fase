@@ -1,9 +1,12 @@
 class StringResources {
-  //static const String name = "";
   static const String methodChannel = 'in.ac.iiitvadodara.fase/rooted';
   static const String serverKey = "server-key";
   static const String accessToken = "access-token";
   static const String emailDomain = "@iiitvadodara.ac.in";
+
+  static const String autumn = "autumn";
+  static const String winter = "winter";
+  //static const String name = "";
 
   /* Display Text */
 
@@ -17,7 +20,7 @@ class StringResources {
   static const String quit = "Quit";
   static const String openSettings = "Open Settings";
 
-  static const String attendaneMarked = "Attendane Marked";
+  static const String attendanceMarked = "Attendane Marked";
   static const String success = "Success";
 
   static const String permissionRationaleTitle =
@@ -75,6 +78,7 @@ class StringResources {
   static const String courses = "Courses";
   static const String loginAsStudent = "Logged in as Student";
   static const String loginAsFaculty = "Logged in as Faculty";
+
   static const String yourCourses = "Your Courses";
   static const String fetchingCourses = "Fetching your courses ...";
   static const String noCourseRegistered = "No courses registered";
@@ -82,6 +86,14 @@ class StringResources {
       "You have not registered any course for this semester. Tap the + icon to add new courses";
   static const String fetchingRegisteredCourses =
       "Looking for registered courses...";
+  static const String attendanceStarted = "Attendance started";
+  static const String failedStartAttendance =
+      "Failed to start Attendance, try logging out and logging back in";
+  // static const String name = "";
+
+  static const String addEditCourse = "Add/Edit a course";
+  // static const String name = "";
+  // static const String name = "";
   // static const String name = "";
   // static const String name = "";
 }

@@ -71,7 +71,8 @@ class CourseApi {
     return course;
   }
 
-  static Future<Course> postCourse(Course course) async {
+  /// Update details of a course given it's course ID
+  static Future<Course> postUpdateCourse(Course course) async {
     final String accessToken =
         await Globals.secureStorage.read(key: StringResources.accessToken);
     http.Response response = await http.post(
@@ -81,6 +82,18 @@ class CourseApi {
     );
     Course updatedCourse = Course.fromRawJson(response.body);
     return updatedCourse;
+  }
+
+  static Future<Course> postNewCourse(Course course) async {
+    final String accessToken =
+        await Globals.secureStorage.read(key: StringResources.accessToken);
+    http.Response response = await http.post(
+      BASE_URL + _endpoint + '?token=$accessToken',
+      body: course.toRawJson(),
+      headers: postHeader,
+    );
+    Course addedCourse = Course.fromRawJson(response.body);
+    return addedCourse;
   }
 }
 

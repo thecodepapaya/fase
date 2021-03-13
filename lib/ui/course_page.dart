@@ -4,6 +4,7 @@ import 'package:fase/models/course.dart';
 import 'package:fase/models/student.dart';
 import 'package:fase/string_resource.dart';
 import 'package:fase/styles.dart';
+import 'package:fase/ui/course_editpage.dart';
 import 'package:fase/utils/api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -61,6 +62,14 @@ class _CoursePageState extends State<CoursePage> {
                   },
                 )
               : Container(),
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: () {
+              setState(() {
+                fetchCourses();
+              });
+            },
+          ),
         ],
       ),
       body: Padding(
@@ -91,8 +100,9 @@ class _CoursePageState extends State<CoursePage> {
     );
   }
 
-  //TODO
-  void addCourses() {}
+  void addCourses() {
+    Navigator.of(context).pushNamed(CourseEditPage.route);
+  }
 
   Widget _courseList() {
     List<Widget> tiles = [];
@@ -118,24 +128,48 @@ class _CoursePageState extends State<CoursePage> {
             ? Text(course.semester + ' ' + course.academicYear)
             : Text(course.instructor.name),
         trailing: IconButton(
-          icon: Icon(Icons.menu_book_outlined),
-          onPressed: () {
+          icon: Icon(
+            Globals.isFaculty ? Icons.watch_later_rounded : Icons.person_add,
+          ),
+          onPressed: () async {
+            await Globals.initialize();
+
             if (Globals.isFaculty) {
-              startAttendance(course);
+              await startAttendance(course);
             } else {
-              markAttendance(course);
+              await markAttendance(course);
             }
           },
         ),
+        onTap: () {
+          Navigator.of(context).pushNamed(
+            CourseEditPage.route,
+            arguments: course,
+          );
+        },
       ),
     );
   }
 
-  //TODO
-  Future<void> startAttendance(Course course) async {}
+  Future<void> startAttendance(Course oldCourse) async {
+    Course newCourse = oldCourse.copyWith(startTimestamp: DateTime.now());
+    // Needed since Google UID is not received from server and hence is not
+    // stored by default in the course object either. Thus adding the value
+    // explicitly. It is necessary as it is like a password for faculties.
+    newCourse.instructor.googleUid = FirebaseAuth.instance.currentUser.uid;
+    Course updatedCourse = await CourseApi.postUpdateCourse(newCourse);
+    if (updatedCourse.startTimestamp == oldCourse.startTimestamp) {
+      Fluttertoast.showToast(msg: StringResources.failedStartAttendance);
+    } else {
+      Fluttertoast.showToast(
+        msg: StringResources.attendanceStarted +
+            'for ${updatedCourse.courseCode}',
+        toastLength: Toast.LENGTH_LONG,
+      );
+    }
+  }
 
   Future<void> markAttendance(Course course) async {
-    await Globals.initialize();
     User user = FirebaseAuth.instance.currentUser;
     String serverKey =
         await Globals.secureStorage.read(key: StringResources.serverKey);
@@ -159,7 +193,7 @@ class _CoursePageState extends State<CoursePage> {
       serverKey: serverKey,
     );
     await AttendanceAPi.postAttendance(attendance);
-    Fluttertoast.showToast(msg: StringResources.attendaneMarked);
+    Fluttertoast.showToast(msg: StringResources.attendanceMarked);
   }
 
   Future dialog(String title, String body) {

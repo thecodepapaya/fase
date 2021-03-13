@@ -13,9 +13,9 @@ class Faculty {
     @required this.name,
   });
 
-  final String instituteEmail;
-  final String googleUid;
-  final String name;
+  String instituteEmail;
+  String googleUid;
+  String name;
 
   Faculty copyWith({
     String instituteEmail,
