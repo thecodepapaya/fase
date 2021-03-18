@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 
 import com.scottyab.rootbeer.RootBeer;
 
-import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 import io.flutter.Log;
@@ -24,7 +23,7 @@ public class MainActivity extends FlutterActivity {
     AdvertiseCallback advertisingCallback = new AdvertiseCallback() {
         @Override
         public void onStartSuccess(AdvertiseSettings settingsInEffect) {
-            Log.e("BLE", "Advertising onStartSuccess: ");
+            Log.e("BLE", "Advertising onStartSuccess");
             super.onStartSuccess(settingsInEffect);
         }
 
@@ -45,7 +44,8 @@ public class MainActivity extends FlutterActivity {
                         boolean rootStatus = getRootStatus();
                         result.success(rootStatus);
                     } else if (call.method.equals("bleAd")) {
-                        startBleAdvertisement();
+                        String data = call.argument("data");
+                        startBleAdvertisement(data);
                         result.success(true);
                     } else {
                         result.notImplemented();
@@ -58,22 +58,17 @@ public class MainActivity extends FlutterActivity {
         return rootBeer.isRooted();
     }
 
-    private void startBleAdvertisement() {
+    private void startBleAdvertisement(String adData) {
         BluetoothLeAdvertiser advertiser = BluetoothAdapter.getDefaultAdapter().getBluetoothLeAdvertiser();
 
         AdvertiseSettings settings = new AdvertiseSettings.Builder()
                 .setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_LATENCY)
-                .setTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_HIGH)
-                .setConnectable(false)
-                .build();
+                .setTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_HIGH).setConnectable(false).build();
 
-        ParcelUuid pUuid = new ParcelUuid(UUID.fromString("CDB7950D-73F1-4D4D-8E47-C090502DBD63"));
+        ParcelUuid pUuid = new ParcelUuid(UUID.fromString("2d2c1391-8609-4c5b-9767-b6bb845a425b"));
 
-        AdvertiseData data = new AdvertiseData.Builder()
-                .setIncludeDeviceName(false)
-//                .addServiceUuid(pUuid)
-                .addServiceData(pUuid, "201851029".getBytes())
-                .build();
+        AdvertiseData data = new AdvertiseData.Builder().setIncludeDeviceName(false)
+                .addServiceData(pUuid, adData.getBytes()).build();
 
         advertiser.startAdvertising(settings, data, advertisingCallback);
     }

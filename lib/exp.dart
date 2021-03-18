@@ -26,7 +26,7 @@ class _ExperimentState extends State<Experiment> {
           const platform = const MethodChannel(StringResources.methodChannel);
           var value;
           try {
-            value = await platform.invokeMethod('bleAd');
+            value = await platform.invokeMethod('bleAd', {"data": "new-data"});
           } on PlatformException catch (e) {
             print('''Failed $e''');
           }
