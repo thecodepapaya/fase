@@ -38,7 +38,7 @@ android {
 
     defaultConfig {
         applicationId "in.ac.iiitvadodara.fase"
-        minSdkVersion 18
+        minSdkVersion 21
         targetSdkVersion 30
         multiDexEnabled true
         versionCode flutterVersionCode.toInteger()

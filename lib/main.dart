@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:fase/exp.dart';
 import 'package:fase/globals.dart';
 import 'package:fase/string_resource.dart';
 import 'package:fase/ui/course_editpage.dart';
@@ -46,12 +47,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(primarySwatch: Colors.blue),
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
-      initialRoute: SignInHandler.route,
+      // initialRoute: SignInHandler.route,
+      initialRoute: Experiment.route,
       routes: {
         SignInHandler.route: (_) => SignInHandler(),
         HomePage.route: (_) => HomePage(),
         CoursePage.route: (_) => CoursePage(),
         CourseEditPage.route: (_) => CourseEditPage(),
+        Experiment.route:(_)=> Experiment(),
       },
     );
   }
