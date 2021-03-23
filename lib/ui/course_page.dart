@@ -10,6 +10,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+// void callbackDispatcher() {
+//   Workmanager.executeTask((task, inputData) async {
+//     return Future.value(true);
+//   });
+// }
+
 class CoursePage extends StatefulWidget {
   static const route = '/CoursePage';
 
@@ -192,8 +198,21 @@ class _CoursePageState extends State<CoursePage> {
       localIp: Globals.wifiLocalIP,
       serverKey: serverKey,
     );
-    await AttendanceAPi.postAttendance(attendance);
+    Attendance postedAttendance =
+        await AttendanceAPi.postAttendance(attendance);
     Fluttertoast.showToast(msg: StringResources.attendanceMarked);
+    // Workmanager.registerOneOffTask(
+    //   "1",
+    //   'simpleTask',
+    //   inputData: <String, dynamic>{
+    //     'int': 1,
+    //     'bool': true,
+    //     'double': 1.0,
+    //     'string': 'string',
+    //     'array': [1, 2, 3],
+    //   },
+    // );
+    // startBLEverification(postedAttendance);
   }
 
   Future dialog(String title, String body) {
@@ -232,4 +251,15 @@ class _CoursePageState extends State<CoursePage> {
       ],
     );
   }
+
+//   Future startBLEverification(Attendance attendance) async {
+//     const platform = const MethodChannel(StringResources.methodChannel);
+//     var value;
+//     try {
+//       value = await platform.invokeMethod('bleAd', {"data": "new-data"});
+//     } on PlatformException catch (e) {
+//       print('''Failed $e''');
+//     }
+//     print("Value Method call: $value");
+//   }
 }

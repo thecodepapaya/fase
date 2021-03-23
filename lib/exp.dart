@@ -1,6 +1,9 @@
 import 'package:fase/string_resource.dart';
+import 'package:fase/utils/ble.dart';
+import 'package:fase/utils/notification_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:workmanager/workmanager.dart';
 
 class Experiment extends StatefulWidget {
   static const route = '/exp';
@@ -18,7 +21,10 @@ class _ExperimentState extends State<Experiment> {
       body: Center(
         child: ElevatedButton(
           child: Text("beacon"),
-          onPressed: () {},
+          onPressed: () async {
+            // BluetoothLE.initialize();
+            Workmanager.registerOneOffTask("1", "show notif");
+          },
         ),
       ),
       floatingActionButton: FloatingActionButton(
