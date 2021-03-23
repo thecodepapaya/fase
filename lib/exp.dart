@@ -1,6 +1,4 @@
 import 'package:fase/string_resource.dart';
-import 'package:fase/utils/ble.dart';
-import 'package:fase/utils/notification_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:workmanager/workmanager.dart';
@@ -22,7 +20,6 @@ class _ExperimentState extends State<Experiment> {
         child: ElevatedButton(
           child: Text("beacon"),
           onPressed: () async {
-            // BluetoothLE.initialize();
             Workmanager.registerOneOffTask("1", "show notif");
           },
         ),

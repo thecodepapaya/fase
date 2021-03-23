@@ -7,27 +7,14 @@ import 'package:fase/ui/course_editpage.dart';
 import 'package:fase/ui/course_page.dart';
 import 'package:fase/ui/home_page.dart';
 import 'package:fase/ui/sign_in_handler.dart';
+import 'package:fase/utils/background_execution.dart';
 import 'package:fase/utils/notification_handler.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_performance/firebase_performance.dart';
+import 'package:flutter/foundation.dart' as Foundation;
 import 'package:flutter/material.dart';
 import 'package:workmanager/workmanager.dart';
-
-void callbackDispatcher() {
-  Workmanager.executeTask((task, inputData) async {
-    print('$task for input data $inputData');
-    Future.delayed(Duration(seconds: 5), () {
-      NotificationsHandler.showVerifiedNotification();
-    });
-    print('scheduled');
-    Future.delayed(Duration(seconds: 15), () {
-      NotificationsHandler.cancelNotification(1);
-    });
-    print('cancelled');
-    return Future.value(true);
-  });
-}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,7 +28,7 @@ void main() async {
   HttpOverrides.global = new MyHttpOverrides();
   Workmanager.initialize(
     callbackDispatcher,
-    isInDebugMode: true,
+    isInDebugMode: Foundation.kDebugMode,
   );
   await NotificationsHandler.initialize();
   myTrace.stop();

@@ -1,3 +1,4 @@
+import 'package:fase/string_resource.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
@@ -35,18 +36,18 @@ class NotificationsHandler {
   static Future<void> showBLENotification() async {
     const BigTextStyleInformation bigTextStyleInformation =
         BigTextStyleInformation(
-      'Verifying your attendance over BLE. This can take upto 10 minutes to complete. Please do not turn off Bluetooth or diconnect yourself from the IIITV WIFI',
+      StringResources.notifAttendanceBLEBodyBig,
       htmlFormatBigText: true,
-      contentTitle: 'Verifying your Attendance',
+      contentTitle: StringResources.notifAttendanceBLEHeadBig,
       htmlFormatContentTitle: true,
-      summaryText: 'BLE Verification',
+      summaryText: StringResources.notifAttendanceBLESummaryBig,
       htmlFormatSummaryText: true,
     );
     const AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
-      'BLEV',
-      'Attendance verification',
-      'Verifying attendance over BluetoothLE',
+      StringResources.notifChannelId,
+      StringResources.notifChannelName,
+      StringResources.notifChannelDescription,
       importance: Importance.high,
       priority: Priority.high,
       playSound: false,
@@ -60,8 +61,8 @@ class NotificationsHandler {
     );
     await _flutterLocalNotificationsPlugin.show(
       0,
-      'Verifying your attendance',
-      'Please do NOT turn off Bluetooth or stop the app',
+      StringResources.notifAttendanceBLEHead,
+      StringResources.notifAttendanceBLEBody,
       platformChannelSpecifics,
     );
   }
@@ -69,9 +70,9 @@ class NotificationsHandler {
   static Future<void> showVerifiedNotification() async {
     const AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
-      'BLEV',
-      'Attendance verification',
-      'Verifying attendance over BluetoothLE',
+      StringResources.notifChannelId,
+      StringResources.notifChannelName,
+      StringResources.notifChannelDescription,
       importance: Importance.high,
       priority: Priority.high,
       ticker: 'ticker',
@@ -80,8 +81,8 @@ class NotificationsHandler {
         NotificationDetails(android: androidPlatformChannelSpecifics);
     await _flutterLocalNotificationsPlugin.show(
       1,
-      'Verification complete',
-      'Attendance verification process complete',
+      StringResources.notifAttendanceVerifiedHead,
+      StringResources.notifAttendanceVerifiedBody,
       platformChannelSpecifics,
     );
   }

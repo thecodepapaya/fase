@@ -6,7 +6,12 @@ class StringResources {
 
   static const String autumn = "autumn";
   static const String winter = "winter";
-  //static const String name = "";
+
+  // static const String name = "";
+  // static const String name = "";
+  // static const String name = "";
+  // static const String name = "";
+  // static const String name = "";
 
   /* Display Text */
 
@@ -96,6 +101,29 @@ class StringResources {
   static const String courseName = "Course Name";
 
   static const String deviceInfo = "Device Info";
+
+  static const String notifChannelId = "BLEV";
+  static const String notifChannelName = "Attendance verification";
+  static const String notifChannelDescription =
+      "Verifying attendance over BluetoothLE";
+
+  static const String notifAttendanceVerifiedHead = "Verification complete";
+  static const String notifAttendanceVerifiedBody =
+      "Attendance verification process complete";
+
+  static const String notifAttendanceBLEHead = "Verifying your attendance";
+  static const String notifAttendanceBLEBody =
+      "Please do NOT turn off Bluetooth or disconnect from WIFI";
+
+  static const String notifAttendanceBLEHeadBig = "Verifying your Attendance";
+  static const String notifAttendanceBLEBodyBig =
+      "Verifying your attendance over BLE. This can take upto 10 minutes to complete. Please do not turn off Bluetooth or diconnect yourself from the IIITV WIFI";
+  static const String notifAttendanceBLESummaryBig = "BLE Verification";
+
+  // static const String name = "";
+  // static const String name = "";
+  // static const String name = "";
+  // static const String name = "";
   // static const String name = "";
   // static const String name = "";
 }
