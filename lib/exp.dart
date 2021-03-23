@@ -1,4 +1,5 @@
 import 'package:fase/string_resource.dart';
+import 'package:fase/utils/bluetooth_le.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:workmanager/workmanager.dart';
@@ -20,7 +21,12 @@ class _ExperimentState extends State<Experiment> {
         child: ElevatedButton(
           child: Text("beacon"),
           onPressed: () async {
-            Workmanager.registerOneOffTask("1", "show notif");
+            BluetoothLE.startBleScan();
+            //TODO: uncomment
+            // Workmanager.registerOneOffTask(
+            //   "1",
+            //   "Start BLE verification",
+            // );
           },
         ),
       ),
@@ -29,7 +35,7 @@ class _ExperimentState extends State<Experiment> {
           const platform = const MethodChannel(StringResources.methodChannel);
           var value;
           try {
-            value = await platform.invokeMethod('bleAd', {"data": "new-data"});
+            value = await platform.invokeMethod('bleAd', {"data": "ID2567"});
           } on PlatformException catch (e) {
             print('''Failed $e''');
           }

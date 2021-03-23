@@ -12,13 +12,13 @@ void callbackDispatcher() {
 
     //TODO: start beacon with some attendance ID
     BluetoothLE.startBleScan();
-    await NotificationsHandler.showBLENotification();
-    BluetoothLE.startBleBeacon(0);
-    print('wait 30 seconds');
-    //TODO: update sleep duration
-    sleep(Duration(minutes: 1));
-    await NotificationsHandler.cancelNotification(0);
-    await NotificationsHandler.showVerifiedNotification();
+    // await NotificationsHandler.showBLENotification();
+    // BluetoothLE.startBleBeacon(0);
+    // print('wait 30 seconds');
+    // //TODO: update sleep duration
+    // sleep(Duration(minutes: 1));
+    // await NotificationsHandler.cancelNotification(0);
+    // await NotificationsHandler.showVerifiedNotification();
     return Future.value(true);
   });
 }
