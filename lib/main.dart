@@ -7,14 +7,11 @@ import 'package:fase/ui/course_editpage.dart';
 import 'package:fase/ui/course_page.dart';
 import 'package:fase/ui/home_page.dart';
 import 'package:fase/ui/sign_in_handler.dart';
-import 'package:fase/utils/background_execution.dart';
 import 'package:fase/utils/notification_handler.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_performance/firebase_performance.dart';
-import 'package:flutter/foundation.dart' as Foundation;
 import 'package:flutter/material.dart';
-import 'package:workmanager/workmanager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,10 +23,6 @@ void main() async {
   myTrace.start();
   await Globals.initialize();
   HttpOverrides.global = new MyHttpOverrides();
-  Workmanager.initialize(
-    callbackDispatcher,
-    isInDebugMode: Foundation.kDebugMode,
-  );
   await NotificationsHandler.initialize();
   myTrace.stop();
 

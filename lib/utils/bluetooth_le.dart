@@ -1,6 +1,7 @@
-import 'dart:io';
+import 'dart:async';
 
 import 'package:fase/string_resource.dart';
+import 'package:fase/utils/notification_handler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 
@@ -22,14 +23,15 @@ class BluetoothLE {
 
   static void startBleScan() async {
     FlutterBlue flutterBlue = FlutterBlue.instance;
-    List<ScanResult> results = [];
+    StreamSubscription subscription;
+    // List<ScanResult> results = [];
 
     //TODO set duration from course start time and attendance duration
     flutterBlue.startScan(timeout: Duration(seconds: 30));
-    print('Started Scanning');
+    print('Starting Scan');
+    NotificationsHandler.showBLENotification();
 
-    // ignore: cancel_subscriptions
-    var subscription = flutterBlue.scanResults.listen((results) {
+    subscription = flutterBlue.scanResults.listen((results) {
       for (ScanResult result in results) {
         print(
             'Service data: ${result.advertisementData.serviceData} with service UUID: ${result.advertisementData.serviceUuids}');

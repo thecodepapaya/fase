@@ -1,8 +1,7 @@
 import 'package:fase/string_resource.dart';
-import 'package:fase/utils/bluetooth_le.dart';
+import 'package:flt_worker/flt_worker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:workmanager/workmanager.dart';
 
 class Experiment extends StatefulWidget {
   static const route = '/exp';
@@ -21,12 +20,7 @@ class _ExperimentState extends State<Experiment> {
         child: ElevatedButton(
           child: Text("beacon"),
           onPressed: () async {
-            BluetoothLE.startBleScan();
-            //TODO: uncomment
-            // Workmanager.registerOneOffTask(
-            //   "1",
-            //   "Start BLE verification",
-            // );
+            // BluetoothLE.startBleScan();
           },
         ),
       ),

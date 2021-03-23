@@ -60,16 +60,12 @@ public class MainActivity extends FlutterActivity {
 
     private void startBleAdvertisement(String adData) {
         BluetoothLeAdvertiser advertiser = BluetoothAdapter.getDefaultAdapter().getBluetoothLeAdvertiser();
-
         AdvertiseSettings settings = new AdvertiseSettings.Builder()
                 .setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_LATENCY)
                 .setTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_HIGH).setConnectable(false).build();
-
         ParcelUuid pUuid = new ParcelUuid(UUID.fromString("2d2c1391-8609-4c5b-9767-b6bb845a425b"));
-
         AdvertiseData data = new AdvertiseData.Builder().setIncludeDeviceName(false)
                 .addServiceData(pUuid, adData.getBytes()).build();
-
         advertiser.startAdvertising(settings, data, advertisingCallback);
     }
 
