@@ -8,6 +8,11 @@ import android.bluetooth.le.BluetoothLeAdvertiser;
 import android.os.ParcelUuid;
 
 import androidx.annotation.NonNull;
+import androidx.work.Constraints;
+import androidx.work.NetworkType;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
 
 import com.scottyab.rootbeer.RootBeer;
 
@@ -17,6 +22,8 @@ import io.flutter.Log;
 import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.plugin.common.MethodChannel;
+
+import android.content.Context;
 
 public class MainActivity extends FlutterActivity {
     private static final String CHANNEL = "in.ac.iiitvadodara.fase/rooted";
@@ -40,15 +47,24 @@ public class MainActivity extends FlutterActivity {
         new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), CHANNEL)
                 .setMethodCallHandler((call, result) -> {
                     // Note: this method is invoked on the main thread.
-                    if (call.method.equals("getRootStatus")) {
-                        boolean rootStatus = getRootStatus();
-                        result.success(rootStatus);
-                    } else if (call.method.equals("bleAd")) {
-                        String data = call.argument("data");
-                        startBleAdvertisement(data);
-                        result.success(true);
-                    } else {
-                        result.notImplemented();
+                    switch (call.method) {
+                        case "getRootStatus":
+                            boolean rootStatus = getRootStatus();
+                            result.success(rootStatus);
+                            break;
+                        case "bleAd":
+                            String data = call.argument("data");
+                            startBleAdvertisement(data);
+                            result.success(true);
+                            break;
+                        case "bleScan":
+                            Integer attendanceID = call.argument("data");
+                            startBleScan(attendanceID);
+                            result.success(true);
+                            break;
+                        default:
+                            result.notImplemented();
+                            break;
                     }
                 });
     }
@@ -69,4 +85,18 @@ public class MainActivity extends FlutterActivity {
         advertiser.startAdvertising(settings, data, advertisingCallback);
     }
 
+    private void startBleScan(Integer attendanceID) {
+        Constraints constraints = new Constraints.Builder()
+                .setRequiresBatteryNotLow(false)
+                .setRequiredNetworkType(NetworkType.NOT_REQUIRED)
+                .setRequiresCharging(false)
+                .setRequiresStorageNotLow(false)
+                .setRequiresDeviceIdle(false)
+                .build();
+
+        WorkRequest scanWorkRequest = new OneTimeWorkRequest.Builder(ScanWorker.class).setConstraints(constraints).build();
+
+        WorkManager.getInstance(this).enqueue(scanWorkRequest);
+    }
 }
+

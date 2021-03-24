@@ -1,4 +1,5 @@
 import 'package:fase/string_resource.dart';
+import 'package:fase/utils/bluetooth_le.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -19,7 +20,7 @@ class _ExperimentState extends State<Experiment> {
         child: ElevatedButton(
           child: Text("beacon"),
           onPressed: () async {
-            // BluetoothLE.startBleScan();
+            BluetoothLE.startBleScan();
           },
         ),
       ),
