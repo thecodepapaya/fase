@@ -51,8 +51,7 @@ class NotificationsHandler {
       importance: Importance.high,
       priority: Priority.high,
       playSound: false,
-      //TODO manage timeout later
-      timeoutAfter: 60000,
+      timeoutAfter: 300000,
       ongoing: true,
       autoCancel: false,
       usesChronometer: true,

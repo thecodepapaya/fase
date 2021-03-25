@@ -217,7 +217,6 @@ class AttendanceAPi {
     return attendance;
   }
 
-  //TODO: pending test
   static Future<bool> postBleVerification(int attendanceId) async {
     final String serverKey =
         await Globals.secureStorage.read(key: StringResources.serverKey);
