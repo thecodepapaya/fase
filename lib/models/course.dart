@@ -16,7 +16,7 @@ class Course {
     @required this.semester,
     @required this.academicYear,
     @required this.startTimestamp,
-    @required this.attendanceDuration,
+    this.attendanceDuration = 30,
   });
 
   final int id;
@@ -75,3 +75,14 @@ class Course {
         "attendance_duration": attendanceDuration,
       };
 }
+
+final Course defaultCourse = Course(
+  instructor: Faculty(
+      instituteEmail: "instituteEmail", googleUid: "googleUid", name: "name"),
+  courseCode: "courseCode",
+  courseName: "courseName",
+  semester: "semester",
+  academicYear: "academicYear",
+  startTimestamp: DateTime.now(),
+  attendanceDuration: 30,
+);

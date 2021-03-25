@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:fase/exp.dart';
 import 'package:fase/globals.dart';
 import 'package:fase/string_resource.dart';
+import 'package:fase/ui/attendance_verification_page.dart';
 import 'package:fase/ui/course_editpage.dart';
 import 'package:fase/ui/course_page.dart';
 import 'package:fase/ui/home_page.dart';
@@ -32,20 +32,35 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: StringResources.fase,
-      theme: ThemeData(primarySwatch: Colors.blue),
-      darkTheme: ThemeData.dark(),
-      themeMode: ThemeMode.system,
-      // initialRoute: SignInHandler.route,
-      initialRoute: Experiment.route,
-      routes: {
-        SignInHandler.route: (_) => SignInHandler(),
-        HomePage.route: (_) => HomePage(),
-        CoursePage.route: (_) => CoursePage(),
-        CourseEditPage.route: (_) => CourseEditPage(),
-        Experiment.route: (_) => Experiment(),
+    return WillPopScope(
+      onWillPop: () {
+        // if (Platform.isAndroid) {
+        if (Navigator.of(context).canPop()) {
+          return Future.value(true);
+        } else {
+          //TODO: add confirmation dialog
+          return Future.value(false);
+        }
+        // } else {
+        //   return Future.value(true);
+        // }
       },
+      child: MaterialApp(
+        title: StringResources.fase,
+        theme: ThemeData(primarySwatch: Colors.blue),
+        darkTheme: ThemeData.dark(),
+        themeMode: ThemeMode.system,
+        initialRoute: SignInHandler.route,
+        // initialRoute: Experiment.route,
+        routes: {
+          SignInHandler.route: (_) => SignInHandler(),
+          HomePage.route: (_) => HomePage(),
+          CoursePage.route: (_) => CoursePage(),
+          CourseEditPage.route: (_) => CourseEditPage(),
+          AttendanceVerificationPage.route: (_) => AttendanceVerificationPage(),
+          // Experiment.route: (_) => Experiment(),
+        },
+      ),
     );
   }
 }

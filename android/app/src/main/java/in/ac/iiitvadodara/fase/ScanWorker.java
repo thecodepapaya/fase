@@ -24,7 +24,9 @@ public class ScanWorker extends Worker {
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
             BluetoothDevice device = result.getDevice();
-            Log.d("device-found", "Found a BLE device: " + result);
+            Log.d("device-found", "Found a BLE device: " + device);
+            Log.d("device-found", "BLE Result: " + result.getScanRecord());
+//            Log.d("device-found", "Advertise Flags: " + result.getScanRecord().getAdvertiseFlags());
         }
 
         @Override

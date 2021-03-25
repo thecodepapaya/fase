@@ -98,8 +98,9 @@ class _CourseEditPageState extends State<CourseEditPage> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.save),
         onPressed: () async {
+          final bool isNew = _course == null;
           User user = FirebaseAuth.instance.currentUser;
-          _course = _course.copyWith(
+          _course = Course(
             instructor: Faculty(
               googleUid: user.uid,
               instituteEmail: user.email,
@@ -114,7 +115,7 @@ class _CourseEditPageState extends State<CourseEditPage> {
             ),
           );
           Course receivedCourse;
-          receivedCourse = _course == null
+          receivedCourse = isNew
               ? await CourseApi.postNewCourse(_course)
               : await CourseApi.postUpdateCourse(_course);
           // i.e if request was successful

@@ -4,6 +4,7 @@ import 'package:fase/models/course.dart';
 import 'package:fase/models/student.dart';
 import 'package:fase/string_resource.dart';
 import 'package:fase/styles.dart';
+import 'package:fase/ui/attendance_verification_page.dart';
 import 'package:fase/ui/course_editpage.dart';
 import 'package:fase/utils/api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -147,12 +148,14 @@ class _CoursePageState extends State<CoursePage> {
             }
           },
         ),
-        onTap: () {
-          Navigator.of(context).pushNamed(
-            CourseEditPage.route,
-            arguments: course,
-          );
-        },
+        onTap: Globals.isFaculty
+            ? () {
+                Navigator.of(context).pushNamed(
+                  CourseEditPage.route,
+                  arguments: course,
+                );
+              }
+            : null,
       ),
     );
   }
@@ -201,18 +204,11 @@ class _CoursePageState extends State<CoursePage> {
     Attendance postedAttendance =
         await AttendanceAPi.postAttendance(attendance);
     Fluttertoast.showToast(msg: StringResources.attendanceMarked);
-    // Workmanager.registerOneOffTask(
-    //   "1",
-    //   'simpleTask',
-    //   inputData: <String, dynamic>{
-    //     'int': 1,
-    //     'bool': true,
-    //     'double': 1.0,
-    //     'string': 'string',
-    //     'array': [1, 2, 3],
-    //   },
-    // );
-    // startBLEverification(postedAttendance);
+    Navigator.pushReplacementNamed(
+      context,
+      AttendanceVerificationPage.route,
+      arguments: postedAttendance,
+    );
   }
 
   Future dialog(String title, String body) {

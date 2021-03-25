@@ -23,7 +23,6 @@ import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.plugin.common.MethodChannel;
 
-import android.content.Context;
 
 public class MainActivity extends FlutterActivity {
     private static final String CHANNEL = "in.ac.iiitvadodara.fase/rooted";
@@ -57,9 +56,13 @@ public class MainActivity extends FlutterActivity {
                             startBleAdvertisement(data);
                             result.success(true);
                             break;
+                        // Below two are not used
+                        case "sendToBackground":
+                            sendToBack();
+                            result.success(true);
+                            break;
                         case "bleScan":
-                            Integer attendanceID = call.argument("data");
-                            startBleScan(attendanceID);
+                            startBleScan();
                             result.success(true);
                             break;
                         default:
@@ -85,7 +88,11 @@ public class MainActivity extends FlutterActivity {
         advertiser.startAdvertising(settings, data, advertisingCallback);
     }
 
-    private void startBleScan(Integer attendanceID) {
+    private void sendToBack(){
+    //    moveTaskToBack(true);
+    }
+
+    private void startBleScan() {
         Constraints constraints = new Constraints.Builder()
                 .setRequiresBatteryNotLow(false)
                 .setRequiredNetworkType(NetworkType.NOT_REQUIRED)
