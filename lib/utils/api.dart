@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:fase/globals.dart';
 import 'package:fase/models/attendance_data.dart';
+import 'package:fase/models/ble_verification.dart';
 import 'package:fase/models/course.dart';
 import 'package:fase/models/faculty.dart';
 import 'package:fase/models/metadata.dart';
@@ -171,6 +172,7 @@ class RegistrationAPi {
 
 class AttendanceAPi {
   static const _endpoint = 'attendance/';
+  static const _endpointBLE = 'ble-verification/';
 
   // static Attendance _attendanceData = Attendance(
   //   studentData: StudentData(
@@ -213,6 +215,21 @@ class AttendanceAPi {
       attendance.add(Attendance.fromJson(attendanceJson));
     });
     return attendance;
+  }
+
+  static Future<bool> postBleVerification(int attendanceId) async {
+    final String serverKey =
+        await Globals.secureStorage.read(key: StringResources.serverKey);
+    BleVerification bleVerification = BleVerification(
+      verifiedBy: FirebaseAuth.instance.currentUser.email,
+      verifiedFor: attendanceId,
+    );
+    http.Response response = await http.post(
+      BASE_URL + _endpointBLE + '?key=$serverKey',
+      body: bleVerification.toRawJson(),
+      headers: postHeader,
+    );
+    return response.statusCode == 200;
   }
 }
 

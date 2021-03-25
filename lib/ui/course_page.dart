@@ -4,11 +4,18 @@ import 'package:fase/models/course.dart';
 import 'package:fase/models/student.dart';
 import 'package:fase/string_resource.dart';
 import 'package:fase/styles.dart';
+import 'package:fase/ui/attendance_verification_page.dart';
 import 'package:fase/ui/course_editpage.dart';
 import 'package:fase/utils/api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+// void callbackDispatcher() {
+//   Workmanager.executeTask((task, inputData) async {
+//     return Future.value(true);
+//   });
+// }
 
 class CoursePage extends StatefulWidget {
   static const route = '/CoursePage';
@@ -141,12 +148,14 @@ class _CoursePageState extends State<CoursePage> {
             }
           },
         ),
-        onTap: () {
-          Navigator.of(context).pushNamed(
-            CourseEditPage.route,
-            arguments: course,
-          );
-        },
+        onTap: Globals.isFaculty
+            ? () {
+                Navigator.of(context).pushNamed(
+                  CourseEditPage.route,
+                  arguments: course,
+                );
+              }
+            : null,
       ),
     );
   }
@@ -192,8 +201,14 @@ class _CoursePageState extends State<CoursePage> {
       localIp: Globals.wifiLocalIP,
       serverKey: serverKey,
     );
-    await AttendanceAPi.postAttendance(attendance);
+    Attendance postedAttendance =
+        await AttendanceAPi.postAttendance(attendance);
     Fluttertoast.showToast(msg: StringResources.attendanceMarked);
+    Navigator.pushReplacementNamed(
+      context,
+      AttendanceVerificationPage.route,
+      arguments: postedAttendance,
+    );
   }
 
   Future dialog(String title, String body) {
@@ -232,4 +247,15 @@ class _CoursePageState extends State<CoursePage> {
       ],
     );
   }
+
+//   Future startBLEverification(Attendance attendance) async {
+//     const platform = const MethodChannel(StringResources.methodChannel);
+//     var value;
+//     try {
+//       value = await platform.invokeMethod('bleAd', {"data": "new-data"});
+//     } on PlatformException catch (e) {
+//       print('''Failed $e''');
+//     }
+//     print("Value Method call: $value");
+//   }
 }

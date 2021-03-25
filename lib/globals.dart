@@ -6,7 +6,7 @@ import 'package:wifi_info_flutter/wifi_info_flutter.dart';
 
 class Globals {
   /// Bool to store if current logged in person is student or faculty
-  static bool isFaculty = true;
+  static bool isFaculty = false;
 
   static DeviceInfoPlugin _deviceInfo = DeviceInfoPlugin();
   static AndroidDeviceInfo _androidInfo;

@@ -16,6 +16,7 @@ class Course {
     @required this.semester,
     @required this.academicYear,
     @required this.startTimestamp,
+    this.attendanceDuration = 30,
   });
 
   final int id;
@@ -25,6 +26,7 @@ class Course {
   final String semester;
   final String academicYear;
   final DateTime startTimestamp;
+  final int attendanceDuration;
 
   Course copyWith({
     int id,
@@ -34,6 +36,7 @@ class Course {
     String semester,
     String academicYear,
     DateTime startTimestamp,
+    int attendanceDuration,
   }) =>
       Course(
         id: id ?? this.id,
@@ -43,6 +46,7 @@ class Course {
         semester: semester ?? this.semester,
         academicYear: academicYear ?? this.academicYear,
         startTimestamp: startTimestamp ?? this.startTimestamp,
+        attendanceDuration: attendanceDuration ?? this.attendanceDuration,
       );
 
   factory Course.fromRawJson(String str) => Course.fromJson(json.decode(str));
@@ -57,6 +61,7 @@ class Course {
         semester: json["semester"],
         academicYear: json["academic_year"],
         startTimestamp: DateTime.parse(json["start_timestamp"]),
+        attendanceDuration: json["attendance_duration"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -67,5 +72,17 @@ class Course {
         "semester": semester,
         "academic_year": academicYear,
         "start_timestamp": startTimestamp.toIso8601String(),
+        "attendance_duration": attendanceDuration,
       };
 }
+
+final Course defaultCourse = Course(
+  instructor: Faculty(
+      instituteEmail: "instituteEmail", googleUid: "googleUid", name: "name"),
+  courseCode: "courseCode",
+  courseName: "courseName",
+  semester: "semester",
+  academicYear: "academicYear",
+  startTimestamp: DateTime.now(),
+  attendanceDuration: 30,
+);
