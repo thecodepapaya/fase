@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:fase/models/attendance_data.dart';
 import 'package:fase/string_resource.dart';
+import 'package:fase/ui/home_page.dart';
 import 'package:fase/utils/api.dart';
 import 'package:fase/utils/bluetooth_le.dart';
 import 'package:fase/utils/notification_handler.dart';
@@ -51,6 +52,29 @@ class _AttendanceVerificationPageState
     if (!isInit) initialize();
     return WillPopScope(
       onWillPop: () {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text(StringResources.cancelVerificationDialog),
+              content: Text(StringResources.cancelVerificationBody),
+              actions: [
+                TextButton(
+                    child: Text(StringResources.cancelAttendance),
+                    onPressed: () {
+                      Navigator.of(context)
+                          .popUntil(ModalRoute.withName(HomePage.route));
+                    }),
+                TextButton(
+                  child: Text(StringResources.continueVerification),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
         return Future.value(true);
       },
       child: Scaffold(
@@ -69,11 +93,18 @@ class _AttendanceVerificationPageState
                         (result) => deviceIDSet.contains(result.device.id.id));
 
                     // Only keep devices which are broadcasting attendance ID with
-                    // format ID****
-                    snapshot.data.retainWhere((result) => AsciiDecoder()
-                        .convert(result
-                            .advertisementData.serviceData.entries.first.value)
-                        .startsWith("ID"));
+                    // format ID****. Also remove entries which do not contain
+                    // serviceData. This happens for some devices(lollipop) when
+                    // scanning devices having Oreo+
+                    snapshot.data.retainWhere((result) {
+                      if (result.advertisementData.serviceData.isEmpty) {
+                        return false;
+                      }
+                      return AsciiDecoder()
+                          .convert(result.advertisementData.serviceData.entries
+                              .first.value)
+                          .startsWith("ID");
+                    });
 
                     // Add newly discovered devies to the deviceIDSet Set. deviceIDSet
                     // is the set of all dicovered attendance peers
@@ -95,14 +126,8 @@ class _AttendanceVerificationPageState
                     // Call all the futures from the list
                     Future.wait(futures);
 
-                    return SingleChildScrollView(
-                      child: Column(
-                        children: deviceIDSet
-                            .map((r) => ListTile(
-                                  title: Text(r),
-                                ))
-                            .toList(),
-                      ),
+                    return Center(
+                      child: Text("Verified ${attendanceIds.length} devices"),
                     );
                   } else {
                     return Center(
@@ -112,7 +137,7 @@ class _AttendanceVerificationPageState
                 },
               )
             : Center(
-                child: Text("Done"),
+                child: Text(StringResources.done),
               ),
       ),
     );

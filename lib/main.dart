@@ -32,35 +32,21 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () {
-        // if (Platform.isAndroid) {
-        if (Navigator.of(context).canPop()) {
-          return Future.value(true);
-        } else {
-          //TODO: add confirmation dialog
-          return Future.value(false);
-        }
-        // } else {
-        //   return Future.value(true);
-        // }
+    return MaterialApp(
+      title: StringResources.fase,
+      theme: ThemeData(primarySwatch: Colors.blue),
+      darkTheme: ThemeData.dark(),
+      themeMode: ThemeMode.system,
+      initialRoute: SignInHandler.route,
+      // initialRoute: Experiment.route,
+      routes: {
+        SignInHandler.route: (_) => SignInHandler(),
+        HomePage.route: (_) => HomePage(),
+        CoursePage.route: (_) => CoursePage(),
+        CourseEditPage.route: (_) => CourseEditPage(),
+        AttendanceVerificationPage.route: (_) => AttendanceVerificationPage(),
+        // Experiment.route: (_) => Experiment(),
       },
-      child: MaterialApp(
-        title: StringResources.fase,
-        theme: ThemeData(primarySwatch: Colors.blue),
-        darkTheme: ThemeData.dark(),
-        themeMode: ThemeMode.system,
-        initialRoute: SignInHandler.route,
-        // initialRoute: Experiment.route,
-        routes: {
-          SignInHandler.route: (_) => SignInHandler(),
-          HomePage.route: (_) => HomePage(),
-          CoursePage.route: (_) => CoursePage(),
-          CourseEditPage.route: (_) => CourseEditPage(),
-          AttendanceVerificationPage.route: (_) => AttendanceVerificationPage(),
-          // Experiment.route: (_) => Experiment(),
-        },
-      ),
     );
   }
 }

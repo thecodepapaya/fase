@@ -21,6 +21,7 @@ class StringResources {
   static const String cancel = "Cancel";
   static const String confirm = "Confirm";
   static const String proceed = "Proceed";
+  static const String done = "Done";
 
   static const String quit = "Quit";
   static const String openSettings = "Open Settings";
@@ -120,10 +121,13 @@ class StringResources {
       "Verifying your attendance over BLE. This can take upto 10 minutes to complete. Please do not turn off Bluetooth or diconnect yourself from the IIITV WIFI";
   static const String notifAttendanceBLESummaryBig = "BLE Verification";
 
-  // static const String name = "";
-  // static const String name = "";
-  // static const String name = "";
-  // static const String name = "";
+  static const String cancelVerificationDialog =
+      "Cancel Attendance Verification";
+  static const String cancelVerificationBody =
+      "Are you sure you wish to cancel the verification process? You won't be able to complete it later.";
+  static const String continueVerification = "Continue verification";
+  static const String cancelAttendance = "Cancel attendance";
+
   // static const String name = "";
   // static const String name = "";
 }
