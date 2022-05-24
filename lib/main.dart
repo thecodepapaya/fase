@@ -5,6 +5,8 @@ import 'app/app.dart';
 
 void main() {
   runApp(
-    ProviderScope(child: FaseApp()),
+    const ProviderScope(
+      child: FaseApp(),
+    ),
   );
 }

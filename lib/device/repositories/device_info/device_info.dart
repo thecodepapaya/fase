@@ -34,7 +34,7 @@ class FDeviceInfoService implements FService {
   }
 
   @override
-  Future onStartUp() async {
+  Future onStartUp(dynamic data) async {
     // Do nothing
     return;
   }
@@ -42,17 +42,11 @@ class FDeviceInfoService implements FService {
   @override
   Future<void> startUp() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    debugPrint('Running on ${androidInfo.model}'); // e.g. "Moto G (4)"
-
-    IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-    debugPrint('Running on ${iosInfo.utsname.machine}'); // e.g. "iPod7,1"
-
-    WebBrowserInfo webBrowserInfo = await deviceInfo.webBrowserInfo;
-    debugPrint(
-        'Running on ${webBrowserInfo.userAgent}'); // e.g. "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0"
 
     if (Platform.isAndroid) {
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      debugPrint('Running on ${androidInfo.model}'); // e.g. "Moto G (4)"
+
       _model = androidInfo.model ?? '';
       _brand = androidInfo.brand ?? '';
       _fingerprint = androidInfo.fingerprint ?? '';
@@ -61,6 +55,9 @@ class FDeviceInfoService implements FService {
       _device = androidInfo.device ?? '';
       _tags = androidInfo.tags ?? '';
     } else if (Platform.isIOS) {
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      debugPrint('Running on ${iosInfo.utsname.machine}'); // e.g. "iPod7,1"
+
       _model = iosInfo.model ?? '';
       _brand = 'Apple';
       _fingerprint = '';
@@ -69,6 +66,10 @@ class FDeviceInfoService implements FService {
       _device = iosInfo.utsname.machine ?? '';
       _tags = '';
     } else if (kIsWeb) {
+      WebBrowserInfo webBrowserInfo = await deviceInfo.webBrowserInfo;
+      debugPrint(
+          'Running on ${webBrowserInfo.userAgent}'); // e.g. "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0"
+
       _model = webBrowserInfo.browserName.name;
       _brand = webBrowserInfo.vendor ?? '';
       _fingerprint = webBrowserInfo.platform ?? '';

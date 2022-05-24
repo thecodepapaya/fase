@@ -22,28 +22,51 @@ class _$AppRouter extends RootStackRouter {
   @override
   final Map<String, PageFactory> pagesMap = {
     SplashScreenRoute.name: (routeData) {
-      return MaterialPageX<dynamic>(
-          routeData: routeData, child: const SplashScreenView());
+      return CustomPage<dynamic>(
+          routeData: routeData,
+          child: const SplashScreenView(),
+          transitionsBuilder: TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 300,
+          opaque: true,
+          barrierDismissible: false);
     },
     LoginRoute.name: (routeData) {
-      return MaterialPageX<dynamic>(
-          routeData: routeData, child: const LoginView());
+      return CustomPage<dynamic>(
+          routeData: routeData,
+          child: const LoginView(),
+          transitionsBuilder: TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 300,
+          opaque: true,
+          barrierDismissible: false);
     },
     StartUpCheckRoute.name: (routeData) {
-      return MaterialPageX<dynamic>(
-          routeData: routeData, child: const StartUpCheckView());
+      return CustomPage<dynamic>(
+          routeData: routeData,
+          child: const StartUpCheckView(),
+          opaque: true,
+          barrierDismissible: false);
     },
     CourseListRoute.name: (routeData) {
-      return MaterialPageX<dynamic>(
-          routeData: routeData, child: const CourseListView());
+      return CustomPage<dynamic>(
+          routeData: routeData,
+          child: const CourseListView(),
+          opaque: true,
+          barrierDismissible: false);
     },
     CreateCourseRoute.name: (routeData) {
-      return MaterialPageX<dynamic>(
-          routeData: routeData, child: const CreateCourseView());
+      return CustomPage<dynamic>(
+          routeData: routeData,
+          child: const CreateCourseView(),
+          opaque: true,
+          barrierDismissible: false);
     },
     AttendanceRecordRoute.name: (routeData) {
-      return MaterialPageX<dynamic>(
-          routeData: routeData, child: const AttendanceRecordView());
+      return CustomPage<dynamic>(
+          routeData: routeData,
+          child: const AttendanceRecordView(),
+          durationInMilliseconds: 300,
+          opaque: true,
+          barrierDismissible: false);
     }
   };
 

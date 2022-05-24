@@ -1,7 +1,7 @@
 abstract class FService {
-  Future<void> startUp();
+  Future<dynamic> startUp();
 
-  Future<void> onStartUp();
+  Future<void> onStartUp(dynamic data);
 
   void onShutDown();
 }

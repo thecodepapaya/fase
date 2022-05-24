@@ -20,7 +20,7 @@ class FSecureDeviceService implements FService {
   }
 
   @override
-  Future<void> onStartUp() async {
+  Future<void> onStartUp(dynamic data) async {
     // Do nothing
   }
 
