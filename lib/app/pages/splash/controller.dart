@@ -50,6 +50,8 @@ class _VSController extends StateNotifier<_ViewState> {
 
     state = state.copyWith(isBootUpComplete: true);
 
-    appRouter.pushAndPopUntil(const LoginRoute(), predicate: (_) => false);
+    // TODO undo
+    // appRouter.pushAndPopUntil(const LoginRoute(), predicate: (_) => false);
+    appRouter.pushAndPopUntil(const CourseListRoute(), predicate: (_) => false);
   }
 }

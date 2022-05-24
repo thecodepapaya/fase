@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'pages/splash/view.dart';
 import 'utils/router/app_router.dart';
 
 final appRouter = AppRouter();
@@ -10,7 +11,8 @@ class FaseApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final _ = ref.watch(startUpProvider);
+    // ignore: no_leading_underscores_for_local_identifiers
+    final _ = ref.watch(startUpProvider);
 
     return MaterialApp.router(
       title: 'Fase',
@@ -19,6 +21,7 @@ class FaseApp extends ConsumerWidget {
       ),
       routerDelegate: appRouter.delegate(),
       routeInformationParser: appRouter.defaultRouteParser(),
+      darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
     );
   }

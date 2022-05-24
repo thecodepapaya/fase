@@ -54,9 +54,11 @@ class _$AppRouter extends RootStackRouter {
           barrierDismissible: false);
     },
     CreateCourseRoute.name: (routeData) {
+      final args = routeData.argsAs<CreateCourseRouteArgs>(
+          orElse: () => const CreateCourseRouteArgs());
       return CustomPage<dynamic>(
           routeData: routeData,
-          child: const CreateCourseView(),
+          child: CreateCourseView(key: args.key, course: args.course),
           opaque: true,
           barrierDismissible: false);
     },
@@ -122,11 +124,26 @@ class CourseListRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [CreateCourseView]
-class CreateCourseRoute extends PageRouteInfo<void> {
-  const CreateCourseRoute()
-      : super(CreateCourseRoute.name, path: '/createCourse');
+class CreateCourseRoute extends PageRouteInfo<CreateCourseRouteArgs> {
+  CreateCourseRoute({Key? key, Course? course})
+      : super(CreateCourseRoute.name,
+            path: '/createCourse',
+            args: CreateCourseRouteArgs(key: key, course: course));
 
   static const String name = 'CreateCourseRoute';
+}
+
+class CreateCourseRouteArgs {
+  const CreateCourseRouteArgs({this.key, this.course});
+
+  final Key? key;
+
+  final Course? course;
+
+  @override
+  String toString() {
+    return 'CreateCourseRouteArgs{key: $key, course: $course}';
+  }
 }
 
 /// generated route for

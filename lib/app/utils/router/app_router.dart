@@ -4,11 +4,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+import '../../../domain/entities/course.dart';
 import '../../pages/attendance_record/view.dart';
 import '../../pages/course_list/view.dart';
 import '../../pages/create_course/view.dart';
 import '../../pages/login/view.dart';
-import '../../pages/splash_screen/view.dart';
+import '../../pages/splash/view.dart';
 import '../../pages/startup_check/view.dart';
 import '../guards/auth_guard.dart';
 

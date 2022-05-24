@@ -20,8 +20,6 @@ class SplashScreenView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(startUpProvider);
-
     return FScaffold(
       body: Padding(
         padding: const EdgeInsets.all(40),
