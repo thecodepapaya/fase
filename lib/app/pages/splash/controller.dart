@@ -3,7 +3,7 @@ part of 'view.dart';
 final startUpProvider = StateNotifierProvider((ref) {
   final controller = _VSController();
 
-  controller.startUpProcesses();
+  controller._startUpProcesses();
 
   return controller;
 });
@@ -32,7 +32,7 @@ class _ViewState {
 class _VSController extends StateNotifier<_ViewState> {
   _VSController() : super(_ViewState.initial());
 
-  final deviceProcessList = UnmodifiableListView([
+  final _processList = UnmodifiableListView([
     FConnectivityService(),
     FDeviceInfoService(),
     FPackageInfoService(),
@@ -41,17 +41,23 @@ class _VSController extends StateNotifier<_ViewState> {
     FWifiInfoService(),
   ]);
 
-  Future<void> startUpProcesses() async {
+  Future<void> _startUpProcesses() async {
+    await _initializeFirebase();
+
     await Future.wait(
-      deviceProcessList.map((amenity) {
-        return amenity.startUp().then((data) => amenity.onStartUp(data));
-      }),
+      _processList.map(_mapServiceToStartUpMethod).toList(),
     );
 
     state = state.copyWith(isBootUpComplete: true);
 
-    // TODO undo
-    // appRouter.pushAndPopUntil(const LoginRoute(), predicate: (_) => false);
-    appRouter.pushAndPopUntil(const CourseListRoute(), predicate: (_) => false);
+    appRouter.pushAndPopUntil(const StartUpCheckRoute(), predicate: (_) => false);
+  }
+
+  Future<void> _mapServiceToStartUpMethod(FService service) {
+    return service.startUp().then((data) => service.onStartUp(data));
+  }
+
+  Future<void> _initializeFirebase() async {
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   }
 }

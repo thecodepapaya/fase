@@ -2,6 +2,7 @@
 // @AdaptiveAutoRouter
 // @CustomAutoRouter
 import 'package:auto_route/auto_route.dart';
+import 'package:fase/app/pages/external_email/view.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/entities/course.dart';
@@ -12,6 +13,7 @@ import '../../pages/login/view.dart';
 import '../../pages/splash/view.dart';
 import '../../pages/startup_check/view.dart';
 import '../guards/auth_guard.dart';
+import '../guards/email_guards.dart';
 
 part 'app_router.gr.dart';
 
@@ -34,26 +36,50 @@ part 'app_router.gr.dart';
     CustomRoute(
       page: StartUpCheckView,
       path: '/startupCheck',
-      guards: [AuthGuard],
+      guards: [
+        AuthGuard,
+        EmailGuard,
+      ],
     ),
     CustomRoute(
       page: CourseListView,
       path: '/courseList',
-      guards: [AuthGuard],
+      guards: [
+        AuthGuard,
+        EmailGuard,
+      ],
     ),
     CustomRoute(
       page: CreateCourseView,
       path: '/createCourse',
-      guards: [AuthGuard],
+      guards: [
+        AuthGuard,
+        EmailGuard,
+      ],
     ),
     CustomRoute(
       page: AttendanceRecordView,
       path: '/attendanceRecord',
-      guards: [AuthGuard],
+      guards: [
+        AuthGuard,
+        EmailGuard,
+      ],
+      durationInMilliseconds: 300,
+    ),
+    CustomRoute(
+      page: ExternalEmailView,
+      path: '/externalEmail',
+      guards: [
+        AuthGuard,
+      ],
       durationInMilliseconds: 300,
     ),
   ],
 )
 class AppRouter extends _$AppRouter {
-  AppRouter() : super(authGuard: AuthGuard());
+  AppRouter()
+      : super(
+          authGuard: AuthGuard(),
+          emailGuard: EmailGuard(),
+        );
 }

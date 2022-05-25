@@ -31,7 +31,7 @@ class Course {
     String? semester,
     String? academicYear,
     DateTime? startTimestamp,
-    int? attendanceDuration,
+    int? attendanceDurationInMinutes,
   }) =>
       Course(
         id: id ?? this.id,
@@ -41,7 +41,7 @@ class Course {
         semester: semester ?? this.semester,
         academicYear: academicYear ?? this.academicYear,
         startTimestamp: startTimestamp ?? this.startTimestamp,
-        attendanceDurationInMinutes: attendanceDuration ?? this.attendanceDurationInMinutes,
+        attendanceDurationInMinutes: attendanceDurationInMinutes ?? this.attendanceDurationInMinutes,
       );
 
   factory Course.fromRawJson(String str) => Course.fromJson(json.decode(str));
@@ -72,7 +72,8 @@ class Course {
 }
 
 final Course defaultCourse = Course(
-  instructor: Faculty(instituteEmail: "instituteEmail@iiitvadodara.ac.in", googleUid: "googleUid", name: "Pramit Mazumdar"),
+  instructor:
+      Faculty(instituteEmail: "instituteEmail@iiitvadodara.ac.in", googleUid: "googleUid", name: "Pramit Mazumdar"),
   courseCode: "CS101",
   courseName: "A very long name for a very boring course for the semester",
   semester: "autumn",

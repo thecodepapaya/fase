@@ -14,10 +14,14 @@ part of 'app_router.dart';
 
 class _$AppRouter extends RootStackRouter {
   _$AppRouter(
-      {GlobalKey<NavigatorState>? navigatorKey, required this.authGuard})
+      {GlobalKey<NavigatorState>? navigatorKey,
+      required this.authGuard,
+      required this.emailGuard})
       : super(navigatorKey);
 
   final AuthGuard authGuard;
+
+  final EmailGuard emailGuard;
 
   @override
   final Map<String, PageFactory> pagesMap = {
@@ -31,9 +35,10 @@ class _$AppRouter extends RootStackRouter {
           barrierDismissible: false);
     },
     LoginRoute.name: (routeData) {
+      final args = routeData.argsAs<LoginRouteArgs>();
       return CustomPage<dynamic>(
           routeData: routeData,
-          child: const LoginView(),
+          child: LoginView(key: args.key, onSuccess: args.onSuccess),
           transitionsBuilder: TransitionsBuilders.fadeIn,
           durationInMilliseconds: 300,
           opaque: true,
@@ -69,6 +74,14 @@ class _$AppRouter extends RootStackRouter {
           durationInMilliseconds: 300,
           opaque: true,
           barrierDismissible: false);
+    },
+    ExternalEmailRoute.name: (routeData) {
+      return CustomPage<dynamic>(
+          routeData: routeData,
+          child: const ExternalEmailView(),
+          durationInMilliseconds: 300,
+          opaque: true,
+          barrierDismissible: false);
     }
   };
 
@@ -79,13 +92,15 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(SplashScreenRoute.name, path: '/splash'),
         RouteConfig(LoginRoute.name, path: '/login'),
         RouteConfig(StartUpCheckRoute.name,
-            path: '/startupCheck', guards: [authGuard]),
+            path: '/startupCheck', guards: [authGuard, emailGuard]),
         RouteConfig(CourseListRoute.name,
-            path: '/courseList', guards: [authGuard]),
+            path: '/courseList', guards: [authGuard, emailGuard]),
         RouteConfig(CreateCourseRoute.name,
-            path: '/createCourse', guards: [authGuard]),
+            path: '/createCourse', guards: [authGuard, emailGuard]),
         RouteConfig(AttendanceRecordRoute.name,
-            path: '/attendanceRecord', guards: [authGuard])
+            path: '/attendanceRecord', guards: [authGuard, emailGuard]),
+        RouteConfig(ExternalEmailRoute.name,
+            path: '/externalEmail', guards: [authGuard])
       ];
 }
 
@@ -99,10 +114,26 @@ class SplashScreenRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [LoginView]
-class LoginRoute extends PageRouteInfo<void> {
-  const LoginRoute() : super(LoginRoute.name, path: '/login');
+class LoginRoute extends PageRouteInfo<LoginRouteArgs> {
+  LoginRoute({Key? key, required void Function() onSuccess})
+      : super(LoginRoute.name,
+            path: '/login',
+            args: LoginRouteArgs(key: key, onSuccess: onSuccess));
 
   static const String name = 'LoginRoute';
+}
+
+class LoginRouteArgs {
+  const LoginRouteArgs({this.key, required this.onSuccess});
+
+  final Key? key;
+
+  final void Function() onSuccess;
+
+  @override
+  String toString() {
+    return 'LoginRouteArgs{key: $key, onSuccess: $onSuccess}';
+  }
 }
 
 /// generated route for
@@ -153,4 +184,13 @@ class AttendanceRecordRoute extends PageRouteInfo<void> {
       : super(AttendanceRecordRoute.name, path: '/attendanceRecord');
 
   static const String name = 'AttendanceRecordRoute';
+}
+
+/// generated route for
+/// [ExternalEmailView]
+class ExternalEmailRoute extends PageRouteInfo<void> {
+  const ExternalEmailRoute()
+      : super(ExternalEmailRoute.name, path: '/externalEmail');
+
+  static const String name = 'ExternalEmailRoute';
 }

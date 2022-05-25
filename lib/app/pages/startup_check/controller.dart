@@ -118,7 +118,12 @@ class _VSController extends StateNotifier<_ViewState> {
     return Future.value(true);
   }
 
-  void onSignOutButtonPressed() {}
+  Future<void> onSignOutButtonPressed() async {
+    log('onSignOutButtonPressed');
+
+    await AuthUsecase.instance.logOutUser();
+    _resetAllCheck();
+  }
 
   void onActionButtonPressed() {
     if (state.allChecksPassed) {
