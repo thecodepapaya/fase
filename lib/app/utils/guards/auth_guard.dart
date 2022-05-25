@@ -6,8 +6,9 @@ import '../router/app_router.dart';
 class AuthGuard extends AutoRouteGuard {
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) async {
+    // TODO remove this and add actual auth
     debugPrint('onNavigation');
-    final authenticated = await Future.delayed(const Duration(seconds: 3), () {
+    final authenticated = await Future.delayed(const Duration(seconds: 0), () {
       return true;
     });
 

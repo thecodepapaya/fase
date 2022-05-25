@@ -3,33 +3,52 @@ part of 'view.dart';
 final _vsProvider = StateNotifierProvider<_VSController, _ViewState>((ref) {
   final controller = _VSController();
 
-  controller.fetchCourses();
+  controller.initState();
 
   return controller;
 });
 
+final currentYear = DateTime.now().year;
+final currentAcademicYear = '$currentYear-${currentYear + 1}';
+
 class _ViewState {
   final ApiStatus apiStatus;
-  final List<Course> courses;
+  final Course? course;
+  final String selectedSemester;
+  final String selectedAcademicYear;
+
+  final List<String> academicYearsList;
 
   _ViewState({
     required this.apiStatus,
-    required this.courses,
+    required this.course,
+    required this.selectedSemester,
+    required this.selectedAcademicYear,
+    required this.academicYearsList,
   });
 
   _ViewState.initial()
       : this(
           apiStatus: ApiStatus.init,
-          courses: [],
+          course: null,
+          selectedAcademicYear: currentAcademicYear,
+          selectedSemester: SemesterEnum.autumn,
+          academicYearsList: [currentAcademicYear],
         );
 
   _ViewState copyWith({
     ApiStatus? apiStatus,
-    List<Course>? courses,
+    Course? course,
+    String? selectedSemester,
+    String? selectedAcademicYear,
+    List<String>? academicYearsList,
   }) {
     return _ViewState(
       apiStatus: apiStatus ?? this.apiStatus,
-      courses: courses ?? this.courses,
+      course: course ?? this.course,
+      selectedSemester: selectedSemester ?? this.selectedSemester,
+      selectedAcademicYear: selectedAcademicYear ?? this.selectedAcademicYear,
+      academicYearsList: academicYearsList ?? this.academicYearsList,
     );
   }
 }
@@ -37,7 +56,18 @@ class _ViewState {
 class _VSController extends StateNotifier<_ViewState> {
   _VSController() : super(_ViewState.initial());
 
-  Future<bool> fetchCourses() async {
+  late final TextEditingController courseCodeController;
+  late final TextEditingController courseNameController;
+
+  Future<void> initState() async {
+    courseCodeController = TextEditingController();
+    courseNameController = TextEditingController();
+
+    _populateAcademicYears();
+    await _fetchCourseDetails();
+  }
+
+  Future<bool> _fetchCourseDetails() async {
     state = state.copyWith(apiStatus: ApiStatus.loading);
 
     state = state.copyWith(apiStatus: ApiStatus.success);
@@ -46,14 +76,32 @@ class _VSController extends StateNotifier<_ViewState> {
   }
 
   Future<void> refresh() async {
-    await fetchCourses();
+    await _fetchCourseDetails();
   }
 
-  void onCourseTapped(String courseId) {}
+  void onCourseSaved() {}
 
-  void onMarkAttendance(String courseId) {}
+  void onCourseNameChanged(String courseName) {}
 
-  void onStartAttendanceWindow(String courseId) {}
+  void onCourseCodeChanged(String courseCode) {}
 
-  void onEditCourse(String courseId) {}
+  void onSemesterDropDownChanged(String? selectedSemester) {
+    state = state.copyWith(selectedSemester: selectedSemester);
+  }
+
+  void onYearDropDownChanged(String? selectedAcademicYear) {
+    state = state.copyWith(selectedAcademicYear: selectedAcademicYear);
+  }
+
+  void _populateAcademicYears() {
+    final yearsList = <String>[];
+
+    for (int year = currentYear; year >= 2020; year--) {
+      final academicYear = '$year-${year + 1}';
+
+      yearsList.add(academicYear);
+    }
+
+    state = state.copyWith(academicYearsList: yearsList);
+  }
 }

@@ -5,6 +5,7 @@ class FScaffold extends StatelessWidget {
   final Widget? body;
   final Widget? drawer;
   final Widget? floatingActionButton;
+  final Widget? appBarActionButton;
 
   const FScaffold({
     Key? key,
@@ -12,13 +13,24 @@ class FScaffold extends StatelessWidget {
     this.body,
     this.drawer,
     this.floatingActionButton,
+    this.appBarActionButton,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final showAppBar = appBarActionButton != null || title != null;
+
     return Scaffold(
-      appBar: title != null ? AppBar(title: Text(title!)) : null,
-      body: body,
+      appBar: showAppBar
+          ? AppBar(
+              title: Text(title ?? ''),
+              actions: [appBarActionButton ?? Container()],
+            )
+          : null,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 15),
+        child: body,
+      ),
       drawer: drawer,
       floatingActionButton: floatingActionButton,
     );

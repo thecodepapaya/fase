@@ -20,17 +20,14 @@ class StartUpCheckView extends ConsumerWidget {
     return FScaffold(
       title: 'Startup Check',
       drawer: const SideDrawer(),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: const [
-                StartupCheckTable(),
-                SizedBox(height: 50),
-                ActionButton(),
-              ],
-            ),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            children: const [
+              StartupCheckTable(),
+              SizedBox(height: 50),
+              ActionButton(),
+            ],
           ),
         ),
       ),
