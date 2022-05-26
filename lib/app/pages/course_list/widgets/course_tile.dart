@@ -94,7 +94,9 @@ class CourseTile extends ConsumerWidget {
         return Container(
           alignment: Alignment.bottomRight,
           child: TextButton(
-            onPressed: () {},
+            onPressed: () {
+              controller.onStartAttendanceWindow(course.id);
+            },
             child: const Text('Start Attendance'),
           ),
         );

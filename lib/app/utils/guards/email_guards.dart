@@ -8,7 +8,7 @@ class EmailGuard extends AutoRouteGuard {
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) async {
 
-    final isIIITVEmail = AuthUsecase.instance.currentUser?.email?.endsWith(iiitvDomain) ?? false;
+    final isIIITVEmail = AuthUsecase.instance.getCurrentUser?.email?.endsWith(iiitvDomain) ?? false;
 
     // the navigation is paused until resolver.next() is called with either
     // true to resume/continue navigation or false to abort navigation

@@ -1,11 +1,11 @@
 import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../service.dart';
-import 'package:device_info_plus/device_info_plus.dart';
+import '../../../domain/services/device_info/device_info_service.dart';
 
-class FDeviceInfoService implements FService {
+class FDeviceInfoServiceImpl implements FDeviceInfoService {
   String? _model;
   String? _brand;
   String? _fingerprint;
@@ -17,15 +17,25 @@ class FDeviceInfoService implements FService {
   String? _os;
   String? _osVersion;
 
+  @override
   String? get model => _model;
+  @override
   String? get brand => _brand;
+  @override
   String? get fingerprint => _fingerprint;
+  @override
   String? get type => _type;
+  @override
   String? get id => _id;
+  @override
   String? get device => _device;
+  @override
   String? get tags => _tags;
+  @override
   String? get sdk => _sdk;
+  @override
   String? get os => _os;
+  @override
   String? get osVersion => _osVersion;
 
   @override

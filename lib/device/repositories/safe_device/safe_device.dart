@@ -1,17 +1,22 @@
 import 'dart:io';
 
-import '../../service.dart';
 import 'package:safe_device/safe_device.dart';
 
-class FSecureDeviceService implements FService {
+import '../../../domain/services/safe_device/safe_device_service.dart';
+
+class FSafeDeviceServiceImpl implements FSafeDeviceService {
   late bool _isRooted;
   late bool _isRealDevice;
   late bool _canMockLocation;
   late bool _isDevelopmentDevice;
 
+  @override
   bool get isRooted => _isRooted;
+  @override
   bool get isRealDevice => _isRealDevice;
+  @override
   bool get canMockLocation => _canMockLocation;
+  @override
   bool get isDevelopmentDevice => _isDevelopmentDevice;
 
   @override

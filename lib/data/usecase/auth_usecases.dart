@@ -8,7 +8,7 @@ import '../../domain/usecases/auth_usecases.dart';
 
 class AuthUsecaseImpl implements AuthUsecase {
   @override
-  User? get currentUser => AuthRepository.instance.currentUser;
+  User? get getCurrentUser => AuthRepository.instance.currentUser;
 
   @override
   Future<User?> signInUser() async {

@@ -2,22 +2,24 @@ import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 
-import '../../service.dart';
+import '../../../domain/services/connectivity/connectivity_service.dart';
 
 enum ConnectivityStatus {
-  connected,
-  disconnected,
+  wifiConnected,
+  wifiDisconnected,
 }
 
-class FConnectivityService implements FService {
-  late final _connectivityController = StreamController<ConnectivityStatus>.broadcast();
+class FConnectivityServiceImpl implements FConnectivityService {
+  late final _wifiConnectivityController = StreamController<ConnectivityStatus>.broadcast();
   late StreamSubscription<ConnectivityResult> _connectivity;
 
-  Stream<ConnectivityStatus> get connectivity => _connectivityController.stream;
+  @override
+  Stream<ConnectivityStatus> get wifiConnectivity => _wifiConnectivityController.stream;
 
   @override
   void onShutDown() {
     _connectivity.cancel();
+    _wifiConnectivityController.close();
   }
 
   @override
@@ -28,13 +30,23 @@ class FConnectivityService implements FService {
   @override
   Future<void> startUp() async {
     _connectivity = Connectivity().onConnectivityChanged.listen(
-      (connectivityResult) {
-        if (connectivityResult == ConnectivityResult.none) {
-          _connectivityController.add(ConnectivityStatus.disconnected);
+      (ConnectivityResult connectivityResult) {
+        if (connectivityResult == ConnectivityResult.wifi) {
+          _wifiConnectivityController.add(ConnectivityStatus.wifiConnected);
         } else {
-          _connectivityController.add(ConnectivityStatus.connected);
+          _wifiConnectivityController.add(ConnectivityStatus.wifiDisconnected);
         }
       },
     );
+  }
+
+  @override
+  Future<ConnectivityStatus> checkWifiConnectivity() async {
+    late final bool isWifiConnected;
+
+    final connectivityResult = await Connectivity().checkConnectivity();
+    isWifiConnected = connectivityResult == ConnectivityResult.wifi;
+
+    return isWifiConnected ? ConnectivityStatus.wifiConnected : ConnectivityStatus.wifiDisconnected;
   }
 }

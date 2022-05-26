@@ -21,6 +21,7 @@ class CourseListView extends ConsumerWidget {
     final controller = ref.watch(_vsProvider.notifier);
 
     final Course defaultCourse = Course(
+      id: 2,
       instructor:
           Faculty(instituteEmail: "instituteEmail@iiitvadodara.ac.in", googleUid: "googleUid", name: "Pramit Mazumdar"),
       courseCode: "CS101",

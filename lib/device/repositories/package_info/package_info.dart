@@ -1,16 +1,20 @@
 import 'package:package_info_plus/package_info_plus.dart';
 
-import '../../service.dart';
+import '../../../domain/services/package_info/package_info_service.dart';
 
-class FPackageInfoService implements FService {
+class FPackageInfoServiceImpl implements FPackageInfoService {
   late String _appName;
   late String _packageName;
   late String _version;
   late String _buildNumber;
 
+  @override
   String get appName => _appName;
+  @override
   String get packageName => _packageName;
+  @override
   String get version => _version;
+  @override
   String get buildNumber => _buildNumber;
 
   @override

@@ -33,12 +33,13 @@ class _VSController extends StateNotifier<_ViewState> {
   _VSController() : super(_ViewState.initial());
 
   final _processList = UnmodifiableListView([
-    FConnectivityService(),
-    FDeviceInfoService(),
-    FPackageInfoService(),
-    FSecureDeviceService(),
-    FSecureStorageService(),
-    FWifiInfoService(),
+    FConnectivityService.instance,
+    FDeviceInfoService.instance,
+    FPackageInfoService.instance,
+    FSafeDeviceService.instance,
+    FSecureStorageService.instance,
+    FWifiInfoService.instance,
+    FPermissionService.instance,
   ]);
 
   Future<void> _startUpProcesses() async {

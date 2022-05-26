@@ -53,7 +53,7 @@ class _VSController extends StateNotifier<_ViewState> {
 
   void onMarkAttendance(String courseId) {}
 
-  void onStartAttendanceWindow(String courseId) {}
+  void onStartAttendanceWindow(int courseId) {}
 
   void onEditCourse(String courseId) {}
 

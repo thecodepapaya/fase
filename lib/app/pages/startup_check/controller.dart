@@ -111,17 +111,40 @@ class _VSController extends StateNotifier<_ViewState> {
   _VSController() : super(_ViewState.initial());
 
   Future<bool> performCheck() async {
-    state = state.copyWith(apiStatus: ApiStatus.loading);
+    _resetAllCheck();
+    _wifiStreamSetup();
 
-    state = state.copyWith(apiStatus: ApiStatus.success);
+    await _checkAllConditions();
 
-    return Future.value(true);
+    return Future.value(state.allChecksPassed);
+  }
+
+  void _wifiStreamSetup() {
+    final wifiStatusStream = FConnectivityService.instance.wifiConnectivity;
+
+    wifiStatusStream.listen((ConnectivityStatus status) {
+      final isWifiConnected = status == ConnectivityStatus.wifiConnected;
+      state = state.copyWith(isWifiConnected: isWifiConnected);
+    });
+  }
+
+  Future<void> _checkAllConditions() async {
+    state = state.copyWith(isPhysicalDevice: await _isPhysicalDevice());
+    state = state.copyWith(isDeviceUnRooted: await _isDeviceUnRooted());
+    state = state.copyWith(isLocationGranted: await _isLocationGranted());
+    state = state.copyWith(isLocationEnabled: await _isLocationEnabled());
+    state = state.copyWith(isWifiConnected: await _isWifiConnected());
+    state = state.copyWith(isIIITVConnected: await _isIIITVConnected());
+    state = state.copyWith(canPingServer: await _canPingServer());
+    state = state.copyWith(isMinVersion: await _isMinVersion());
+    state = state.copyWith(isRegistrationValid: await _isRegistrationValid());
   }
 
   Future<void> onSignOutButtonPressed() async {
     log('onSignOutButtonPressed');
 
     await AuthUsecase.instance.logOutUser();
+    appRouter.pushAndPopUntil(const StartUpCheckRoute(), predicate: (_) => false);
     _resetAllCheck();
   }
 
@@ -153,5 +176,74 @@ class _VSController extends StateNotifier<_ViewState> {
       isMinVersion: null,
       isRegistrationValid: null,
     );
+  }
+
+  Future<bool> _isPhysicalDevice() async {
+    final bool isPhysicalDevice = await StartUpCheckUsecase.instance.checkIfPhysicalDevice();
+
+    return isPhysicalDevice;
+  }
+
+  Future<bool> _isDeviceUnRooted() async {
+    final bool isDeviceUnRooted = await StartUpCheckUsecase.instance.checkIfUnRooted();
+
+    return isDeviceUnRooted;
+  }
+
+  Future<bool> _isLocationGranted() async {
+    final bool isLocationPermissionGranted = await StartUpCheckUsecase.instance.checkIfLocationGranted();
+
+    return isLocationPermissionGranted;
+  }
+
+  Future<bool> _isLocationEnabled() async {
+    final bool isLocationPermissionGranted = await StartUpCheckUsecase.instance.checkIfLocationGranted();
+    final bool isLocationEnabled;
+
+    if (isLocationPermissionGranted) {
+      isLocationEnabled = await StartUpCheckUsecase.instance.checkIfLocationEnabled();
+    } else {
+      isLocationEnabled = false;
+    }
+
+    return isLocationEnabled;
+  }
+
+  Future<bool> _isWifiConnected() async {
+    final bool isWifiConnected = await StartUpCheckUsecase.instance.checkIfWifiConnected();
+
+    return isWifiConnected;
+  }
+
+  Future<bool> _isIIITVConnected() async {
+    late final bool isIIITVConnected;
+
+    final isWifiConnected = await _isWifiConnected();
+
+    if (!isWifiConnected) {
+      return false;
+    }
+
+    isIIITVConnected = await StartUpCheckUsecase.instance.checkIfIIITVWifiConnected();
+
+    return isIIITVConnected;
+  }
+
+  Future<bool> _canPingServer() async {
+    final bool canPingServer = await StartUpCheckUsecase.instance.checkCanPingServer();
+
+    return canPingServer;
+  }
+
+  Future<bool> _isMinVersion() async {
+    final bool isMinVersion = await StartUpCheckUsecase.instance.checkAppUpToDate();
+
+    return isMinVersion;
+  }
+
+  Future<bool> _isRegistrationValid() async {
+    final bool isRegistrationValid = await StartUpCheckUsecase.instance.checkRegistrationValid();
+
+    return isRegistrationValid;
   }
 }

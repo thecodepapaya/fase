@@ -1,8 +1,8 @@
-import '../../service.dart';
-
 import 'package:network_info_plus/network_info_plus.dart';
 
-class FWifiInfoService implements FService {
+import '../../../domain/services/wifi_info/wifi_info_service.dart';
+
+class FWifiInfoServiceImpl implements FWifiInfoService {
   String? _wifiName;
   String? _wifiBSSID;
   String? _wifiIP;
@@ -11,12 +11,19 @@ class FWifiInfoService implements FService {
   String? _wifiBroadcast;
   String? _wifiGateway;
 
+  @override
   String? get wifiName => _wifiName;
+  @override
   String? get wifiBSSID => _wifiBSSID;
+  @override
   String? get wifiIP => _wifiIP;
+  @override
   String? get wifiIPv6 => _wifiIPv6;
+  @override
   String? get wifiSubmask => _wifiSubmask;
+  @override
   String? get wifiBroadcast => _wifiBroadcast;
+  @override
   String? get wifiGateway => _wifiGateway;
 
   @override

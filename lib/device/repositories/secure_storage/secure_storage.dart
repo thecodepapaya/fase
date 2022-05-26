@@ -1,11 +1,12 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import '../../service.dart';
+import '../../../domain/services/secure_storage/secure_storage_service.dart';
 
-class FSecureStorageService implements FService {
+class FSecureStorageServiceImpl implements FSecureStorageService {
   FlutterSecureStorage? _storage;
   String? _secureAuthKey;
 
+  @override
   String get secureAuthKey => _secureAuthKey ?? '';
 
   @override

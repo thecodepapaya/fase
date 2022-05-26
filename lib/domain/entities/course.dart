@@ -4,7 +4,7 @@ import 'package:fase/domain/entities/faculty.dart';
 
 class Course {
   Course({
-    this.id,
+    required this.id,
     required this.instructor,
     required this.courseCode,
     required this.courseName,
@@ -14,7 +14,7 @@ class Course {
     this.attendanceDurationInMinutes = 30,
   });
 
-  final int? id;
+  final int id;
   final Faculty instructor;
   final String courseCode;
   final String courseName;
@@ -72,6 +72,7 @@ class Course {
 }
 
 final Course defaultCourse = Course(
+  id: 5,
   instructor:
       Faculty(instituteEmail: "instituteEmail@iiitvadodara.ac.in", googleUid: "googleUid", name: "Pramit Mazumdar"),
   courseCode: "CS101",

@@ -6,7 +6,7 @@ abstract class AuthUsecase {
 
   static final instance = AuthUsecaseImpl();
 
-  User? get currentUser;
+  User? get getCurrentUser;
 
   Future<User?> signInUser();
 
