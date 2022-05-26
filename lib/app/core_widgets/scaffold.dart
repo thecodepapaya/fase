@@ -28,7 +28,7 @@ class FScaffold extends StatelessWidget {
             )
           : null,
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+        padding: const EdgeInsets.all(8),
         child: body,
       ),
       drawer: drawer,

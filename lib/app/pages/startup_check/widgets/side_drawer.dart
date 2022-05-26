@@ -19,7 +19,11 @@ class SideDrawer extends ConsumerWidget {
             accountName: Text(displayName),
             accountEmail: Text(email),
             currentAccountPicture: ClipOval(
-              child: Image.network(photoUrl),
+              child: CachedNetworkImage(
+                imageUrl: photoUrl,
+                placeholder: (context, url) => Image.asset('assets/placeholder_image.png'),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+              ),
             ),
           ),
           const ListTile(

@@ -53,6 +53,7 @@ dependencies:
   cryptography_flutter: ^2.0.2
   intl: ^0.17.0
   equatable: ^2.0.3
+  cached_network_image: ^3.2.1
 
   google_sign_in: ^5.3.1
   firebase_core: ^1.17.0

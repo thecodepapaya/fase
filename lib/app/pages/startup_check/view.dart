@@ -1,6 +1,8 @@
 import 'dart:developer';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fase/app/app.dart';
+import 'package:fase/app/core_widgets/refresh_button.dart';
 import 'package:fase/app/core_widgets/scaffold.dart';
 import 'package:fase/app/core_widgets/text_styles.dart';
 import 'package:fase/app/utils/enums.dart';
@@ -17,7 +19,6 @@ part 'helper.dart';
 part 'widgets/action_button.dart';
 part 'widgets/check_icon.dart';
 part 'widgets/circular_loader.dart';
-part 'widgets/refresh_button.dart';
 part 'widgets/side_drawer.dart';
 part 'widgets/table.dart';
 
@@ -26,8 +27,11 @@ class StartUpCheckView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final controller = ref.watch(_vsProvider.notifier);
+
     return FScaffold(
       title: 'Startup Check',
+      appBarActionButton: RefreshButton(onRefresh: controller.refresh),
       drawer: const SideDrawer(),
       body: Center(
         child: SingleChildScrollView(

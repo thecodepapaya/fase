@@ -1,4 +1,4 @@
-part of '../view.dart';
+part of '../../view.dart';
 
 class WindowTimer extends ConsumerWidget {
   const WindowTimer({Key? key}) : super(key: key);

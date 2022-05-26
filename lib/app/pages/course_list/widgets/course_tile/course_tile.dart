@@ -1,4 +1,4 @@
-part of '../view.dart';
+part of '../../view.dart';
 
 class CourseTile extends ConsumerWidget {
   final Course course;

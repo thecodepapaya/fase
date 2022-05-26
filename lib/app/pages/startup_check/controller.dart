@@ -3,7 +3,7 @@ part of 'view.dart';
 final _vsProvider = StateNotifierProvider<_VSController, _ViewState>((ref) {
   final controller = _VSController();
 
-  controller.performCheck();
+  controller._performCheck();
 
   return controller;
 });
@@ -110,7 +110,9 @@ class _ViewState {
 class _VSController extends StateNotifier<_ViewState> {
   _VSController() : super(_ViewState.initial());
 
-  Future<bool> performCheck() async {
+  Future<bool> _performCheck() async {
+    log('_performCheck');
+
     _resetAllCheck();
     _wifiStreamSetup();
 
@@ -120,6 +122,8 @@ class _VSController extends StateNotifier<_ViewState> {
   }
 
   void _wifiStreamSetup() {
+    log('_wifiStreamSetup');
+
     final wifiStatusStream = FConnectivityService.instance.wifiConnectivity;
 
     wifiStatusStream.listen((ConnectivityStatus status) {
@@ -129,6 +133,8 @@ class _VSController extends StateNotifier<_ViewState> {
   }
 
   Future<void> _checkAllConditions() async {
+    log('_checkAllConditions');
+
     state = state.copyWith(isPhysicalDevice: await _isPhysicalDevice());
     state = state.copyWith(isDeviceUnRooted: await _isDeviceUnRooted());
     state = state.copyWith(isLocationGranted: await _isLocationGranted());
@@ -138,6 +144,11 @@ class _VSController extends StateNotifier<_ViewState> {
     state = state.copyWith(canPingServer: await _canPingServer());
     state = state.copyWith(isMinVersion: await _isMinVersion());
     state = state.copyWith(isRegistrationValid: await _isRegistrationValid());
+  }
+
+  Future<void> refresh() async {
+    log('refresh');
+    await _performCheck();
   }
 
   Future<void> onSignOutButtonPressed() async {
@@ -168,6 +179,8 @@ class _VSController extends StateNotifier<_ViewState> {
   void onSidebarCourseTapped(String courseId) {}
 
   void _resetAllCheck() {
+    log('_resetAllCheck');
+
     state = state.copyWith(
       isPhysicalDevice: null,
       isDeviceUnRooted: null,
