@@ -17,7 +17,7 @@ class EmailGuard extends AutoRouteGuard {
       resolver.next(true);
     } else {
       // we redirect the user to our login page
-      router.push(const ExternalEmailRoute());
+      router.navigate(const ExternalEmailRoute());
       // router.push(LoginRoute(onResult: (success) {
       //   // if success == true the navigation will be resumed
       //   // else it will be aborted

@@ -29,8 +29,7 @@ class _$AppRouter extends RootStackRouter {
       return CustomPage<dynamic>(
           routeData: routeData,
           child: const SplashScreenView(),
-          transitionsBuilder: TransitionsBuilders.fadeIn,
-          durationInMilliseconds: 300,
+          transitionsBuilder: TransitionsBuilders.slideLeft,
           opaque: true,
           barrierDismissible: false);
     },
@@ -39,8 +38,7 @@ class _$AppRouter extends RootStackRouter {
       return CustomPage<dynamic>(
           routeData: routeData,
           child: LoginView(key: args.key, onSuccess: args.onSuccess),
-          transitionsBuilder: TransitionsBuilders.fadeIn,
-          durationInMilliseconds: 300,
+          transitionsBuilder: TransitionsBuilders.slideLeft,
           opaque: true,
           barrierDismissible: false);
     },
@@ -48,6 +46,7 @@ class _$AppRouter extends RootStackRouter {
       return CustomPage<dynamic>(
           routeData: routeData,
           child: const StartUpCheckView(),
+          transitionsBuilder: TransitionsBuilders.slideLeft,
           opaque: true,
           barrierDismissible: false);
     },
@@ -55,6 +54,7 @@ class _$AppRouter extends RootStackRouter {
       return CustomPage<dynamic>(
           routeData: routeData,
           child: const CourseListView(),
+          transitionsBuilder: TransitionsBuilders.slideLeft,
           opaque: true,
           barrierDismissible: false);
     },
@@ -64,6 +64,7 @@ class _$AppRouter extends RootStackRouter {
       return CustomPage<dynamic>(
           routeData: routeData,
           child: CreateCourseView(key: args.key, course: args.course),
+          transitionsBuilder: TransitionsBuilders.slideLeft,
           opaque: true,
           barrierDismissible: false);
     },
@@ -71,7 +72,7 @@ class _$AppRouter extends RootStackRouter {
       return CustomPage<dynamic>(
           routeData: routeData,
           child: const AttendanceRecordView(),
-          durationInMilliseconds: 300,
+          transitionsBuilder: TransitionsBuilders.slideLeft,
           opaque: true,
           barrierDismissible: false);
     },
@@ -79,7 +80,7 @@ class _$AppRouter extends RootStackRouter {
       return CustomPage<dynamic>(
           routeData: routeData,
           child: const ExternalEmailView(),
-          durationInMilliseconds: 300,
+          transitionsBuilder: TransitionsBuilders.slideLeft,
           opaque: true,
           barrierDismissible: false);
     }

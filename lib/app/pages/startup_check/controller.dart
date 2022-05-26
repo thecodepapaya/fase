@@ -148,19 +148,22 @@ class _VSController extends StateNotifier<_ViewState> {
     _resetAllCheck();
   }
 
-  void onActionButtonPressed() {
+  Future<void> onActionButtonPressed() async {
     if (state.allChecksPassed) {
       _proceedToCourseSelection();
     } else if (!(state.isRegistrationValid ?? false)) {
-      _performDeviceRegistration();
+      await _performDeviceRegistration();
+      await _checkAllConditions();
     } else {
       // Some checks failing, do nothing
     }
   }
 
-  void _proceedToCourseSelection() {}
+  void _proceedToCourseSelection() {
+    appRouter.navigate(const CourseListRoute());
+  }
 
-  void _performDeviceRegistration() {}
+  Future<void> _performDeviceRegistration() async {}
 
   void onSidebarCourseTapped(String courseId) {}
 

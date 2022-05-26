@@ -24,14 +24,14 @@ part 'app_router.gr.dart';
       page: SplashScreenView,
       initial: true,
       path: '/splash',
-      durationInMilliseconds: 300,
-      transitionsBuilder: TransitionsBuilders.fadeIn,
+      // durationInMilliseconds: 300,
+      transitionsBuilder: TransitionsBuilders.slideLeft,
     ),
     CustomRoute(
       page: LoginView,
       path: '/login',
-      durationInMilliseconds: 300,
-      transitionsBuilder: TransitionsBuilders.fadeIn,
+      // durationInMilliseconds: 300,
+      transitionsBuilder: TransitionsBuilders.slideLeft,
     ),
     CustomRoute(
       page: StartUpCheckView,
@@ -40,6 +40,8 @@ part 'app_router.gr.dart';
         AuthGuard,
         EmailGuard,
       ],
+      // durationInMilliseconds: 300,
+      transitionsBuilder: TransitionsBuilders.slideLeft,
     ),
     CustomRoute(
       page: CourseListView,
@@ -48,6 +50,8 @@ part 'app_router.gr.dart';
         AuthGuard,
         EmailGuard,
       ],
+      // durationInMilliseconds: 300,
+      transitionsBuilder: TransitionsBuilders.slideLeft,
     ),
     CustomRoute(
       page: CreateCourseView,
@@ -56,6 +60,8 @@ part 'app_router.gr.dart';
         AuthGuard,
         EmailGuard,
       ],
+      // durationInMilliseconds: 300,
+      transitionsBuilder: TransitionsBuilders.slideLeft,
     ),
     CustomRoute(
       page: AttendanceRecordView,
@@ -64,7 +70,8 @@ part 'app_router.gr.dart';
         AuthGuard,
         EmailGuard,
       ],
-      durationInMilliseconds: 300,
+      // durationInMilliseconds: 300,
+      transitionsBuilder: TransitionsBuilders.slideLeft,
     ),
     CustomRoute(
       page: ExternalEmailView,
@@ -72,7 +79,8 @@ part 'app_router.gr.dart';
       guards: [
         AuthGuard,
       ],
-      durationInMilliseconds: 300,
+      // durationInMilliseconds: 300,
+      transitionsBuilder: TransitionsBuilders.slideLeft,
     ),
   ],
 )

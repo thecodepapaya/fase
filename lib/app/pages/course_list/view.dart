@@ -10,7 +10,10 @@ import '../../app.dart';
 import '../../utils/enums.dart';
 
 part 'controller.dart';
+part 'widgets/window_timer.dart';
+part 'widgets/course_details.dart';
 part 'widgets/course_tile.dart';
+part 'widgets/action_button.dart';
 
 class CourseListView extends ConsumerWidget {
   const CourseListView({Key? key}) : super(key: key);
@@ -23,11 +26,11 @@ class CourseListView extends ConsumerWidget {
     final Course defaultCourse = Course(
       id: 2,
       instructor:
-          Faculty(instituteEmail: "instituteEmail@iiitvadodara.ac.in", googleUid: "googleUid", name: "Pramit Mazumdar"),
-      courseCode: "CS101",
-      courseName: "A very long name for a very ",
-      semester: "autumn",
-      academicYear: "2022-23",
+          Faculty(instituteEmail: 'instituteEmail@iiitvadodara.ac.in', googleUid: 'googleUid', name: 'Pramit Mazumdar'),
+      courseCode: 'CS101',
+      courseName: 'A very long name',
+      semester: 'autumn',
+      academicYear: '2022-23',
       startTimestamp: DateTime.now(),
       attendanceDurationInMinutes: 5,
     );
