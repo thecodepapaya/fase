@@ -76,7 +76,7 @@ class StartUpCheckUsecaseImpl implements StartUpCheckUsecase {
 
   @override
   Future<bool> checkIfIIITVWifiConnected() async {
-    final currentBSSID = FWifiInfoService.instance.wifiBSSID;
+    final currentBSSID = await FWifiInfoService.instance.wifiBSSID;
 
     final isConnectedToIIITVAP = AccessPoints.list.contains(currentBSSID);
 

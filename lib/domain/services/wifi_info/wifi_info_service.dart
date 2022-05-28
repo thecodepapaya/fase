@@ -7,11 +7,11 @@ abstract class FWifiInfoService implements FService {
 
   static final instance = FWifiInfoServiceImpl();
 
-  String? get wifiName;
-  String? get wifiBSSID;
-  String? get wifiIP;
-  String? get wifiIPv6;
-  String? get wifiSubmask;
-  String? get wifiBroadcast;
-  String? get wifiGateway;
+  Future<String?> get wifiName;
+  Future<String?> get wifiBSSID;
+  Future<String?> get wifiIP;
+  Future<String?> get wifiIPv6;
+  Future<String?> get wifiSubmask;
+  Future<String?> get wifiBroadcast;
+  Future<String?> get wifiGateway;
 }

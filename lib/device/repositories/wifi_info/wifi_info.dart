@@ -3,28 +3,28 @@ import 'package:network_info_plus/network_info_plus.dart';
 import '../../../domain/services/wifi_info/wifi_info_service.dart';
 
 class FWifiInfoServiceImpl implements FWifiInfoService {
-  String? _wifiName;
-  String? _wifiBSSID;
-  String? _wifiIP;
-  String? _wifiIPv6;
-  String? _wifiSubmask;
-  String? _wifiBroadcast;
-  String? _wifiGateway;
+  late final NetworkInfo _wifiInfo;
 
   @override
-  String? get wifiName => _wifiName;
+  Future<String?> get wifiName => _wifiInfo.getWifiName(); // FooNetwork;
+
   @override
-  String? get wifiBSSID => _wifiBSSID;
+  Future<String?> get wifiBSSID => _wifiInfo.getWifiBSSID(); // 11:22:33:44:55:66
+
   @override
-  String? get wifiIP => _wifiIP;
+  Future<String?> get wifiIP => _wifiInfo.getWifiIP(); // 192.168.1.43;
+
   @override
-  String? get wifiIPv6 => _wifiIPv6;
+  Future<String?> get wifiIPv6 => _wifiInfo.getWifiIPv6(); // 2001:0db8:85a3:0000:0000:8a2e:0370:7334;
+
   @override
-  String? get wifiSubmask => _wifiSubmask;
+  Future<String?> get wifiSubmask => _wifiInfo.getWifiSubmask(); // 255.255.255.0;
+
   @override
-  String? get wifiBroadcast => _wifiBroadcast;
+  Future<String?> get wifiBroadcast => _wifiInfo.getWifiBroadcast(); // 192.168.1.255;
+
   @override
-  String? get wifiGateway => _wifiGateway;
+  Future<String?> get wifiGateway => _wifiInfo.getWifiGatewayIP(); // 192.168.1.1;
 
   @override
   void onShutDown() {
@@ -38,14 +38,6 @@ class FWifiInfoServiceImpl implements FWifiInfoService {
 
   @override
   Future<void> startUp() async {
-    final wifiInfo = NetworkInfo();
-
-    _wifiName = await wifiInfo.getWifiName(); // FooNetwork
-    _wifiBSSID = await wifiInfo.getWifiBSSID(); // 11:22:33:44:55:66
-    _wifiIP = await wifiInfo.getWifiIP(); // 192.168.1.43
-    _wifiIPv6 = await wifiInfo.getWifiIPv6(); // 2001:0db8:85a3:0000:0000:8a2e:0370:7334
-    _wifiSubmask = await wifiInfo.getWifiSubmask(); // 255.255.255.0
-    _wifiBroadcast = await wifiInfo.getWifiBroadcast(); // 192.168.1.255
-    _wifiGateway = await wifiInfo.getWifiGatewayIP(); // 192.168.1.1
+    _wifiInfo = NetworkInfo();
   }
 }
