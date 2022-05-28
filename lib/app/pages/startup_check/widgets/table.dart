@@ -19,39 +19,39 @@ class StartupCheckTable extends ConsumerWidget {
       children: <TableRow>[
         _tableRow(
           'Physical Device',
-          CheckIcon(isValid: isPhysicalDevice),
+          CheckIcon(state: isPhysicalDevice),
         ),
         _tableRow(
           'Un-Rooted',
-          CheckIcon(isValid: isDeviceUnRooted),
+          CheckIcon(state: isDeviceUnRooted),
         ),
         _tableRow(
           'Location Permission',
-          CheckIcon(isValid: isLocationGranted),
+          CheckIcon(state: isLocationGranted),
         ),
         _tableRow(
           'Location Enabled',
-          CheckIcon(isValid: isLocationEnabled),
+          CheckIcon(state: isLocationEnabled),
         ),
         _tableRow(
           'WIFI Connected',
-          CheckIcon(isValid: isWifiConnected),
+          CheckIcon(state: isWifiConnected),
         ),
         _tableRow(
           'IIITV WIFI connected',
-          CheckIcon(isValid: isIIITVConnected),
+          CheckIcon(state: isIIITVConnected),
         ),
         _tableRow(
           'Server Found',
-          CheckIcon(isValid: canPingServer),
+          CheckIcon(state: canPingServer),
         ),
         _tableRow(
           'Up-to date Version',
-          CheckIcon(isValid: isMinVersion),
+          CheckIcon(state: isMinVersion),
         ),
         _tableRow(
           'Registration Valid',
-          CheckIcon(isValid: isRegistrationValid),
+          CheckIcon(state: isRegistrationValid),
         ),
       ],
     );

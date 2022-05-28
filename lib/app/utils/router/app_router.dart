@@ -25,13 +25,13 @@ part 'app_router.gr.dart';
       initial: true,
       path: '/splash',
       // durationInMilliseconds: 300,
-      transitionsBuilder: TransitionsBuilders.slideLeft,
+      transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
     CustomRoute(
       page: LoginView,
       path: '/login',
       // durationInMilliseconds: 300,
-      transitionsBuilder: TransitionsBuilders.slideLeft,
+      transitionsBuilder: TransitionsBuilders.fadeIn
     ),
     CustomRoute(
       page: StartUpCheckView,
@@ -41,7 +41,7 @@ part 'app_router.gr.dart';
         EmailGuard,
       ],
       // durationInMilliseconds: 300,
-      transitionsBuilder: TransitionsBuilders.slideLeft,
+      transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
     CustomRoute(
       page: CourseListView,
@@ -80,7 +80,7 @@ part 'app_router.gr.dart';
         AuthGuard,
       ],
       // durationInMilliseconds: 300,
-      transitionsBuilder: TransitionsBuilders.slideLeft,
+      transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
   ],
 )

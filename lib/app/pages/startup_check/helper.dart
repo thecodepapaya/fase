@@ -16,3 +16,16 @@ String _generatePhotoUrlFromName(String displayName) {
 
   return url;
 }
+
+enum CheckState {
+  valid,
+  invalid,
+  checking,
+}
+
+enum ActionButtonState {
+  checkingStatus,
+  allChecksPass,
+  registrationInvalid,
+  someCheckFailed,
+}

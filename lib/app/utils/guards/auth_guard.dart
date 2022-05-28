@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:fase/app/app.dart';
 import 'package:fase/domain/usecases/auth_usecases.dart';
 
 import '../router/app_router.dart';
@@ -20,6 +21,8 @@ class AuthGuard extends AutoRouteGuard {
           onSuccess: () {
             // Redirect to next view if login succeeds
             resolver.next(true);
+            // Remove last login route from stack so that the user can't accidentally go back to it
+            appRouter.removeLast();
           },
         ),
       );

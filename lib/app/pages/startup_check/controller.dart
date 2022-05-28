@@ -10,48 +10,59 @@ final _vsProvider = StateNotifierProvider<_VSController, _ViewState>((ref) {
 
 class _ViewState {
   final ApiStatus apiStatus;
-  final bool? isPhysicalDevice;
-  final bool? isDeviceUnRooted;
-  final bool? isLocationGranted;
-  final bool? isLocationEnabled;
-  final bool? isWifiConnected;
-  final bool? isIIITVConnected;
-  final bool? canPingServer;
-  final bool? isMinVersion;
-  final bool? isRegistrationValid;
+  final CheckState isPhysicalDevice;
+  final CheckState isDeviceUnRooted;
+  final CheckState isLocationGranted;
+  final CheckState isLocationEnabled;
+  final CheckState isWifiConnected;
+  final CheckState isIIITVConnected;
+  final CheckState canPingServer;
+  final CheckState isMinVersion;
+  final CheckState isRegistrationValid;
 
   bool get allChecksPassed =>
-      isPhysicalDevice == true &&
-      isDeviceUnRooted == true &&
-      isLocationGranted == true &&
-      isLocationEnabled == true &&
-      isWifiConnected == true &&
-      isIIITVConnected == true &&
-      canPingServer == true &&
-      isMinVersion == true &&
-      isRegistrationValid == true;
+      isPhysicalDevice == CheckState.valid &&
+      isDeviceUnRooted == CheckState.valid &&
+      isLocationGranted == CheckState.valid &&
+      isLocationEnabled == CheckState.valid &&
+      isWifiConnected == CheckState.valid &&
+      isIIITVConnected == CheckState.valid &&
+      canPingServer == CheckState.valid &&
+      isMinVersion == CheckState.valid &&
+      isRegistrationValid == CheckState.valid;
 
   bool get someChecksFailed =>
-      isPhysicalDevice == false ||
-      isDeviceUnRooted == false ||
-      isLocationGranted == false ||
-      isLocationEnabled == false ||
-      isWifiConnected == false ||
-      isIIITVConnected == false ||
-      canPingServer == false ||
-      isMinVersion == false ||
-      isRegistrationValid == false;
+      isPhysicalDevice == CheckState.invalid ||
+      isDeviceUnRooted == CheckState.invalid ||
+      isLocationGranted == CheckState.invalid ||
+      isLocationEnabled == CheckState.invalid ||
+      isWifiConnected == CheckState.invalid ||
+      isIIITVConnected == CheckState.invalid ||
+      canPingServer == CheckState.invalid ||
+      isMinVersion == CheckState.invalid ||
+      isRegistrationValid == CheckState.invalid;
+
+  bool get everythingExceptRegistrationPassed =>
+      isPhysicalDevice == CheckState.valid &&
+      isDeviceUnRooted == CheckState.valid &&
+      isLocationGranted == CheckState.valid &&
+      isLocationEnabled == CheckState.valid &&
+      isWifiConnected == CheckState.valid &&
+      isIIITVConnected == CheckState.valid &&
+      canPingServer == CheckState.valid &&
+      isMinVersion == CheckState.valid &&
+      isRegistrationValid == CheckState.invalid;
 
   bool get isCheckingStatus =>
-      isPhysicalDevice == null ||
-      isDeviceUnRooted == null ||
-      isLocationGranted == null ||
-      isLocationEnabled == null ||
-      isWifiConnected == null ||
-      isIIITVConnected == null ||
-      canPingServer == null ||
-      isMinVersion == null ||
-      isRegistrationValid == null;
+      isPhysicalDevice == CheckState.checking ||
+      isDeviceUnRooted == CheckState.checking ||
+      isLocationGranted == CheckState.checking ||
+      isLocationEnabled == CheckState.checking ||
+      isWifiConnected == CheckState.checking ||
+      isIIITVConnected == CheckState.checking ||
+      canPingServer == CheckState.checking ||
+      isMinVersion == CheckState.checking ||
+      isRegistrationValid == CheckState.checking;
 
   _ViewState({
     required this.apiStatus,
@@ -69,28 +80,28 @@ class _ViewState {
   _ViewState.initial()
       : this(
           apiStatus: ApiStatus.init,
-          isPhysicalDevice: null,
-          isDeviceUnRooted: null,
-          isLocationGranted: null,
-          isLocationEnabled: null,
-          isWifiConnected: null,
-          isIIITVConnected: null,
-          canPingServer: null,
-          isMinVersion: null,
-          isRegistrationValid: null,
+          isPhysicalDevice: CheckState.checking,
+          isDeviceUnRooted: CheckState.checking,
+          isLocationGranted: CheckState.checking,
+          isLocationEnabled: CheckState.checking,
+          isWifiConnected: CheckState.checking,
+          isIIITVConnected: CheckState.checking,
+          canPingServer: CheckState.checking,
+          isMinVersion: CheckState.checking,
+          isRegistrationValid: CheckState.checking,
         );
 
   _ViewState copyWith({
     ApiStatus? apiStatus,
-    bool? isPhysicalDevice,
-    bool? isDeviceUnRooted,
-    bool? isLocationGranted,
-    bool? isLocationEnabled,
-    bool? isWifiConnected,
-    bool? isIIITVConnected,
-    bool? canPingServer,
-    bool? isMinVersion,
-    bool? isRegistrationValid,
+    CheckState? isPhysicalDevice,
+    CheckState? isDeviceUnRooted,
+    CheckState? isLocationGranted,
+    CheckState? isLocationEnabled,
+    CheckState? isWifiConnected,
+    CheckState? isIIITVConnected,
+    CheckState? canPingServer,
+    CheckState? isMinVersion,
+    CheckState? isRegistrationValid,
   }) {
     return _ViewState(
       apiStatus: apiStatus ?? this.apiStatus,
@@ -126,9 +137,23 @@ class _VSController extends StateNotifier<_ViewState> {
 
     final wifiStatusStream = FConnectivityService.instance.wifiConnectivity;
 
-    wifiStatusStream.listen((ConnectivityStatus status) {
+    wifiStatusStream.listen((ConnectivityStatus status) async {
       final isWifiConnected = status == ConnectivityStatus.wifiConnected;
-      state = state.copyWith(isWifiConnected: isWifiConnected);
+
+      final wifiConnectedState = isWifiConnected ? CheckState.valid : CheckState.invalid;
+      state = state.copyWith(isWifiConnected: wifiConnectedState);
+
+      final iiitvConnectedState = await _isIIITVConnected();
+      state = state.copyWith(isIIITVConnected: iiitvConnectedState);
+
+      final pingServerState = await _canPingServer();
+      state = state.copyWith(canPingServer: pingServerState);
+
+      final minVersionState = await _isMinVersion();
+      state = state.copyWith(isMinVersion: minVersionState);
+
+      final registrationValidState = await _isRegistrationValid();
+      state = state.copyWith(isRegistrationValid: registrationValidState);
     });
   }
 
@@ -160,9 +185,12 @@ class _VSController extends StateNotifier<_ViewState> {
   }
 
   Future<void> onActionButtonPressed() async {
-    if (state.allChecksPassed) {
+    final allCheckPassed = state.allChecksPassed;
+    final isRegistrationPending = state.isRegistrationValid == CheckState.invalid;
+
+    if (allCheckPassed) {
       _proceedToCourseSelection();
-    } else if (!(state.isRegistrationValid ?? false)) {
+    } else if (isRegistrationPending) {
       await _performDeviceRegistration();
       await _checkAllConditions();
     } else {
@@ -182,39 +210,43 @@ class _VSController extends StateNotifier<_ViewState> {
     log('_resetAllCheck');
 
     state = state.copyWith(
-      isPhysicalDevice: null,
-      isDeviceUnRooted: null,
-      isLocationGranted: null,
-      isLocationEnabled: null,
-      isWifiConnected: null,
-      isIIITVConnected: null,
-      canPingServer: null,
-      isMinVersion: null,
-      isRegistrationValid: null,
+      isPhysicalDevice: CheckState.checking,
+      isDeviceUnRooted: CheckState.checking,
+      isLocationGranted: CheckState.checking,
+      isLocationEnabled: CheckState.checking,
+      isWifiConnected: CheckState.checking,
+      isIIITVConnected: CheckState.checking,
+      canPingServer: CheckState.checking,
+      isMinVersion: CheckState.checking,
+      isRegistrationValid: CheckState.checking,
     );
   }
 
-  Future<bool> _isPhysicalDevice() async {
+  Future<CheckState> _isPhysicalDevice() async {
     final bool isPhysicalDevice = await StartUpCheckUsecase.instance.checkIfPhysicalDevice();
+    final isPhysicalDeviceState = isPhysicalDevice ? CheckState.valid : CheckState.invalid;
 
-    return isPhysicalDevice;
+    return isPhysicalDeviceState;
   }
 
-  Future<bool> _isDeviceUnRooted() async {
+  Future<CheckState> _isDeviceUnRooted() async {
     final bool isDeviceUnRooted = await StartUpCheckUsecase.instance.checkIfUnRooted();
+    final isDeviceUnRootedState = isDeviceUnRooted ? CheckState.valid : CheckState.invalid;
 
-    return isDeviceUnRooted;
+    return isDeviceUnRootedState;
   }
 
-  Future<bool> _isLocationGranted() async {
+  Future<CheckState> _isLocationGranted() async {
     final bool isLocationPermissionGranted = await StartUpCheckUsecase.instance.checkIfLocationGranted();
+    final isLocationPermissionGrantedState = isLocationPermissionGranted ? CheckState.valid : CheckState.invalid;
 
-    return isLocationPermissionGranted;
+    return isLocationPermissionGrantedState;
   }
 
-  Future<bool> _isLocationEnabled() async {
-    final bool isLocationPermissionGranted = await StartUpCheckUsecase.instance.checkIfLocationGranted();
+  Future<CheckState> _isLocationEnabled() async {
+    final bool isLocationPermissionGranted = state.isLocationGranted == CheckState.valid;
     final bool isLocationEnabled;
+    final CheckState isLocationEnabledState;
 
     if (isLocationPermissionGranted) {
       isLocationEnabled = await StartUpCheckUsecase.instance.checkIfLocationEnabled();
@@ -222,44 +254,69 @@ class _VSController extends StateNotifier<_ViewState> {
       isLocationEnabled = false;
     }
 
-    return isLocationEnabled;
+    isLocationEnabledState = isLocationEnabled ? CheckState.valid : CheckState.invalid;
+
+    return isLocationEnabledState;
   }
 
-  Future<bool> _isWifiConnected() async {
+  Future<CheckState> _isWifiConnected() async {
     final bool isWifiConnected = await StartUpCheckUsecase.instance.checkIfWifiConnected();
+    final isWifiConnectedState = isWifiConnected ? CheckState.valid : CheckState.invalid;
 
-    return isWifiConnected;
+    return isWifiConnectedState;
   }
 
-  Future<bool> _isIIITVConnected() async {
+  Future<CheckState> _isIIITVConnected() async {
     late final bool isIIITVConnected;
 
-    final isWifiConnected = await _isWifiConnected();
+    final isWifiConnected = state.isWifiConnected;
 
-    if (!isWifiConnected) {
-      return false;
+    if (isWifiConnected != CheckState.valid) {
+      return isWifiConnected;
     }
 
     isIIITVConnected = await StartUpCheckUsecase.instance.checkIfIIITVWifiConnected();
+    final isIIITVConnectedState = isIIITVConnected ? CheckState.valid : CheckState.invalid;
 
-    return isIIITVConnected;
+    return isIIITVConnectedState;
   }
 
-  Future<bool> _canPingServer() async {
+  Future<CheckState> _canPingServer() async {
+    final isIIITVConnected = state.isIIITVConnected;
+
+    if (isIIITVConnected != CheckState.valid) {
+      return isIIITVConnected;
+    }
+
     final bool canPingServer = await StartUpCheckUsecase.instance.checkCanPingServer();
+    final canPingServerState = canPingServer ? CheckState.valid : CheckState.invalid;
 
-    return canPingServer;
+    return canPingServerState;
   }
 
-  Future<bool> _isMinVersion() async {
+  Future<CheckState> _isMinVersion() async {
+    final canPingServer = state.canPingServer;
+
+    if (canPingServer != CheckState.valid) {
+      return canPingServer;
+    }
+
     final bool isMinVersion = await StartUpCheckUsecase.instance.checkAppUpToDate();
+    final isMinVersionState = isMinVersion ? CheckState.valid : CheckState.invalid;
 
-    return isMinVersion;
+    return isMinVersionState;
   }
 
-  Future<bool> _isRegistrationValid() async {
-    final bool isRegistrationValid = await StartUpCheckUsecase.instance.checkRegistrationValid();
+  Future<CheckState> _isRegistrationValid() async {
+    final isIIITVConnected = state.canPingServer;
 
-    return isRegistrationValid;
+    if (isIIITVConnected != CheckState.valid) {
+      return isIIITVConnected;
+    }
+
+    final bool isRegistrationValid = await StartUpCheckUsecase.instance.checkRegistrationValid();
+    final isRegistrationValidState = isRegistrationValid ? CheckState.valid : CheckState.invalid;
+
+    return isRegistrationValidState;
   }
 }

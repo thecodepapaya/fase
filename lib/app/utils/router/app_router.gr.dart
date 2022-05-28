@@ -29,7 +29,7 @@ class _$AppRouter extends RootStackRouter {
       return CustomPage<dynamic>(
           routeData: routeData,
           child: const SplashScreenView(),
-          transitionsBuilder: TransitionsBuilders.slideLeft,
+          transitionsBuilder: TransitionsBuilders.fadeIn,
           opaque: true,
           barrierDismissible: false);
     },
@@ -38,7 +38,7 @@ class _$AppRouter extends RootStackRouter {
       return CustomPage<dynamic>(
           routeData: routeData,
           child: LoginView(key: args.key, onSuccess: args.onSuccess),
-          transitionsBuilder: TransitionsBuilders.slideLeft,
+          transitionsBuilder: TransitionsBuilders.fadeIn,
           opaque: true,
           barrierDismissible: false);
     },
@@ -46,7 +46,7 @@ class _$AppRouter extends RootStackRouter {
       return CustomPage<dynamic>(
           routeData: routeData,
           child: const StartUpCheckView(),
-          transitionsBuilder: TransitionsBuilders.slideLeft,
+          transitionsBuilder: TransitionsBuilders.fadeIn,
           opaque: true,
           barrierDismissible: false);
     },
@@ -80,7 +80,7 @@ class _$AppRouter extends RootStackRouter {
       return CustomPage<dynamic>(
           routeData: routeData,
           child: const ExternalEmailView(),
-          transitionsBuilder: TransitionsBuilders.slideLeft,
+          transitionsBuilder: TransitionsBuilders.fadeIn,
           opaque: true,
           barrierDismissible: false);
     }
