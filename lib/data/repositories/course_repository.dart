@@ -1,4 +1,5 @@
 import 'package:fase/domain/entities/course.dart';
+import 'package:fase/domain/entities/user.dart';
 import 'package:fase/domain/repositories/course_repository.dart';
 
 class CourseRepositoryImpl implements CourseRepository {

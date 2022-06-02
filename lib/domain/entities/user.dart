@@ -8,19 +8,19 @@ class User {
   User({
     required this.instituteEmail,
     required this.name,
-    required this.displayPicture,
+    this.displayPicture,
     required this.isFaculty,
   });
 
   final String instituteEmail;
   final String name;
-  final dynamic displayPicture;
+  final String? displayPicture;
   final bool isFaculty;
 
   User copyWith({
     String? instituteEmail,
     String? name,
-    dynamic? displayPicture,
+    String? displayPicture,
     bool? isFaculty,
   }) =>
       User(

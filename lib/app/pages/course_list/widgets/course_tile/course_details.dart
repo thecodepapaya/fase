@@ -22,7 +22,7 @@ class CourseDetails extends ConsumerWidget {
               style: FTextStyle.heading4.copyWith(fontWeight: FontWeight.w500),
             ),
             Text(
-              course.instructor.name,
+              course.instructors.first.name,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: FTextStyle.heading5.copyWith(color: Colors.grey),

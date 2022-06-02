@@ -16,7 +16,7 @@ class ActionButton extends ConsumerWidget {
       alignment: Alignment.bottomRight,
       child: TextButton(
         onPressed: () {
-          controller.onStartAttendanceWindow(course.id);
+          controller.onStartAttendanceWindow(course.id!);
         },
         child: const Text('Start Attendance'),
       ),

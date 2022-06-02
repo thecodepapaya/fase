@@ -6,14 +6,14 @@ import 'dart:convert';
 
 class Attendance {
   Attendance({
-    required this.id,
+    this.id,
     required this.timestamp,
     required this.course,
     required this.student,
     required this.registration,
   });
 
-  final int id;
+  final int? id;
   final DateTime? timestamp;
   final int course;
   final String student;

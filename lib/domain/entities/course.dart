@@ -8,7 +8,7 @@ import 'package:fase/domain/entities/user.dart';
 
 class Course {
   Course({
-    required this.id,
+    this.id,
     required this.courseCode,
     required this.courseName,
     required this.semester,
@@ -17,6 +17,7 @@ class Course {
     required this.startTimestamp,
     required this.attendanceDurationInMinutes,
     required this.isAlreadyMarked,
+    this.description,
   });
 
   final int? id;
@@ -28,6 +29,7 @@ class Course {
   final DateTime? startTimestamp;
   final int attendanceDurationInMinutes;
   final bool isAlreadyMarked;
+  final String? description;
 
   Course copyWith({
     int? id,
@@ -39,6 +41,7 @@ class Course {
     DateTime? startTimestamp,
     int? attendanceDurationInMinutes,
     bool? isAlreadyMarked,
+    String? description,
   }) =>
       Course(
         id: id ?? this.id,
@@ -50,6 +53,7 @@ class Course {
         startTimestamp: startTimestamp ?? this.startTimestamp,
         attendanceDurationInMinutes: attendanceDurationInMinutes ?? this.attendanceDurationInMinutes,
         isAlreadyMarked: isAlreadyMarked ?? this.isAlreadyMarked,
+        description: description ?? this.description,
       );
 
   factory Course.fromJson(String str) => Course.fromMap(json.decode(str));
@@ -67,6 +71,7 @@ class Course {
         startTimestamp: json['start_timestamp'] == null ? null : DateTime.parse(json['start_timestamp']),
         attendanceDurationInMinutes: json['attendance_duration_in_minutes'],
         isAlreadyMarked: json['is_already_marked'],
+        description: json['description'],
       );
 
   Map<String, dynamic> toMap() => {
@@ -79,5 +84,24 @@ class Course {
         'start_timestamp': startTimestamp?.toIso8601String(),
         'attendance_duration_in_minutes': attendanceDurationInMinutes,
         'is_already_marked': isAlreadyMarked,
+        'description': description,
       };
 }
+
+final defaultCourse = Course(
+  id: 6,
+  courseCode: 'CS101',
+  courseName: 'Problem Solving',
+  semester: 'Autumn',
+  academicYear: '2022-2023',
+  instructors: [
+    User(
+      instituteEmail: 'naveen@iiitvadodara.ac.in',
+      name: 'Naveen Kumar',
+      isFaculty: true,
+    ),
+  ],
+  startTimestamp: DateTime.now(),
+  attendanceDurationInMinutes: 5,
+  isAlreadyMarked: false,
+);
