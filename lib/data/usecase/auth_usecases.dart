@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../domain/repositories/auth_repository.dart';
+import '../../domain/repositories/firebase_auth_repository.dart';
 import '../../domain/repositories/google_sign_in_repository.dart';
 import '../../domain/usecases/auth_usecases.dart';
 
@@ -23,7 +23,7 @@ class AuthUsecaseImpl implements AuthUsecase {
       idToken: googleSignInAuthentication?.idToken,
     );
 
-    final user = await AuthRepository.instance.loginWithCredentials(credential);
+    final user = await AuthRepository.instance.firebaseLoginWithCredentials(credential);
 
     return user;
   }

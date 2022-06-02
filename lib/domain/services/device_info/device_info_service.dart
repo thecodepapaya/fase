@@ -8,7 +8,6 @@ abstract class FDeviceInfoService implements FService {
 
   String? get model;
   String? get brand;
-  String? get fingerprint;
   String? get type;
   String? get id;
   String? get device;

@@ -1,4 +1,4 @@
-import 'package:fase/data/repositories/auth_repository.dart';
+import 'package:fase/data/repositories/firebase_auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class AuthRepository {
@@ -8,7 +8,9 @@ abstract class AuthRepository {
 
   User? get currentUser;
 
-  Future<User?> loginWithCredentials(OAuthCredential credential);
+  Future<User?> firebaseLoginWithCredentials(OAuthCredential credential);
+
+  Future<String?> jwtToken();
 
   Future<void> logOut();
 }

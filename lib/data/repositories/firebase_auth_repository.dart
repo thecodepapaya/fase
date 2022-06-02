@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../domain/repositories/auth_repository.dart';
+import '../../domain/repositories/firebase_auth_repository.dart';
 
 class AuthRepositoryImply implements AuthRepository {
   @override
@@ -14,7 +14,7 @@ class AuthRepositoryImply implements AuthRepository {
   }
 
   @override
-  Future<User?> loginWithCredentials(OAuthCredential credential) async {
+  Future<User?> firebaseLoginWithCredentials(OAuthCredential credential) async {
     try {
       final userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
 
@@ -28,5 +28,12 @@ class AuthRepositoryImply implements AuthRepository {
 
       return null;
     }
+  }
+
+  @override
+  Future<String?> jwtToken() async {
+    final token = await currentUser?.getIdToken(true);
+
+    return token;
   }
 }

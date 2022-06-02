@@ -8,7 +8,6 @@ import '../../../domain/services/device_info/device_info_service.dart';
 class FDeviceInfoServiceImpl implements FDeviceInfoService {
   String? _model;
   String? _brand;
-  String? _fingerprint;
   String? _type;
   String? _id;
   String? _device;
@@ -21,8 +20,6 @@ class FDeviceInfoServiceImpl implements FDeviceInfoService {
   String? get model => _model;
   @override
   String? get brand => _brand;
-  @override
-  String? get fingerprint => _fingerprint;
   @override
   String? get type => _type;
   @override
@@ -59,7 +56,6 @@ class FDeviceInfoServiceImpl implements FDeviceInfoService {
 
       _model = androidInfo.model ?? '';
       _brand = androidInfo.brand ?? '';
-      _fingerprint = androidInfo.fingerprint ?? '';
       _type = androidInfo.type ?? '';
       _id = androidInfo.androidId ?? '';
       _device = androidInfo.device ?? '';
@@ -70,7 +66,6 @@ class FDeviceInfoServiceImpl implements FDeviceInfoService {
 
       _model = iosInfo.model ?? '';
       _brand = 'Apple';
-      _fingerprint = '';
       _type = iosInfo.utsname.release ?? '';
       _id = iosInfo.identifierForVendor ?? '';
       _device = iosInfo.utsname.machine ?? '';
@@ -82,7 +77,6 @@ class FDeviceInfoServiceImpl implements FDeviceInfoService {
 
       _model = webBrowserInfo.browserName.name;
       _brand = webBrowserInfo.vendor ?? '';
-      _fingerprint = webBrowserInfo.platform ?? '';
       _type = '';
       _id = '';
       _device = webBrowserInfo.appName ?? '';

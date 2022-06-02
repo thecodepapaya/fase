@@ -1,91 +1,83 @@
+// To parse this JSON data, do
+//
+//     final course = courseFromMap(jsonString);
+
 import 'dart:convert';
 
-import 'package:fase/domain/entities/faculty.dart';
+import 'package:fase/domain/entities/user.dart';
 
 class Course {
   Course({
     required this.id,
-    required this.instructor,
     required this.courseCode,
     required this.courseName,
     required this.semester,
     required this.academicYear,
+    required this.instructors,
     required this.startTimestamp,
-    this.attendanceDurationInMinutes = 5,
-    this.description,
+    required this.attendanceDurationInMinutes,
+    required this.isAlreadyMarked,
   });
 
-  final int id;
-  final Faculty instructor;
+  final int? id;
   final String courseCode;
   final String courseName;
   final String semester;
   final String academicYear;
-  final String? description;
-  final DateTime startTimestamp;
+  final List<User> instructors;
+  final DateTime? startTimestamp;
   final int attendanceDurationInMinutes;
+  final bool isAlreadyMarked;
 
   Course copyWith({
     int? id,
-    Faculty? instructor,
     String? courseCode,
     String? courseName,
     String? semester,
     String? academicYear,
+    List<User>? instructors,
     DateTime? startTimestamp,
     int? attendanceDurationInMinutes,
-    String? description,
+    bool? isAlreadyMarked,
   }) =>
       Course(
         id: id ?? this.id,
-        instructor: instructor ?? this.instructor,
         courseCode: courseCode ?? this.courseCode,
         courseName: courseName ?? this.courseName,
         semester: semester ?? this.semester,
         academicYear: academicYear ?? this.academicYear,
+        instructors: instructors ?? this.instructors,
         startTimestamp: startTimestamp ?? this.startTimestamp,
         attendanceDurationInMinutes: attendanceDurationInMinutes ?? this.attendanceDurationInMinutes,
-        description: description ?? this.description,
+        isAlreadyMarked: isAlreadyMarked ?? this.isAlreadyMarked,
       );
 
-  factory Course.fromRawJson(String str) => Course.fromJson(json.decode(str));
+  factory Course.fromJson(String str) => Course.fromMap(json.decode(str));
 
-  String toRawJson() => json.encode(toJson());
+  String toJson() => json.encode(toMap());
 
-  factory Course.fromJson(Map<String, dynamic> json) => Course(
+  factory Course.fromMap(Map<String, dynamic> json) => Course(
         id: json['id'],
-        instructor: Faculty.fromJson(json['instructor']),
         courseCode: json['course_code'],
         courseName: json['course_name'],
         semester: json['semester'],
         academicYear: json['academic_year'],
-        startTimestamp: DateTime.parse(json['start_timestamp']),
-        attendanceDurationInMinutes: json['attendance_duration'],
-        description: json['description'],
+        instructors:
+            json['instructors'] == null ? [] : List<User>.from(json['instructors'].map((x) => User.fromMap(x))),
+        startTimestamp: json['start_timestamp'] == null ? null : DateTime.parse(json['start_timestamp']),
+        attendanceDurationInMinutes: json['attendance_duration_in_minutes'],
+        isAlreadyMarked: json['is_already_marked'],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toMap() => {
         'id': id,
-        'instructor': instructor.toJson(),
         'course_code': courseCode,
         'course_name': courseName,
         'semester': semester,
         'academic_year': academicYear,
-        'start_timestamp': startTimestamp.toIso8601String(),
-        'attendance_duration': attendanceDurationInMinutes,
-        'description': description,
+        'instructors': instructors == null ? null : List<dynamic>.from(instructors.map((x) => x.toMap())),
+        'start_timestamp': startTimestamp?.toIso8601String(),
+        'attendance_duration_in_minutes': attendanceDurationInMinutes,
+        'is_already_marked': isAlreadyMarked,
       };
 }
-
-final Course defaultCourse = Course(
-  id: 5,
-  instructor:
-      Faculty(instituteEmail: 'instituteEmail@iiitvadodara.ac.in', googleUid: 'googleUid', name: 'Pramit Mazumdar'),
-  courseCode: 'CS101',
-  courseName: 'A very long name for a very boring course for the semester',
-  semester: 'autumn',
-  academicYear: '2022-23',
-  startTimestamp: DateTime.now(),
-  attendanceDurationInMinutes: 5,
-  description: 'Section A',
-);
