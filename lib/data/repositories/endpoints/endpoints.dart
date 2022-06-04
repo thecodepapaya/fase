@@ -8,5 +8,6 @@ class Endpoints {
   static const metadata = '${Constants.BASE_URL}/metadata/';
 
   // Registration
-  static const verifyRegistration = '${Constants.BASE_URL}/registration_verify/';
+  static const verifyRegistration = '${Constants.BASE_URL}/registration/verify/';
+  static const register = '${Constants.BASE_URL}/registration/';
 }

@@ -9,7 +9,8 @@ abstract class RegistrationRepository {
 
   Future<bool> verifyRegistration(String deviceID);
 
-  Future<Registration> register();
+  Future<Registration?> register(Registration registration);
 
+  @Deprecated('Use verifyRegistration instead')
   Future<Registration> registrationStatus();
 }
