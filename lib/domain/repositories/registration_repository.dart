@@ -7,7 +7,7 @@ abstract class RegistrationRepository {
 
   static final instance = RegistrationRepositoryImpl();
 
-  Future<bool> verifyRegistration();
+  Future<bool> verifyRegistration(String deviceID);
 
   Future<Registration> register();
 

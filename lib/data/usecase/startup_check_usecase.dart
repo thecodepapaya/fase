@@ -1,4 +1,6 @@
 import 'package:fase/domain/repositories/meta_data_repository.dart';
+import 'package:fase/domain/repositories/registration_repository.dart';
+import 'package:fase/domain/services/device_info/device_info_service.dart';
 import 'package:fase/domain/services/package_info/package_info_service.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -27,9 +29,12 @@ class StartUpCheckUsecaseImpl implements StartUpCheckUsecase {
   }
 
   @override
-  Future<bool> checkRegistrationValid() {
-    // TODO: implement checkRegistrationValid
-    return Future.value(true);
+  Future<bool> checkRegistrationValid() async {
+    final deviceID = FDeviceInfoService.instance.id ?? '';
+
+    final isRegistrationValid = await RegistrationRepository.instance.verifyRegistration(deviceID);
+
+    return isRegistrationValid;
   }
 
   @override

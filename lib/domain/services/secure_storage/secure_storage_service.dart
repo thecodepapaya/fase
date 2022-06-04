@@ -7,4 +7,5 @@ abstract class FSecureStorageService implements FService {
   static final instance = FSecureStorageServiceImpl();
 
   String get secureAuthKey;
+  set secureAuthKey(String value);
 }

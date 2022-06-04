@@ -22,6 +22,8 @@ class FDeviceInfoServiceImpl implements FDeviceInfoService {
   String? get brand => _brand;
   @override
   String? get type => _type;
+
+  /// A unique device ID. This ID can change on device factory reset and OS updates
   @override
   String? get id => _id;
   @override
