@@ -2,7 +2,6 @@ import 'package:fase/app/core_widgets/refresh_button.dart';
 import 'package:fase/app/core_widgets/scaffold.dart';
 import 'package:fase/app/core_widgets/text_styles.dart';
 import 'package:fase/app/utils/router/app_router.dart';
-import 'package:fase/data/repositories/course_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

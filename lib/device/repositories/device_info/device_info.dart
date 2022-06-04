@@ -8,34 +8,25 @@ import '../../../domain/services/device_info/device_info_service.dart';
 class FDeviceInfoServiceImpl implements FDeviceInfoService {
   String? _model;
   String? _brand;
-  String? _type;
   String? _id;
-  String? _device;
-  String? _tags;
-  String? _sdk;
+  String? _deviceName;
   String? _os;
   String? _osVersion;
 
   @override
-  String? get model => _model;
+  String get model => _model ?? '';
   @override
-  String? get brand => _brand;
-  @override
-  String? get type => _type;
+  String get brand => _brand ?? '';
 
   /// A unique device ID. This ID can change on device factory reset and OS updates
   @override
-  String? get id => _id;
+  String get id => _id ?? '';
   @override
-  String? get device => _device;
+  String get deviceName => _deviceName ?? '';
   @override
-  String? get tags => _tags;
+  String get os => _os ?? '';
   @override
-  String? get sdk => _sdk;
-  @override
-  String? get os => _os;
-  @override
-  String? get osVersion => _osVersion;
+  String get osVersion => _osVersion ?? '';
 
   @override
   void onShutDown() {
@@ -58,20 +49,16 @@ class FDeviceInfoServiceImpl implements FDeviceInfoService {
 
       _model = androidInfo.model ?? '';
       _brand = androidInfo.brand ?? '';
-      _type = androidInfo.type ?? '';
       _id = androidInfo.androidId ?? '';
-      _device = androidInfo.device ?? '';
-      _tags = androidInfo.tags ?? '';
+      _deviceName = androidInfo.device ?? '';
     } else if (Platform.isIOS) {
       IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
       debugPrint('Running on ${iosInfo.utsname.machine}'); // e.g. "iPod7,1"
 
       _model = iosInfo.model ?? '';
       _brand = 'Apple';
-      _type = iosInfo.utsname.release ?? '';
       _id = iosInfo.identifierForVendor ?? '';
-      _device = iosInfo.utsname.machine ?? '';
-      _tags = '';
+      _deviceName = iosInfo.utsname.machine ?? '';
     } else if (kIsWeb) {
       WebBrowserInfo webBrowserInfo = await deviceInfo.webBrowserInfo;
       debugPrint(
@@ -79,10 +66,8 @@ class FDeviceInfoServiceImpl implements FDeviceInfoService {
 
       _model = webBrowserInfo.browserName.name;
       _brand = webBrowserInfo.vendor ?? '';
-      _type = '';
       _id = '';
-      _device = webBrowserInfo.appName ?? '';
-      _tags = webBrowserInfo.userAgent ?? '';
+      _deviceName = webBrowserInfo.appName ?? '';
     }
 
     _os = Platform.operatingSystem;

@@ -8,11 +8,8 @@ abstract class FDeviceInfoService implements FService {
 
   String? get model;
   String? get brand;
-  String? get type;
   String? get id;
-  String? get device;
-  String? get tags;
-  String? get sdk;
+  String? get deviceName;
   String? get os;
   String? get osVersion;
 }

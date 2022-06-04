@@ -1,11 +1,12 @@
 import 'package:fase/data/constants.dart';
 
 class Endpoints {
-  // Auth endpoints
+  // Auth
   static const login = '${Constants.BASE_URL}/login/';
 
-  // Metadata endpoints
-  static const metadata = '${Constants.BASE_URL}/metadata/';
+  // Metadata
+  static const getMetadata = '${Constants.BASE_URL}/metadata/';
+  static const pingServer = '${Constants.BASE_URL}/ping/';
 
   // Registration
   static const verifyRegistration = '${Constants.BASE_URL}/registration/verify/';

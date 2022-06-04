@@ -186,7 +186,7 @@ class _VSController extends StateNotifier<_ViewState> {
 
   Future<void> onActionButtonPressed() async {
     final allCheckPassed = state.allChecksPassed;
-    final isRegistrationPending = state.isRegistrationValid == CheckState.invalid;
+    final isRegistrationPending = state.everythingExceptRegistrationPassed;
 
     if (allCheckPassed) {
       _proceedToCourseSelection();
@@ -202,7 +202,9 @@ class _VSController extends StateNotifier<_ViewState> {
     appRouter.navigate(const CourseListRoute());
   }
 
-  Future<void> _performDeviceRegistration() async {}
+  Future<void> _performDeviceRegistration() async {
+    final _ = await RegistrationUsecase.instance.registerUser();
+  }
 
   void onSidebarCourseTapped(String courseId) {}
 

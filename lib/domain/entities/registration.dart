@@ -7,7 +7,7 @@ import 'dart:convert';
 class Registration {
   Registration({
     this.id,
-    required this.timestamp,
+    this.timestamp,
     required this.model,
     required this.brand,
     required this.deviceId,
@@ -102,8 +102,6 @@ class Registration {
       );
 
   Map<String, dynamic> toMap() => {
-        'id': id,
-        'timestamp': timestamp?.toIso8601String(),
         'model': model,
         'brand': brand,
         'device_id': deviceId,

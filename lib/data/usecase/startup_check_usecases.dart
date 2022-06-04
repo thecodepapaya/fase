@@ -1,7 +1,6 @@
 import 'package:fase/domain/repositories/meta_data_repository.dart';
-import 'package:fase/domain/repositories/registration_repository.dart';
-import 'package:fase/domain/services/device_info/device_info_service.dart';
 import 'package:fase/domain/services/package_info/package_info_service.dart';
+import 'package:fase/domain/usecases/registration_usecases.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../app/utils/access_point_list.dart';
@@ -10,7 +9,7 @@ import '../../domain/services/connectivity/connectivity_service.dart';
 import '../../domain/services/permission/permission_service.dart';
 import '../../domain/services/safe_device/safe_device_service.dart';
 import '../../domain/services/wifi_info/wifi_info_service.dart';
-import '../../domain/usecases/startup_check_usecase.dart';
+import '../../domain/usecases/startup_check_usecases.dart';
 
 class StartUpCheckUsecaseImpl implements StartUpCheckUsecase {
   @override
@@ -23,16 +22,14 @@ class StartUpCheckUsecaseImpl implements StartUpCheckUsecase {
   }
 
   @override
-  Future<bool> checkCanPingServer() {
-    // TODO: implement checkCanPingServer
-    return Future.value(true);
+  Future<bool> checkCanPingServer() async {
+    final canPing = await MetadataRepository.instance.pingServer();
+    return canPing;
   }
 
   @override
   Future<bool> checkRegistrationValid() async {
-    final deviceID = FDeviceInfoService.instance.id ?? '';
-
-    final isRegistrationValid = await RegistrationRepository.instance.verifyRegistration(deviceID);
+    final isRegistrationValid = RegistrationUsecase.instance.verifyUserRegistration();
 
     return isRegistrationValid;
   }

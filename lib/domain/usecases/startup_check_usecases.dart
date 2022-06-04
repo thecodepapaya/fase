@@ -1,4 +1,4 @@
-import 'package:fase/data/usecase/startup_check_usecase.dart';
+import 'package:fase/data/usecase/startup_check_usecases.dart';
 
 abstract class StartUpCheckUsecase {
   StartUpCheckUsecase._();

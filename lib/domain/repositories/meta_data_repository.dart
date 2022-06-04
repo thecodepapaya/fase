@@ -8,4 +8,6 @@ abstract class MetadataRepository {
   static final instance = MetadataRepositoryImpl();
 
   Future<Metadata?> getMetadata();
+
+  Future<bool> pingServer();
 }
