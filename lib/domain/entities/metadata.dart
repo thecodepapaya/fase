@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 class Metadata {
@@ -19,12 +18,11 @@ class Metadata {
         minAppVersion: minAppVersion ?? this.minAppVersion,
       );
 
-  factory Metadata.fromRawJson(String str) =>
-      Metadata.fromJson(json.decode(str));
+  factory Metadata.fromJson(String str) => Metadata.fromMap(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Metadata.fromJson(Map<String, dynamic> json) => Metadata(
+  factory Metadata.fromMap(Map<String, dynamic> json) => Metadata(
         minAppBuild: json["min_app_build"],
         minAppVersion: json["min_app_version"],
       );

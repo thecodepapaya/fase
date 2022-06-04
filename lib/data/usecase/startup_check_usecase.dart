@@ -1,3 +1,5 @@
+import 'package:fase/domain/repositories/meta_data_repository.dart';
+import 'package:fase/domain/services/package_info/package_info_service.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../app/utils/access_point_list.dart';
@@ -10,9 +12,12 @@ import '../../domain/usecases/startup_check_usecase.dart';
 
 class StartUpCheckUsecaseImpl implements StartUpCheckUsecase {
   @override
-  Future<bool> checkAppUpToDate() {
-    // TODO: implement checkRegistrationValid
-    return Future.value(true);
+  Future<bool> checkAppUpToDate() async {
+    final metadata = await MetadataRepository.instance.getMetadata();
+    final currentAppVersion = int.tryParse(FPackageInfoService.instance.buildNumber) ?? 1;
+    final isAppUpToDate = currentAppVersion >= (metadata?.minAppBuild ?? 1);
+
+    return isAppUpToDate;
   }
 
   @override
