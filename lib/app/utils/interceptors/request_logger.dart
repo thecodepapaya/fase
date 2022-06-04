@@ -1,9 +1,8 @@
-// Logging all requests and response to console for debugging
-
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
 
+/// Logging all requests and response to console for debugging
 class RequestLogger extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
