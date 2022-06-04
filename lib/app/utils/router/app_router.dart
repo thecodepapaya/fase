@@ -34,7 +34,7 @@ part 'app_router.gr.dart';
       transitionsBuilder: TransitionsBuilders.fadeIn
     ),
     CustomRoute(
-      page: StartUpCheckView,
+      page: SystemCheckView,
       path: '/startupCheck',
       guards: [
         AuthGuard,

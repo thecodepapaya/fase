@@ -23,15 +23,15 @@ part 'widgets/circular_loader.dart';
 part 'widgets/side_drawer.dart';
 part 'widgets/table.dart';
 
-class StartUpCheckView extends ConsumerWidget {
-  const StartUpCheckView({Key? key}) : super(key: key);
+class SystemCheckView extends ConsumerWidget {
+  const SystemCheckView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(_vsProvider.notifier);
 
     return FScaffold(
-      title: 'Startup Check',
+      title: 'System Check',
       appBarActionButton: RefreshButton(onRefresh: controller.refresh),
       drawer: const SideDrawer(),
       body: Center(

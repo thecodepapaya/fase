@@ -38,6 +38,6 @@ class _VSController extends StateNotifier<_ViewState> {
   Future<void> onLogoutButtonTapped() async {
     await AuthUsecase.instance.logOutUser();
 
-    appRouter.pushAndPopUntil(const StartUpCheckRoute(), predicate: (_) => false);
+    appRouter.pushAndPopUntil(const SystemCheckRoute(), predicate: (_) => false);
   }
 }

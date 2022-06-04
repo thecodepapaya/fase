@@ -42,10 +42,10 @@ class _$AppRouter extends RootStackRouter {
           opaque: true,
           barrierDismissible: false);
     },
-    StartUpCheckRoute.name: (routeData) {
+    SystemCheckRoute.name: (routeData) {
       return CustomPage<dynamic>(
           routeData: routeData,
-          child: const StartUpCheckView(),
+          child: const SystemCheckView(),
           transitionsBuilder: TransitionsBuilders.fadeIn,
           opaque: true,
           barrierDismissible: false);
@@ -92,7 +92,7 @@ class _$AppRouter extends RootStackRouter {
             path: '/', redirectTo: '/splash', fullMatch: true),
         RouteConfig(SplashScreenRoute.name, path: '/splash'),
         RouteConfig(LoginRoute.name, path: '/login'),
-        RouteConfig(StartUpCheckRoute.name,
+        RouteConfig(SystemCheckRoute.name,
             path: '/startupCheck', guards: [authGuard, emailGuard]),
         RouteConfig(CourseListRoute.name,
             path: '/courseList', guards: [authGuard, emailGuard]),
@@ -138,12 +138,12 @@ class LoginRouteArgs {
 }
 
 /// generated route for
-/// [StartUpCheckView]
-class StartUpCheckRoute extends PageRouteInfo<void> {
-  const StartUpCheckRoute()
-      : super(StartUpCheckRoute.name, path: '/startupCheck');
+/// [SystemCheckView]
+class SystemCheckRoute extends PageRouteInfo<void> {
+  const SystemCheckRoute()
+      : super(SystemCheckRoute.name, path: '/startupCheck');
 
-  static const String name = 'StartUpCheckRoute';
+  static const String name = 'SystemCheckRoute';
 }
 
 /// generated route for

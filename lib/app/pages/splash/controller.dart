@@ -52,7 +52,7 @@ class _VSController extends StateNotifier<_ViewState> {
 
     state = state.copyWith(isBootUpComplete: true);
 
-    appRouter.pushAndPopUntil(const StartUpCheckRoute(), predicate: (_) => false);
+    appRouter.pushAndPopUntil(const SystemCheckRoute(), predicate: (_) => false);
   }
 
   Future<void> _mapServiceToStartUpMethod(FService service) {

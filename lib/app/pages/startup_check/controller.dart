@@ -180,7 +180,7 @@ class _VSController extends StateNotifier<_ViewState> {
     log('onSignOutButtonPressed');
 
     await AuthUsecase.instance.logOutUser();
-    appRouter.pushAndPopUntil(const StartUpCheckRoute(), predicate: (_) => false);
+    appRouter.pushAndPopUntil(const SystemCheckRoute(), predicate: (_) => false);
     _resetAllCheck();
   }
 
