@@ -1,3 +1,3 @@
 class Constants {
-  static const BASE_URL = 'https://name/api/v1';
+  static const BASE_URL = 'https://192.168.1.8:8000/api/v1';
 }

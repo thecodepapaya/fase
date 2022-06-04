@@ -7,7 +7,7 @@ import '../router/app_router.dart';
 class EmailGuard extends AutoRouteGuard {
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) async {
-    final isIIITVEmail = AuthUsecase.instance.getCurrentUser?.email?.endsWith(iiitvDomain) ?? false;
+    final isIIITVEmail = AuthUsecase.instance.getCurrentFirebaseUser?.email?.endsWith(iiitvDomain) ?? false;
 
     if (isIIITVEmail) {
       resolver.next(true);

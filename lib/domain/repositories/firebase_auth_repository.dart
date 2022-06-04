@@ -1,10 +1,10 @@
 import 'package:fase/data/repositories/firebase_auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-abstract class AuthRepository {
-  AuthRepository._();
+abstract class FirebaseAuthRepository {
+  FirebaseAuthRepository._();
 
-  static final instance = AuthRepositoryImply();
+  static final instance = FirebaseAuthRepositoryImpl();
 
   User? get currentUser;
 

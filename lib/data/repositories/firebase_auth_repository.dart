@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../domain/repositories/firebase_auth_repository.dart';
 
-class AuthRepositoryImply implements AuthRepository {
+class FirebaseAuthRepositoryImpl implements FirebaseAuthRepository {
   @override
   User? get currentUser => FirebaseAuth.instance.currentUser;
 
