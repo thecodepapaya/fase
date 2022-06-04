@@ -18,6 +18,7 @@ class ActionButton extends ConsumerWidget {
         onPressed: () {
           controller.onStartAttendanceWindow(course.id!);
         },
+        //TODO Fetch current user isFaculty flag to decide if user should the mark attendance or start attendance
         child: const Text('Start Attendance'),
       ),
     );
