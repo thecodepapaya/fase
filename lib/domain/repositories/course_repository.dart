@@ -9,7 +9,9 @@ abstract class CourseRepository {
 
   Future<Course> getCourse(int courseId);
 
-  Future<List<Course>> getCoursesWithActiveAttendance();
+  Future<List<Course>?> getCoursesList();
 
-  Future<Course> createCourse();
+  Future<Course> createCourse(Course course);
+
+  Future<Course> editCourse(Course course);
 }

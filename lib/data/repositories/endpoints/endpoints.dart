@@ -9,4 +9,7 @@ class Endpoints {
   // Registration
   static const verifyRegistration = '/registration/verify/';
   static const register = '/registration/';
+
+  // Courses
+  static const coursesList = '/courses/';
 }

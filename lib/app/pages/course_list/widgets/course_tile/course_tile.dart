@@ -16,7 +16,7 @@ class CourseTile extends ConsumerWidget {
       elevation: 2,
       child: InkWell(
         onTap: () {
-          controller.onCourseTapped(course.courseCode);
+          controller.onCourseTapped(course.id!);
         },
         child: Column(
           children: [

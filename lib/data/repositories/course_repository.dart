@@ -1,10 +1,21 @@
+import 'dart:developer';
+
+import 'package:fase/app/utils/extensions.dart';
+import 'package:fase/data/repositories/endpoints/endpoints.dart';
 import 'package:fase/domain/entities/course.dart';
 import 'package:fase/domain/repositories/course_repository.dart';
+import 'package:fase/domain/services/dio/dio_service.dart';
 
 class CourseRepositoryImpl implements CourseRepository {
   @override
-  Future<Course> createCourse() {
+  Future<Course> createCourse(Course course) {
     // TODO: implement createCourse
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Course> editCourse(Course course) {
+    // TODO: implement editCourse
     throw UnimplementedError();
   }
 
@@ -15,8 +26,28 @@ class CourseRepositoryImpl implements CourseRepository {
   }
 
   @override
-  Future<List<Course>> getCoursesWithActiveAttendance() {
-    // TODO: implement getCoursesWithActiveAttendance
-    throw UnimplementedError();
+  Future<List<Course>?> getCoursesList() async {
+    const endPoint = Endpoints.coursesList;
+
+    try {
+      final response = await FDioService.instance.client.get(endPoint);
+
+      final isSuccess = response.statusCode?.isSuccess ?? false;
+
+      final data = response.data;
+
+      if (isSuccess) {
+        final coursesList = List<Course>.from(data.map((course) {
+          return Course.fromMap(course);
+        }));
+
+        return coursesList;
+      }
+    } catch (error, stackTrace) {
+      log(endPoint, error: error, stackTrace: stackTrace, name: 'API Error');
+      return null;
+    }
+
+    return null;
   }
 }

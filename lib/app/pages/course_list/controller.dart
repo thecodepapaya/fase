@@ -1,6 +1,6 @@
 part of 'view.dart';
 
-final _vsProvider = StateNotifierProvider<_VSController, _ViewState>((ref) {
+final _vsProvider = StateNotifierProvider.autoDispose<_VSController, _ViewState>((ref) {
   final controller = _VSController();
 
   controller._fetchCourses();
@@ -20,17 +20,7 @@ class _ViewState {
   _ViewState.initial()
       : this(
           apiStatus: ApiStatus.init,
-          courses: [
-            defaultCourse,
-            defaultCourse,
-            defaultCourse,
-            defaultCourse,
-            defaultCourse,
-            defaultCourse,
-            defaultCourse,
-            defaultCourse,
-            defaultCourse,
-          ],
+          courses: [],
         );
 
   _ViewState copyWith({
@@ -50,16 +40,26 @@ class _VSController extends StateNotifier<_ViewState> {
   Future<bool> _fetchCourses() async {
     state = state.copyWith(apiStatus: ApiStatus.loading);
 
-    state = state.copyWith(apiStatus: ApiStatus.success);
+    final coursesList = await CourseUsecase.instance.getCoursesList();
 
-    return Future.value(true);
+    if (coursesList == null) {
+      state = state.copyWith(apiStatus: ApiStatus.failed);
+      return false;
+    }
+
+    state = state.copyWith(
+      apiStatus: ApiStatus.success,
+      courses: coursesList,
+    );
+
+    return true;
   }
 
   Future<void> refresh() async {
     await _fetchCourses();
   }
 
-  void onCourseTapped(String courseId) {}
+  void onCourseTapped(int courseId) {}
 
   void onMarkAttendance(String courseId) {}
 
