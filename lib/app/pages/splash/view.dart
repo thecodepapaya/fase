@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:fase/app/app.dart';
 import 'package:fase/app/core_widgets/scaffold.dart';
+import 'package:fase/domain/services/dio/dio_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

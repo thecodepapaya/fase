@@ -1,6 +1,6 @@
 import 'package:permission_handler/permission_handler.dart';
 
-import '../../app/utils/ap_list.dart';
+import '../../app/utils/access_point_list.dart';
 import '../../device/repositories/connectivity/connectivity.dart';
 import '../../domain/services/connectivity/connectivity_service.dart';
 import '../../domain/services/permission/permission_service.dart';

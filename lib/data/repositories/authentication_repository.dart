@@ -10,7 +10,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   @override
   Future<User?> login() async {
     try {
-      final response = await FDioService.instance.client.get(AuthenticationEndpoints.login);
+      final response = await FDioService.instance.client.post(AuthenticationEndpoints.login);
 
       final isSuccess = response.statusCode?.isSuccess ?? false;
 
