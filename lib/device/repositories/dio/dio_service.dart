@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
-import 'package:fase/data/constants.dart';
+import 'package:fase/app/globals.dart';
 
 import '../../../app/utils/interceptors/auth_interceptor.dart';
 import '../../../app/utils/interceptors/header_interceptor.dart';
@@ -29,7 +29,7 @@ class FDioServiceImpl implements FDioService {
   @override
   Future<void> startUp() async {
     _dio = Dio(
-      BaseOptions(baseUrl: Constants.BASE_URL),
+      BaseOptions(baseUrl: Globals.baseURL),
     );
 
     _dio.interceptors.addAll([

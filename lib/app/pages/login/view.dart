@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:equatable/equatable.dart';
-import 'package:fase/domain/usecases/auth_usecases.dart';
+import 'package:fase/domain/usecases/firebase_auth_usecases.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

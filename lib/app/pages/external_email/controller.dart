@@ -36,7 +36,7 @@ class _VSController extends StateNotifier<_ViewState> {
   _VSController() : super(_ViewState.initial());
 
   Future<void> onLogoutButtonTapped() async {
-    await AuthUsecase.instance.logOutUser();
+    await FirebaseAuthUsecase.instance.logOutUser();
 
     appRouter.pushAndPopUntil(const SystemCheckRoute(), predicate: (_) => false);
   }

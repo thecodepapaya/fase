@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:fase/app/app.dart';
-import 'package:fase/domain/usecases/auth_usecases.dart';
+import 'package:fase/domain/usecases/firebase_auth_usecases.dart';
 
 import '../router/app_router.dart';
 
@@ -8,7 +8,7 @@ class AuthGuard extends AutoRouteGuard {
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) async {
     //TODO check for fase user instead of firebase user
-    final isAuthenticated = AuthUsecase.instance.getCurrentFirebaseUser != null;
+    final isAuthenticated = FirebaseAuthUsecase.instance.getCurrentFirebaseUser != null;
 
     // the navigation is paused until resolver.next() is called with either
     // true to resume/continue navigation or false to abort navigation

@@ -17,6 +17,8 @@ class User {
   final String? displayPicture;
   final bool isFaculty;
 
+  static User dummy() => User(instituteEmail: '', name: '', isFaculty: false);
+
   User copyWith({
     String? instituteEmail,
     String? name,

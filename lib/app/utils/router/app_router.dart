@@ -11,7 +11,7 @@ import '../../pages/course_list/view.dart';
 import '../../pages/create_course/view.dart';
 import '../../pages/login/view.dart';
 import '../../pages/splash/view.dart';
-import '../../pages/startup_check/view.dart';
+import '../../pages/system_check/view.dart';
 import '../guards/auth_guard.dart';
 import '../guards/email_guards.dart';
 

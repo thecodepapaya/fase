@@ -1,9 +1,9 @@
-import 'package:fase/data/usecase/startup_check_usecases.dart';
+import 'package:fase/data/usecase/system_check_usecases.dart';
 
-abstract class StartUpCheckUsecase {
-  StartUpCheckUsecase._();
+abstract class SystemCheckUsecase {
+  SystemCheckUsecase._();
 
-  static final instance = StartUpCheckUsecaseImpl();
+  static final instance = SystemCheckUsecaseImpl();
 
   Future<bool> checkIfPhysicalDevice();
 
@@ -20,6 +20,8 @@ abstract class StartUpCheckUsecase {
   Future<bool> checkCanPingServer();
 
   Future<bool> checkAppUpToDate();
+
+  Future<bool> checkUserLoggedIn();
 
   Future<bool> checkRegistrationValid();
 }

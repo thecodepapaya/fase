@@ -7,10 +7,11 @@ class SideDrawer extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(_vsProvider.notifier);
 
-    final displayName = AuthUsecase.instance.getCurrentFirebaseUser?.displayName ?? 'User';
-    final email = AuthUsecase.instance.getCurrentFirebaseUser?.email ?? '';
+    final displayName = FirebaseAuthUsecase.instance.getCurrentFirebaseUser?.displayName ?? 'User';
+    final email = FirebaseAuthUsecase.instance.getCurrentFirebaseUser?.email ?? '';
 
-    final photoUrl = AuthUsecase.instance.getCurrentFirebaseUser?.photoURL ?? _generatePhotoUrlFromName(displayName);
+    final photoUrl =
+        FirebaseAuthUsecase.instance.getCurrentFirebaseUser?.photoURL ?? _generatePhotoUrlFromName(displayName);
 
     return Drawer(
       child: Column(
@@ -26,10 +27,8 @@ class SideDrawer extends ConsumerWidget {
               ),
             ),
           ),
-          const ListTile(
-            title: Text(
-              'loginAsStudent', // TODO get actual status from BE
-            ),
+          ListTile(
+            title: Text(getRoleText),
           ),
           ListTile(
             title: const Text('Sign out'),
@@ -39,5 +38,15 @@ class SideDrawer extends ConsumerWidget {
         ],
       ),
     );
+  }
+
+  String get getRoleText {
+    late final String role;
+
+    final isFaculty = Globals.profile.isFaculty;
+
+    role = isFaculty ? 'Logged in as Faculty' : 'Logged in as Student';
+
+    return role;
   }
 }

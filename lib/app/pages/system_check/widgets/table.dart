@@ -13,6 +13,7 @@ class StartupCheckTable extends ConsumerWidget {
     final isIIITVConnected = ref.watch(_vsProvider.select((state) => state.isIIITVConnected));
     final canPingServer = ref.watch(_vsProvider.select((state) => state.canPingServer));
     final isMinVersion = ref.watch(_vsProvider.select((state) => state.isMinVersion));
+    final isUserLoggedIn = ref.watch(_vsProvider.select((state) => state.isUserLoggedIn));
     final isRegistrationValid = ref.watch(_vsProvider.select((state) => state.isRegistrationValid));
 
     return Table(
@@ -48,6 +49,10 @@ class StartupCheckTable extends ConsumerWidget {
         _tableRow(
           'Up-to date Version',
           CheckIcon(state: isMinVersion),
+        ),
+        _tableRow(
+          'User logged in',
+          CheckIcon(state: isUserLoggedIn),
         ),
         _tableRow(
           'Registration Valid',

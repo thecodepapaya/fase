@@ -56,7 +56,7 @@ class _VSController extends StateNotifier<_ViewState> {
   Future<void> onSignInWithGoogle() async {
     log('onSignInWithGoogle');
 
-    final user = await AuthUsecase.instance.signInUser();
+    final user = await FirebaseAuthUsecase.instance.signInUser();
 
     if (user != null) {
       params.onSuccess();

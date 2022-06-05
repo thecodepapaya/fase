@@ -18,6 +18,7 @@ class _ViewState {
   final CheckState isIIITVConnected;
   final CheckState canPingServer;
   final CheckState isMinVersion;
+  final CheckState isUserLoggedIn;
   final CheckState isRegistrationValid;
 
   bool get allChecksPassed =>
@@ -29,6 +30,7 @@ class _ViewState {
       isIIITVConnected == CheckState.valid &&
       canPingServer == CheckState.valid &&
       isMinVersion == CheckState.valid &&
+      isUserLoggedIn == CheckState.valid &&
       isRegistrationValid == CheckState.valid;
 
   bool get someChecksFailed =>
@@ -40,6 +42,7 @@ class _ViewState {
       isIIITVConnected == CheckState.invalid ||
       canPingServer == CheckState.invalid ||
       isMinVersion == CheckState.invalid ||
+      isUserLoggedIn == CheckState.invalid ||
       isRegistrationValid == CheckState.invalid;
 
   bool get everythingExceptRegistrationPassed =>
@@ -51,6 +54,7 @@ class _ViewState {
       isIIITVConnected == CheckState.valid &&
       canPingServer == CheckState.valid &&
       isMinVersion == CheckState.valid &&
+      isUserLoggedIn == CheckState.valid &&
       isRegistrationValid == CheckState.invalid;
 
   bool get isCheckingStatus =>
@@ -62,6 +66,7 @@ class _ViewState {
       isIIITVConnected == CheckState.checking ||
       canPingServer == CheckState.checking ||
       isMinVersion == CheckState.checking ||
+      isUserLoggedIn == CheckState.checking ||
       isRegistrationValid == CheckState.checking;
 
   _ViewState({
@@ -74,6 +79,7 @@ class _ViewState {
     required this.isIIITVConnected,
     required this.canPingServer,
     required this.isMinVersion,
+    required this.isUserLoggedIn,
     required this.isRegistrationValid,
   });
 
@@ -88,6 +94,7 @@ class _ViewState {
           isIIITVConnected: CheckState.checking,
           canPingServer: CheckState.checking,
           isMinVersion: CheckState.checking,
+          isUserLoggedIn: CheckState.checking,
           isRegistrationValid: CheckState.checking,
         );
 
@@ -101,6 +108,7 @@ class _ViewState {
     CheckState? isIIITVConnected,
     CheckState? canPingServer,
     CheckState? isMinVersion,
+    CheckState? isUserLoggedIn,
     CheckState? isRegistrationValid,
   }) {
     return _ViewState(
@@ -113,6 +121,7 @@ class _ViewState {
       isIIITVConnected: isIIITVConnected ?? this.isIIITVConnected,
       canPingServer: canPingServer ?? this.canPingServer,
       isMinVersion: isMinVersion ?? this.isMinVersion,
+      isUserLoggedIn: isUserLoggedIn ?? this.isUserLoggedIn,
       isRegistrationValid: isRegistrationValid ?? this.isRegistrationValid,
     );
   }
@@ -168,6 +177,7 @@ class _VSController extends StateNotifier<_ViewState> {
     state = state.copyWith(isIIITVConnected: await _isIIITVConnected());
     state = state.copyWith(canPingServer: await _canPingServer());
     state = state.copyWith(isMinVersion: await _isMinVersion());
+    state = state.copyWith(isUserLoggedIn: await _isUserLoggedIn());
     state = state.copyWith(isRegistrationValid: await _isRegistrationValid());
   }
 
@@ -179,7 +189,7 @@ class _VSController extends StateNotifier<_ViewState> {
   Future<void> onSignOutButtonPressed() async {
     log('onSignOutButtonPressed');
 
-    await AuthUsecase.instance.logOutUser();
+    await FirebaseAuthUsecase.instance.logOutUser();
     appRouter.pushAndPopUntil(const SystemCheckRoute(), predicate: (_) => false);
     _resetAllCheck();
   }
@@ -220,26 +230,27 @@ class _VSController extends StateNotifier<_ViewState> {
       isIIITVConnected: CheckState.checking,
       canPingServer: CheckState.checking,
       isMinVersion: CheckState.checking,
+      isUserLoggedIn: CheckState.checking,
       isRegistrationValid: CheckState.checking,
     );
   }
 
   Future<CheckState> _isPhysicalDevice() async {
-    final bool isPhysicalDevice = await StartUpCheckUsecase.instance.checkIfPhysicalDevice();
+    final bool isPhysicalDevice = await SystemCheckUsecase.instance.checkIfPhysicalDevice();
     final isPhysicalDeviceState = isPhysicalDevice ? CheckState.valid : CheckState.invalid;
 
     return isPhysicalDeviceState;
   }
 
   Future<CheckState> _isDeviceUnRooted() async {
-    final bool isDeviceUnRooted = await StartUpCheckUsecase.instance.checkIfUnRooted();
+    final bool isDeviceUnRooted = await SystemCheckUsecase.instance.checkIfUnRooted();
     final isDeviceUnRootedState = isDeviceUnRooted ? CheckState.valid : CheckState.invalid;
 
     return isDeviceUnRootedState;
   }
 
   Future<CheckState> _isLocationGranted() async {
-    final bool isLocationPermissionGranted = await StartUpCheckUsecase.instance.checkIfLocationGranted();
+    final bool isLocationPermissionGranted = await SystemCheckUsecase.instance.checkIfLocationGranted();
     final isLocationPermissionGrantedState = isLocationPermissionGranted ? CheckState.valid : CheckState.invalid;
 
     return isLocationPermissionGrantedState;
@@ -251,7 +262,7 @@ class _VSController extends StateNotifier<_ViewState> {
     final CheckState isLocationEnabledState;
 
     if (isLocationPermissionGranted) {
-      isLocationEnabled = await StartUpCheckUsecase.instance.checkIfLocationEnabled();
+      isLocationEnabled = await SystemCheckUsecase.instance.checkIfLocationEnabled();
     } else {
       isLocationEnabled = false;
     }
@@ -262,7 +273,7 @@ class _VSController extends StateNotifier<_ViewState> {
   }
 
   Future<CheckState> _isWifiConnected() async {
-    final bool isWifiConnected = await StartUpCheckUsecase.instance.checkIfWifiConnected();
+    final bool isWifiConnected = await SystemCheckUsecase.instance.checkIfWifiConnected();
     final isWifiConnectedState = isWifiConnected ? CheckState.valid : CheckState.invalid;
 
     return isWifiConnectedState;
@@ -277,7 +288,7 @@ class _VSController extends StateNotifier<_ViewState> {
       return isWifiConnected;
     }
 
-    isIIITVConnected = await StartUpCheckUsecase.instance.checkIfIIITVWifiConnected();
+    isIIITVConnected = await SystemCheckUsecase.instance.checkIfIIITVWifiConnected();
     final isIIITVConnectedState = isIIITVConnected ? CheckState.valid : CheckState.invalid;
 
     return isIIITVConnectedState;
@@ -290,7 +301,7 @@ class _VSController extends StateNotifier<_ViewState> {
       return isIIITVConnected;
     }
 
-    final bool canPingServer = await StartUpCheckUsecase.instance.checkCanPingServer();
+    final bool canPingServer = await SystemCheckUsecase.instance.checkCanPingServer();
     final canPingServerState = canPingServer ? CheckState.valid : CheckState.invalid;
 
     return canPingServerState;
@@ -303,10 +314,23 @@ class _VSController extends StateNotifier<_ViewState> {
       return canPingServer;
     }
 
-    final bool isMinVersion = await StartUpCheckUsecase.instance.checkAppUpToDate();
+    final bool isMinVersion = await SystemCheckUsecase.instance.checkAppUpToDate();
     final isMinVersionState = isMinVersion ? CheckState.valid : CheckState.invalid;
 
     return isMinVersionState;
+  }
+
+  Future<CheckState> _isUserLoggedIn() async {
+    final isIIITVConnected = state.canPingServer;
+
+    if (isIIITVConnected != CheckState.valid) {
+      return isIIITVConnected;
+    }
+
+    final bool isUserLoggedIn = await SystemCheckUsecase.instance.checkRegistrationValid();
+    final isUserLoggedInState = isUserLoggedIn ? CheckState.valid : CheckState.invalid;
+
+    return isUserLoggedInState;
   }
 
   Future<CheckState> _isRegistrationValid() async {
@@ -316,7 +340,7 @@ class _VSController extends StateNotifier<_ViewState> {
       return isIIITVConnected;
     }
 
-    final bool isRegistrationValid = await StartUpCheckUsecase.instance.checkRegistrationValid();
+    final bool isRegistrationValid = await SystemCheckUsecase.instance.checkRegistrationValid();
     final isRegistrationValidState = isRegistrationValid ? CheckState.valid : CheckState.invalid;
 
     return isRegistrationValidState;

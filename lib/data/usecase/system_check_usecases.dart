@@ -1,5 +1,8 @@
+import 'package:fase/domain/repositories/authentication_repository.dart';
 import 'package:fase/domain/repositories/meta_data_repository.dart';
 import 'package:fase/domain/services/package_info/package_info_service.dart';
+import 'package:fase/domain/usecases/auth_usecases.dart';
+import 'package:fase/domain/usecases/firebase_auth_usecases.dart';
 import 'package:fase/domain/usecases/registration_usecases.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -9,9 +12,9 @@ import '../../domain/services/connectivity/connectivity_service.dart';
 import '../../domain/services/permission/permission_service.dart';
 import '../../domain/services/safe_device/safe_device_service.dart';
 import '../../domain/services/wifi_info/wifi_info_service.dart';
-import '../../domain/usecases/startup_check_usecases.dart';
+import '../../domain/usecases/system_check_usecases.dart';
 
-class StartUpCheckUsecaseImpl implements StartUpCheckUsecase {
+class SystemCheckUsecaseImpl implements SystemCheckUsecase {
   @override
   Future<bool> checkAppUpToDate() async {
     final metadata = await MetadataRepository.instance.getMetadata();
@@ -88,5 +91,14 @@ class StartUpCheckUsecaseImpl implements StartUpCheckUsecase {
     final isConnectedToIIITVAP = AccessPoints.list.contains(currentBSSID);
 
     return isConnectedToIIITVAP;
+  }
+
+  @override
+  Future<bool> checkUserLoggedIn() async {
+    final user = await AuthUsecase.instance.login();
+
+    final isUserLoggedIn = user != null ? true : false;
+
+    throw isUserLoggedIn;
   }
 }
