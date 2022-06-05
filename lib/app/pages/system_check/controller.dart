@@ -213,7 +213,7 @@ class _VSController extends StateNotifier<_ViewState> {
   }
 
   Future<void> _performDeviceRegistration() async {
-    final _ = await RegistrationUsecase.instance.registerUser();
+    await RegistrationUsecase.instance.registerUser();
   }
 
   void onSidebarCourseTapped(String courseId) {}

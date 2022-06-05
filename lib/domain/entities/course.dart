@@ -80,28 +80,10 @@ class Course {
         'course_name': courseName,
         'semester': semester,
         'academic_year': academicYear,
-        'instructors': instructors == null ? null : List<dynamic>.from(instructors.map((x) => x.toMap())),
+        'instructors': List<dynamic>.from(instructors.map((x) => x.toMap())),
         'start_timestamp': startTimestamp?.toIso8601String(),
         'attendance_duration_in_minutes': attendanceDurationInMinutes,
         'is_already_marked': isAlreadyMarked,
         'description': description,
       };
 }
-
-final defaultCourse = Course(
-  id: 6,
-  courseCode: 'CS101',
-  courseName: 'Problem Solving',
-  semester: 'Autumn',
-  academicYear: '2022-2023',
-  instructors: [
-    User(
-      instituteEmail: 'naveen@iiitvadodara.ac.in',
-      name: 'Naveen Kumar',
-      isFaculty: true,
-    ),
-  ],
-  startTimestamp: DateTime.now(),
-  attendanceDurationInMinutes: 5,
-  isAlreadyMarked: false,
-);

@@ -7,7 +7,6 @@ import '../router/app_router.dart';
 class AuthGuard extends AutoRouteGuard {
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) async {
-    //TODO check for fase user instead of firebase user
     final isAuthenticated = FirebaseAuthUsecase.instance.getCurrentFirebaseUser != null;
 
     // the navigation is paused until resolver.next() is called with either

@@ -8,12 +8,6 @@ import 'package:fase/domain/services/dio/dio_service.dart';
 
 class RegistrationRepositoryImpl implements RegistrationRepository {
   @override
-  Future<Registration> registrationStatus() {
-    // TODO: implement getRegistration
-    throw UnimplementedError();
-  }
-
-  @override
   Future<Registration?> register(Registration registration) async {
     const endPoint = Endpoints.register;
     final payload = registration.toMap();

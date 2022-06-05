@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -21,51 +19,10 @@ class FaseApp extends ConsumerWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      routerDelegate: appRouter.delegate(
-          // navigatorObservers: () => [
-          //   MyNavigatorObserver(),
-          // ],
-          ),
+      routerDelegate: appRouter.delegate(),
       routeInformationParser: appRouter.defaultRouteParser(),
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
     );
   }
 }
-
-// class MyNavigatorObserver extends NavigatorObserver {
-//   final routeStack = <Route<dynamic>>[];
-
-//   _printRouteStack() {
-//     // log('Route stack : ${routeStack.join()}');
-//   }
-
-//   @override
-//   void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
-//     log('didPush : $route');
-//     routeStack.add(route);
-//     _printRouteStack();
-//   }
-
-//   @override
-//   void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
-//     log('didPop : $route');
-//     routeStack.removeLast();
-//     _printRouteStack();
-//   }
-
-//   @override
-//   void didRemove(Route route, Route? previousRoute) {
-//     log('didRemove : $route');
-//     routeStack.removeLast();
-//     _printRouteStack();
-//   }
-
-//   @override
-//   void didReplace({Route? newRoute, Route? oldRoute}) {
-//     log('didReplace : $newRoute');
-//     routeStack.removeLast();
-//     // routeStack.add(newRoute);
-//     _printRouteStack();
-//   }
-// }

@@ -24,7 +24,7 @@ class RegistrationUsecaseImpl implements RegistrationUsecase {
       osVersion: FDeviceInfoService.instance.osVersion,
       isPhysical: FSafeDeviceService.instance.isRealDevice,
       isRooted: FSafeDeviceService.instance.isRooted,
-      student: '201851029@iiitvadodara.ac.in', //TODO get current user from provider
+      student: Globals.profile.instituteEmail,
     );
 
     final registration = await RegistrationRepository.instance.register(registrationData);

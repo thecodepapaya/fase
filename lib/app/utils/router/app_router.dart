@@ -5,7 +5,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:fase/app/pages/external_email/view.dart';
 import 'package:flutter/material.dart';
 
-import '../../../domain/entities/course.dart';
 import '../../pages/attendance_record/view.dart';
 import '../../pages/course_list/view.dart';
 import '../../pages/create_course/view.dart';

@@ -7,7 +7,6 @@ class DescriptionField extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final params = ref.watch(_paramsProvider);
 
-    final initialDescription = ref.watch(_vsProvider(params).select((state) => state.course?.description));
     final controller = ref.watch(_vsProvider(params).notifier);
 
     return TextFormField(

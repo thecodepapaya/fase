@@ -1,8 +1,7 @@
-import 'package:fase/domain/repositories/authentication_repository.dart';
 import 'package:fase/domain/repositories/meta_data_repository.dart';
 import 'package:fase/domain/services/package_info/package_info_service.dart';
 import 'package:fase/domain/usecases/auth_usecases.dart';
-import 'package:fase/domain/usecases/firebase_auth_usecases.dart';
+import 'package:fase/domain/usecases/metadata_usecases.dart';
 import 'package:fase/domain/usecases/registration_usecases.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -17,7 +16,7 @@ import '../../domain/usecases/system_check_usecases.dart';
 class SystemCheckUsecaseImpl implements SystemCheckUsecase {
   @override
   Future<bool> checkAppUpToDate() async {
-    final metadata = await MetadataRepository.instance.getMetadata();
+    final metadata = await MetadataUsecase.instance.getMetadata();
     final currentAppVersion = int.tryParse(FPackageInfoService.instance.buildNumber) ?? 1;
     final isAppUpToDate = currentAppVersion >= (metadata?.minAppBuild ?? 1);
 

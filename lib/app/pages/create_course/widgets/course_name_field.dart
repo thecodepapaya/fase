@@ -7,7 +7,6 @@ class CourseNameField extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final params = ref.watch(_paramsProvider);
 
-    final initialCourseName = ref.watch(_vsProvider(params).select((state) => state.course?.courseName));
     final controller = ref.watch(_vsProvider(params).notifier);
 
     return TextFormField(
