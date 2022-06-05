@@ -2,9 +2,11 @@ part of '../../view.dart';
 
 class ActionButton extends ConsumerWidget {
   final Course course;
+  final bool isEnabled;
 
   const ActionButton({
     Key? key,
+    this.isEnabled = true,
     required this.course,
   }) : super(key: key);
 
@@ -15,12 +17,27 @@ class ActionButton extends ConsumerWidget {
     return Container(
       alignment: Alignment.bottomRight,
       child: TextButton(
-        onPressed: () {
-          controller.onStartAttendanceWindow(course.id!);
-        },
-        //TODO Fetch current user isFaculty flag to decide if user should the mark attendance or start attendance
-        child: const Text('Start Attendance'),
+        onPressed: isEnabled
+            ? () {
+                final isFaculty = Globals.profile.isFaculty;
+
+                if (isFaculty) {
+                  controller.onStartAttendanceWindow(course.id!);
+                } else {
+                  controller.onMarkAttendance(course.id!);
+                }
+              }
+            : null,
+        child: Text(actionButtonText),
       ),
     );
+  }
+
+  String get actionButtonText {
+    final isFaculty = Globals.profile.isFaculty;
+
+    final text = isFaculty ? 'Start Attendance' : 'Mark Attendance';
+
+    return text;
   }
 }

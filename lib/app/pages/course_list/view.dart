@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:fase/app/core_widgets/refresh_button.dart';
 import 'package:fase/app/core_widgets/scaffold.dart';
 import 'package:fase/app/core_widgets/text_styles.dart';
+import 'package:fase/app/globals.dart';
 import 'package:fase/app/utils/router/app_router.dart';
 import 'package:fase/domain/usecases/course_usecases.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ part 'widgets/course_tile/action_button.dart';
 part 'widgets/course_tile/course_details.dart';
 part 'widgets/course_tile/course_tile.dart';
 part 'widgets/course_tile/window_timer.dart';
+part 'widgets/create_course_button.dart';
 part 'widgets/empty_course_list.dart';
 
 class CourseListView extends ConsumerWidget {
@@ -25,7 +27,6 @@ class CourseListView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final apiStatus = ref.watch(_vsProvider.select((state) => state.apiStatus));
-    final courses = ref.watch(_vsProvider.select((state) => state.courses));
 
     final controller = ref.watch(_vsProvider.notifier);
 
@@ -54,10 +55,7 @@ class CourseListView extends ConsumerWidget {
           return widget;
         }(),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: controller.onCreateCourse,
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: const CreateCourseButton(),
     );
   }
 }

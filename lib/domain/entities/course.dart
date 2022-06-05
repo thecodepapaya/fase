@@ -68,7 +68,7 @@ class Course {
         academicYear: json['academic_year'],
         instructors:
             json['instructors'] == null ? [] : List<User>.from(json['instructors'].map((x) => User.fromMap(x))),
-        startTimestamp: json['start_timestamp'] == null ? null : DateTime.parse(json['start_timestamp']),
+        startTimestamp: json['start_timestamp'] == null ? null : DateTime.parse(json['start_timestamp']).toLocal(),
         attendanceDurationInMinutes: json['attendance_duration_in_minutes'],
         isAlreadyMarked: json['is_already_marked'],
         description: json['description'],

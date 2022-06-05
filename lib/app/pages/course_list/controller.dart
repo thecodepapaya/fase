@@ -59,9 +59,11 @@ class _VSController extends StateNotifier<_ViewState> {
     await _fetchCourses();
   }
 
-  void onCourseTapped(int courseId) {}
+  void onCourseTapped(int courseId) {
+    appRouter.navigate(CreateCourseRoute());
+  }
 
-  void onMarkAttendance(String courseId) {}
+  void onMarkAttendance(int courseId) {}
 
   void onStartAttendanceWindow(int courseId) {}
 

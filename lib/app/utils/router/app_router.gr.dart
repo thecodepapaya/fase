@@ -63,7 +63,7 @@ class _$AppRouter extends RootStackRouter {
           orElse: () => const CreateCourseRouteArgs());
       return CustomPage<dynamic>(
           routeData: routeData,
-          child: CreateCourseView(key: args.key, course: args.course),
+          child: CreateCourseView(key: args.key, courseID: args.courseID),
           transitionsBuilder: TransitionsBuilders.slideLeft,
           opaque: true,
           barrierDismissible: false);
@@ -157,24 +157,24 @@ class CourseListRoute extends PageRouteInfo<void> {
 /// generated route for
 /// [CreateCourseView]
 class CreateCourseRoute extends PageRouteInfo<CreateCourseRouteArgs> {
-  CreateCourseRoute({Key? key, Course? course})
+  CreateCourseRoute({Key? key, int? courseID})
       : super(CreateCourseRoute.name,
             path: '/createCourse',
-            args: CreateCourseRouteArgs(key: key, course: course));
+            args: CreateCourseRouteArgs(key: key, courseID: courseID));
 
   static const String name = 'CreateCourseRoute';
 }
 
 class CreateCourseRouteArgs {
-  const CreateCourseRouteArgs({this.key, this.course});
+  const CreateCourseRouteArgs({this.key, this.courseID});
 
   final Key? key;
 
-  final Course? course;
+  final int? courseID;
 
   @override
   String toString() {
-    return 'CreateCourseRouteArgs{key: $key, course: $course}';
+    return 'CreateCourseRouteArgs{key: $key, courseID: $courseID}';
   }
 }
 

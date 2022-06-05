@@ -14,11 +14,11 @@ part 'widgets/semester_drop_down.dart';
 part 'widgets/year_drop_down.dart';
 
 class CreateCourseView extends ConsumerWidget {
-  final Course? course;
+  final int? courseID;
 
   CreateCourseView({
     Key? key,
-    this.course,
+    this.courseID,
   }) : super(key: key);
 
   final _globalKey = GlobalKey<FormState>();
