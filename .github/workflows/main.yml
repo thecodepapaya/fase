@@ -1,0 +1,27 @@
+name: Build and Release apk
+on: 
+  pull_request:
+    branches: [ release ]
+jobs:
+  build:
+    name: Build APK
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-java@v1
+      with:
+        java-version: '11.x'
+    - uses: subosito/flutter-action@v1
+      with:
+        flutter-version: 3.0.1
+        channel: stable
+    - name: Get Dependencies
+      run: flutter pub get
+    - name: Build APK
+      run: flutter build apk
+    - name: Create and Publish Release
+      uses: ncipollo/release-action@v1.7.3
+      with:
+        artifacts: "build/app/outputs/flutter-apk/app-release.apk"
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: v0.0.${{ github.run_number }}
