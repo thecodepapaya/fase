@@ -7,11 +7,11 @@ abstract class CourseRepository {
 
   static final instance = CourseRepositoryImpl();
 
-  Future<Course> getCourse(int courseId);
+  Future<Course?> getCourse(int courseId);
 
   Future<List<Course>?> getCoursesList();
 
-  Future<Course> createCourse(Course course);
+  Future<Course?> createCourse(Course course);
 
   Future<Course?> editCourse(Course course);
 }

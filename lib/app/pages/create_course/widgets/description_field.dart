@@ -5,19 +5,22 @@ class DescriptionField extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final initialDescription = ref.watch(_vsProvider.select((state) => state.course?.description));
-    final controller = ref.watch(_vsProvider.notifier);
+    final params = ref.watch(_paramsProvider);
+
+    final initialDescription = ref.watch(_vsProvider(params).select((state) => state.course?.description));
+    final controller = ref.watch(_vsProvider(params).notifier);
 
     return TextFormField(
       controller: controller.descriptionController,
       autocorrect: true,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       onChanged: controller.onDescriptionChanged,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         hintText: 'Eg. Section A',
         labelText: 'Description',
+        border: textFieldBorder,
       ),
-      initialValue: initialDescription,
+      // initialValue: initialDescription,
     );
   }
 }

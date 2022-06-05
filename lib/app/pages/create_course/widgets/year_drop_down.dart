@@ -5,9 +5,11 @@ class YearDropDown extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedAcademicYear = ref.watch(_vsProvider.select((state) => state.selectedAcademicYear));
-    final academicYearsList = ref.watch(_vsProvider.select((state) => state.academicYearsList));
-    final controller = ref.watch(_vsProvider.notifier);
+    final params = ref.watch(_paramsProvider);
+
+    final selectedAcademicYear = ref.watch(_vsProvider(params).select((state) => state.selectedAcademicYear));
+    final academicYearsList = ref.watch(_vsProvider(params).select((state) => state.academicYearsList));
+    final controller = ref.watch(_vsProvider(params).notifier);
 
     return DropdownButton<String>(
       value: selectedAcademicYear,

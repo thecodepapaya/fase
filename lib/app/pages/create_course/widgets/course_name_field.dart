@@ -5,19 +5,22 @@ class CourseNameField extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final initialCourseName = ref.watch(_vsProvider.select((state) => state.course?.courseName));
-    final controller = ref.watch(_vsProvider.notifier);
+    final params = ref.watch(_paramsProvider);
+
+    final initialCourseName = ref.watch(_vsProvider(params).select((state) => state.course?.courseName));
+    final controller = ref.watch(_vsProvider(params).notifier);
 
     return TextFormField(
       controller: controller.courseNameController,
       autocorrect: true,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       onChanged: controller.onCourseNameChanged,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         labelText: 'Course Name',
         hintText: 'Eg. Introduction to Quantum Computing',
+        border: textFieldBorder,
       ),
-      initialValue: initialCourseName,
+      // initialValue: initialCourseName,
     );
   }
 }

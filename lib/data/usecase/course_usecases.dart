@@ -4,15 +4,17 @@ import 'package:fase/domain/usecases/course_usecases.dart';
 
 class CourseUsecaseImpl implements CourseUsecase {
   @override
-  Future<Course> createCourse() {
-    // TODO: implement createCourse
-    throw UnimplementedError();
+  Future<Course?> createCourse(Course course) {
+    final createdCourse = CourseRepository.instance.createCourse(course);
+
+    return createdCourse;
   }
 
   @override
-  Future<Course> editCourse() {
-    // TODO: implement editCourse
-    throw UnimplementedError();
+  Future<Course?> editCourse(Course course) async {
+    final editedCourse = await CourseRepository.instance.editCourse(course);
+
+    return editedCourse;
   }
 
   @override
@@ -26,10 +28,17 @@ class CourseUsecaseImpl implements CourseUsecase {
   Future<bool> startAttendanceWindow(Course course) async {
     course = course.copyWith(startTimestamp: DateTime.now());
 
-    final editedCourse = await CourseRepository.instance.editCourse(course);
+    final editedCourse = await editCourse(course);
 
     final isSuccess = editedCourse != null ? true : false;
 
     return isSuccess;
+  }
+
+  @override
+  Future<Course?> getCourse(int courseID) async {
+    final course = await CourseRepository.instance.getCourse(courseID);
+
+    return course;
   }
 }

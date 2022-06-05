@@ -8,9 +8,11 @@ abstract class CourseUsecase {
 
   Future<List<Course>?> getCoursesList();
 
-  Future<Course> createCourse();
+  Future<Course?> getCourse(int courseID);
 
-  Future<Course> editCourse();
+  Future<Course?> createCourse(Course course);
+
+  Future<Course?> editCourse(Course course);
 
   Future<bool> startAttendanceWindow(Course course);
 }

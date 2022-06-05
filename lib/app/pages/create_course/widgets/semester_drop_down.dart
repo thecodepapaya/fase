@@ -5,8 +5,10 @@ class SemesterDropDown extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedSemester = ref.watch(_vsProvider.select((state) => state.selectedSemester));
-    final controller = ref.watch(_vsProvider.notifier);
+    final params = ref.watch(_paramsProvider);
+
+    final selectedSemester = ref.watch(_vsProvider(params).select((state) => state.selectedSemester));
+    final controller = ref.watch(_vsProvider(params).notifier);
 
     return DropdownButton<String>(
       value: selectedSemester,

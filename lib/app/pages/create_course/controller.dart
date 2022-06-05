@@ -1,7 +1,23 @@
 part of 'view.dart';
 
-final _vsProvider = StateNotifierProvider<_VSController, _ViewState>((ref) {
-  final controller = _VSController();
+class _VSControllerParams extends Equatable {
+  final int? courseID;
+
+  const _VSControllerParams({
+    required this.courseID,
+  });
+
+  @override
+  List<Object?> get props => [courseID];
+}
+
+final _paramsProvider = Provider<_VSControllerParams>((ref) {
+  throw UnimplementedError();
+});
+
+final _vsProvider =
+    StateNotifierProvider.family.autoDispose<_VSController, _ViewState, _VSControllerParams>((ref, params) {
+  final controller = _VSController(params);
 
   controller.initState();
 
@@ -55,7 +71,8 @@ class _ViewState {
 }
 
 class _VSController extends StateNotifier<_ViewState> {
-  _VSController() : super(_ViewState.initial());
+  final _VSControllerParams params;
+  _VSController(this.params) : super(_ViewState.initial());
 
   late final TextEditingController courseCodeController;
   late final TextEditingController courseNameController;
@@ -70,16 +87,46 @@ class _VSController extends StateNotifier<_ViewState> {
     await _fetchCourseDetails();
   }
 
-  Future<bool> _fetchCourseDetails() async {
-    state = state.copyWith(apiStatus: ApiStatus.loading);
+  Future<bool> _fetchCourseDetails({bool silent = false}) async {
+    bool isSuccess = false;
 
-    state = state.copyWith(apiStatus: ApiStatus.success);
+    if (params.courseID == null) {
+      return isSuccess;
+    }
 
-    return Future.value(true);
+    if (!silent) {
+      state = state.copyWith(apiStatus: ApiStatus.loading);
+    }
+
+    final course = await CourseUsecase.instance.getCourse(params.courseID!);
+
+    if (course == null) {
+      state = state.copyWith(apiStatus: ApiStatus.failed);
+      isSuccess = false;
+    } else {
+      state = state.copyWith(apiStatus: ApiStatus.success);
+      isSuccess = true;
+
+      _populateCourseDataInTextFields(course);
+    }
+
+    return isSuccess;
   }
 
-  Future<void> refresh() async {
-    await _fetchCourseDetails();
+  void _populateCourseDataInTextFields(Course course) {
+    courseCodeController.text = course.courseCode;
+    courseNameController.text = course.courseName;
+    descriptionController.text = course.description ?? '';
+
+    state = state.copyWith(
+      selectedSemester: course.semester.capitalize,
+      selectedAcademicYear: course.academicYear,
+      course: course,
+    );
+  }
+
+  Future<void> refresh({bool silent = false}) async {
+    await _fetchCourseDetails(silent: silent);
   }
 
   void onCourseSaved() {}
