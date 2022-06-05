@@ -1,7 +1,10 @@
 import 'package:equatable/equatable.dart';
+import 'package:fase/app/app.dart';
 import 'package:fase/app/core_widgets/scaffold.dart';
 import 'package:fase/app/core_widgets/text_styles.dart';
+import 'package:fase/app/globals.dart';
 import 'package:fase/app/utils/extensions.dart';
+import 'package:fase/app/utils/router/app_router.dart';
 import 'package:fase/domain/usecases/course_usecases.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -33,7 +36,7 @@ class CreateCourseView extends ConsumerWidget {
     final controller = ref.watch(_vsProvider(params).notifier);
 
     return FScaffold(
-      title: 'Create Course',
+      title: courseID == null ? 'Create Course' : 'Edit Course',
       appBarActionButton: IconButton(
         onPressed: controller.onCourseSaved,
         icon: const Icon(Icons.check_rounded),
@@ -44,10 +47,10 @@ class CreateCourseView extends ConsumerWidget {
           late final Widget body;
 
           switch (apiStatus) {
-            case ApiStatus.init:
             case ApiStatus.loading:
               body = const _LoadingBody();
               break;
+            case ApiStatus.init:
             case ApiStatus.success:
               body = _SuccessBody();
 

@@ -20,6 +20,8 @@ class CourseCodeField extends ConsumerWidget {
         hintText: 'Eg. CS101',
         border: textFieldBorder,
       ),
+      keyboardType: TextInputType.text,
+      textCapitalization: TextCapitalization.characters,
       // initialValue: initialCourseCode,
     );
   }

@@ -129,7 +129,43 @@ class _VSController extends StateNotifier<_ViewState> {
     await _fetchCourseDetails(silent: silent);
   }
 
-  void onCourseSaved() {}
+  void onCourseSaved() async {
+    final isEditing = params.courseID != null;
+    Course? createdCourse;
+
+    final course = Course(
+      id: params.courseID,
+      academicYear: state.selectedAcademicYear,
+      courseCode: courseCodeController.text,
+      courseName: courseNameController.text,
+      semester: state.selectedSemester.toLowerCase(),
+      description: descriptionController.text,
+      attendanceDurationInMinutes: state.course?.attendanceDurationInMinutes ?? 5,
+    );
+
+    if (isEditing) {
+      createdCourse = await CourseUsecase.instance.editCourse(course);
+    } else {
+      createdCourse = await CourseUsecase.instance.createCourse(course);
+    }
+
+    if (createdCourse == null) {
+      _showFailureSnackbar();
+    } else {
+      _showSuccessSnackbar();
+      appRouter.navigate(const CourseListRoute());
+    }
+  }
+
+  void _showFailureSnackbar() {
+    final message = params.courseID == null ? 'Failed to create course' : 'Failed to save course details';
+    Globals.showSnackbar(message);
+  }
+
+  void _showSuccessSnackbar() {
+    final message = params.courseID == null ? 'Successfully created course' : 'Successfully saved course details';
+    Globals.showSnackbar(message);
+  }
 
   void onCourseNameChanged(String courseName) {}
 

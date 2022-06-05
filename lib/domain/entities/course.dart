@@ -13,10 +13,10 @@ class Course {
     required this.courseName,
     required this.semester,
     required this.academicYear,
-    required this.instructors,
-    required this.startTimestamp,
-    required this.attendanceDurationInMinutes,
-    required this.isAlreadyMarked,
+    this.instructors = const [],
+    this.startTimestamp,
+    this.attendanceDurationInMinutes = 5,
+    this.isAlreadyMarked = false,
     this.description,
   });
 

@@ -20,6 +20,8 @@ class CourseNameField extends ConsumerWidget {
         hintText: 'Eg. Introduction to Quantum Computing',
         border: textFieldBorder,
       ),
+      keyboardType: TextInputType.text,
+      textCapitalization: TextCapitalization.sentences,
       // initialValue: initialCourseName,
     );
   }

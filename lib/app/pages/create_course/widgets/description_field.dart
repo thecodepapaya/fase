@@ -20,6 +20,8 @@ class DescriptionField extends ConsumerWidget {
         labelText: 'Description',
         border: textFieldBorder,
       ),
+      keyboardType: TextInputType.text,
+      textCapitalization: TextCapitalization.sentences,
       // initialValue: initialDescription,
     );
   }
