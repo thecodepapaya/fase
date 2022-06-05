@@ -72,31 +72,31 @@ class _VSController extends StateNotifier<_ViewState> {
 
     if (isSuccess) {
       await refresh(silent: true);
-      _showSuccessSnackbar(course.courseCode);
+      _showSnackbar('Successfully marked attendance for ${course.courseCode}.');
     } else {
-      _showFailureSnackbar();
+      _showSnackbar('Failed to mark attendance for ${course.courseCode}. Please try again.');
     }
   }
 
-  void _showSuccessSnackbar(String courseCode) {
-    final snackbar = SnackBar(content: Text('Successfully marked attendance for $courseCode.'));
+  void onStartAttendanceWindow(Course course) async {
+    final isSuccess = await CourseUsecase.instance.startAttendanceWindow(course);
+
+    if (isSuccess) {
+      await refresh(silent: true);
+      _showSnackbar('Opened attendance for ${course.courseCode} for ${course.attendanceDurationInMinutes} minutes.');
+    } else {
+      _showSnackbar('Failed to start attendance for ${course.courseCode}. Please try again.');
+    }
+  }
+
+  void _showSnackbar(String message) {
+    final snackbar = SnackBar(content: Text(message));
     final context = Globals.context;
 
     if (context != null) {
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
     }
   }
-
-  void _showFailureSnackbar() {
-    const snackbar = SnackBar(content: Text('Failed to mark attendance. Please try again.'));
-    final context = Globals.context;
-
-    if (context != null) {
-      ScaffoldMessenger.of(context).showSnackBar(snackbar);
-    }
-  }
-
-  void onStartAttendanceWindow(Course course) {}
 
   void onCreateCourse() {
     appRouter.navigate(CreateCourseRoute());

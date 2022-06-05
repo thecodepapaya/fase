@@ -11,4 +11,6 @@ abstract class CourseUsecase {
   Future<Course> createCourse();
 
   Future<Course> editCourse();
+
+  Future<bool> startAttendanceWindow(Course course);
 }

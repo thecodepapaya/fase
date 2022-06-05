@@ -21,4 +21,15 @@ class CourseUsecaseImpl implements CourseUsecase {
 
     return coursesList;
   }
+
+  @override
+  Future<bool> startAttendanceWindow(Course course) async {
+    course = course.copyWith(startTimestamp: DateTime.now());
+
+    final editedCourse = await CourseRepository.instance.editCourse(course);
+
+    final isSuccess = editedCourse != null ? true : false;
+
+    return isSuccess;
+  }
 }

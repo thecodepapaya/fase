@@ -13,5 +13,5 @@ abstract class CourseRepository {
 
   Future<Course> createCourse(Course course);
 
-  Future<Course> editCourse(Course course);
+  Future<Course?> editCourse(Course course);
 }

@@ -14,9 +14,27 @@ class CourseRepositoryImpl implements CourseRepository {
   }
 
   @override
-  Future<Course> editCourse(Course course) {
-    // TODO: implement editCourse
-    throw UnimplementedError();
+  Future<Course?> editCourse(Course course) async {
+    final endPoint = Endpoints.editCourse(course.id!);
+    final payload = course.toMap();
+
+    try {
+      final response = await FDioService.instance.client.patch(endPoint, data: payload);
+
+      final isSuccess = response.statusCode?.isSuccess ?? false;
+
+      final data = response.data;
+
+      if (isSuccess) {
+        final course = Course.fromMap(data);
+        return course;
+      }
+    } catch (error, stackTrace) {
+      log(endPoint, error: error, stackTrace: stackTrace, name: 'API Error');
+      return null;
+    }
+
+    return null;
   }
 
   @override

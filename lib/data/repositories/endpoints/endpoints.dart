@@ -12,6 +12,7 @@ class Endpoints {
 
   // Courses
   static const coursesList = '/courses/';
+  static editCourse(int courseID) => '/courses/$courseID/';
 
   // Attendance
   static const markAttendance = '/attendance/';
