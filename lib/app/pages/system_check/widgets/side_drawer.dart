@@ -7,11 +7,10 @@ class SideDrawer extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(_vsProvider.notifier);
 
-    final displayName = FirebaseAuthUsecase.instance.getCurrentFirebaseUser?.displayName ?? 'User';
-    final email = FirebaseAuthUsecase.instance.getCurrentFirebaseUser?.email ?? '';
+    final displayName = Globals.profile.name;
+    final email = Globals.profile.instituteEmail;
 
-    final photoUrl =
-        FirebaseAuthUsecase.instance.getCurrentFirebaseUser?.photoURL ?? _generatePhotoUrlFromName(displayName);
+    final photoUrl = Globals.profile.displayPicture ?? _generatePhotoUrlFromName(displayName);
 
     return Drawer(
       child: Column(

@@ -99,6 +99,6 @@ class SystemCheckUsecaseImpl implements SystemCheckUsecase {
 
     final isUserLoggedIn = user != null ? true : false;
 
-    throw isUserLoggedIn;
+    return isUserLoggedIn;
   }
 }

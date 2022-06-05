@@ -327,7 +327,7 @@ class _VSController extends StateNotifier<_ViewState> {
       return isIIITVConnected;
     }
 
-    final bool isUserLoggedIn = await SystemCheckUsecase.instance.checkRegistrationValid();
+    final bool isUserLoggedIn = await SystemCheckUsecase.instance.checkUserLoggedIn();
     final isUserLoggedInState = isUserLoggedIn ? CheckState.valid : CheckState.invalid;
 
     return isUserLoggedInState;

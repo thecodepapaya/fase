@@ -37,10 +37,10 @@ class User {
   String toJson() => json.encode(toMap());
 
   factory User.fromMap(Map<String, dynamic> json) => User(
-        instituteEmail: json['institute_email'],
-        name: json['name'],
+        instituteEmail: json['institute_email'] ?? '',
+        name: json['name'] ?? 'IIITV User',
         displayPicture: json['display_picture'],
-        isFaculty: json['is_faculty'],
+        isFaculty: json['is_faculty'] ?? false,
       );
 
   Map<String, dynamic> toMap() => {
