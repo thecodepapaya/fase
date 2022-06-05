@@ -1,3 +1,4 @@
+import 'package:fase/app/globals.dart';
 import 'package:fase/domain/entities/registration.dart';
 import 'package:fase/domain/repositories/registration_repository.dart';
 import 'package:fase/domain/services/device_info/device_info_service.dart';
@@ -35,7 +36,13 @@ class RegistrationUsecaseImpl implements RegistrationUsecase {
   Future<bool> verifyUserRegistration() async {
     final deviceID = FDeviceInfoService.instance.id;
 
-    final isRegistrationValid = await RegistrationRepository.instance.verifyRegistration(deviceID);
+    final registration = await RegistrationRepository.instance.verifyRegistration(deviceID);
+
+    final isRegistrationValid = registration != null;
+
+    if (isRegistrationValid) {
+      Globals.registration = registration;
+    }
 
     return isRegistrationValid;
   }

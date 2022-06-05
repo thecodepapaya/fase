@@ -36,7 +36,7 @@ class RegistrationRepositoryImpl implements RegistrationRepository {
   }
 
   @override
-  Future<bool> verifyRegistration(String deviceID) async {
+  Future<Registration?> verifyRegistration(String deviceID) async {
     const endPoint = Endpoints.verifyRegistration;
     final payload = <String, String>{'device_id': deviceID};
 
@@ -46,14 +46,14 @@ class RegistrationRepositoryImpl implements RegistrationRepository {
       final isSuccess = response.statusCode?.isSuccess ?? false;
 
       if (isSuccess) {
-        final isRegistrationValid = response.statusCode == 200;
-        return isRegistrationValid;
+        final registration = Registration.fromMap(response.data);
+        return registration;
       }
     } catch (error, stackTrace) {
       log(endPoint, error: error, stackTrace: stackTrace, name: 'API Error');
-      return false;
+      return null;
     }
 
-    return false;
+    return null;
   }
 }

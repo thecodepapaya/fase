@@ -2,10 +2,12 @@ part of '../../view.dart';
 
 class CourseTile extends StatefulWidget {
   final Course course;
+  final VoidCallback? onPressed;
 
   const CourseTile({
     Key? key,
     required this.course,
+    this.onPressed,
   }) : super(key: key);
 
   @override
@@ -76,11 +78,7 @@ class _CourseTileState extends State<CourseTile> with TickerProviderStateMixin {
       child: Card(
         elevation: 2,
         child: InkWell(
-          onTap: isEnabled
-              ? () {
-                  // controller.onCourseTapped(course.id!);
-                }
-              : null,
+          onTap: isEnabled ? widget.onPressed : null,
           child: Column(
             children: [
               Row(
@@ -123,66 +121,3 @@ class _CourseTileState extends State<CourseTile> with TickerProviderStateMixin {
     super.dispose();
   }
 }
-
-// class CourseTile extends ConsumerWidget {
-//   final Course course;
-
-//   const CourseTile({
-//     Key? key,
-//     required this.course,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     final controller = ref.watch(_vsProvider.notifier);
-
-//     final isEnabled = _isEnabled;
-
-//     return Opacity(
-//       opacity: isEnabled ? 1 : 0.5,
-//       child: Card(
-//         elevation: 2,
-//         child: InkWell(
-//           onTap: isEnabled
-//               ? () {
-//                   controller.onCourseTapped(course.id!);
-//                 }
-//               : null,
-//           child: Column(
-//             children: [
-//               Row(
-//                 children: [
-//                   CourseDetails(course: course),
-//                   WindowTimer(course: course),
-//                 ],
-//               ),
-//               ActionButton(course: course, isEnabled: isEnabled),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-
-//   bool get _isEnabled {
-//     late final bool isEnabled;
-
-//     final now = DateTime.now();
-//     final attendanceDuration = Duration(minutes: course.attendanceDurationInMinutes);
-//     final attendanceEndTime = course.startTimestamp?.add(attendanceDuration);
-//     final hasNeverStarted = course.startTimestamp == null;
-//     final hasEnded = attendanceEndTime?.isAfter(now) ?? true;
-
-//     final isCurrentlyActive = !hasNeverStarted && !hasEnded;
-
-//     final isFaculty = Globals.profile.isFaculty;
-
-//     if (isFaculty) {
-//       isEnabled = !isCurrentlyActive;
-//     } else {
-//       isEnabled = !course.isAlreadyMarked && isCurrentlyActive;
-//     }
-
-//     return isEnabled;
-//   }
-// }

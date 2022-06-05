@@ -22,9 +22,9 @@ class ActionButton extends ConsumerWidget {
                 final isFaculty = Globals.profile.isFaculty;
 
                 if (isFaculty) {
-                  controller.onStartAttendanceWindow(course.id!);
+                  controller.onStartAttendanceWindow(course);
                 } else {
-                  controller.onMarkAttendance(course.id!);
+                  controller.onMarkAttendance(course);
                 }
               }
             : null,

@@ -37,8 +37,10 @@ class _ViewState {
 class _VSController extends StateNotifier<_ViewState> {
   _VSController() : super(_ViewState.initial());
 
-  Future<bool> _fetchCourses() async {
-    state = state.copyWith(apiStatus: ApiStatus.loading);
+  final isFaculty = Globals.profile.isFaculty;
+
+  Future<bool> _fetchCourses({bool silent = false}) async {
+    if (!silent) state = state.copyWith(apiStatus: ApiStatus.loading);
 
     final coursesList = await CourseUsecase.instance.getCoursesList();
 
@@ -55,19 +57,46 @@ class _VSController extends StateNotifier<_ViewState> {
     return true;
   }
 
-  Future<void> refresh() async {
-    await _fetchCourses();
+  Future<void> refresh({bool silent = false}) async {
+    await _fetchCourses(silent: silent);
   }
 
-  void onCourseTapped(int courseId) {
-    appRouter.navigate(CreateCourseRoute());
+  void onCourseTapped(Course course) {
+    if (isFaculty) {
+      appRouter.navigate(CreateCourseRoute(courseID: course.id));
+    }
   }
 
-  void onMarkAttendance(int courseId) {}
+  void onMarkAttendance(Course course) async {
+    final isSuccess = await AttendanceUsecases.instance.markAttendance(course.id!);
 
-  void onStartAttendanceWindow(int courseId) {}
+    if (isSuccess) {
+      await refresh(silent: true);
+      _showSuccessSnackbar(course.courseCode);
+    } else {
+      _showFailureSnackbar();
+    }
+  }
 
-  void onEditCourse(String courseId) {}
+  void _showSuccessSnackbar(String courseCode) {
+    final snackbar = SnackBar(content: Text('Successfully marked attendance for $courseCode.'));
+    final context = Globals.context;
+
+    if (context != null) {
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+    }
+  }
+
+  void _showFailureSnackbar() {
+    const snackbar = SnackBar(content: Text('Failed to mark attendance. Please try again.'));
+    final context = Globals.context;
+
+    if (context != null) {
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+    }
+  }
+
+  void onStartAttendanceWindow(Course course) {}
 
   void onCreateCourse() {
     appRouter.navigate(CreateCourseRoute());

@@ -12,4 +12,7 @@ class Endpoints {
 
   // Courses
   static const coursesList = '/courses/';
+
+  // Attendance
+  static const markAttendance = '/attendance/';
 }

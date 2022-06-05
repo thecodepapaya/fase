@@ -1,4 +1,6 @@
+import 'package:fase/app/app.dart';
 import 'package:fase/app/utils/profile/profile.dart';
+import 'package:fase/domain/entities/registration.dart';
 
 class Globals {
   Globals._();
@@ -6,9 +8,9 @@ class Globals {
   static const baseURL = 'https://192.168.1.8:8000/api/v1';
   static const iiitvDomain = 'iiitvadodara.ac.in';
 
-  static var _profile = Profile.dummy();
-  static Profile get profile => _profile;
-  static set profile(Profile profile) {
-    _profile = profile;
-  }
+  static var profile = Profile.dummy();
+
+  static Registration? registration;
+
+  static final context = appRouter.navigatorKey.currentContext;
 }

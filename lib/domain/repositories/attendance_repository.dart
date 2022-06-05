@@ -7,7 +7,7 @@ abstract class AttendanceRepository {
 
   static final instance = AttendanceRepositoryImpl();
 
-  Future<Attendance> markAttendance(int courseId);
+  Future<Attendance?> markAttendance(int courseId);
 
-  Future<List<Attendance>> getAttendanceList(int courseId);
+  Future<List<Attendance>?> getAttendanceList(int courseId);
 }

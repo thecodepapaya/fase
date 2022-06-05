@@ -5,6 +5,7 @@ import 'package:fase/app/core_widgets/scaffold.dart';
 import 'package:fase/app/core_widgets/text_styles.dart';
 import 'package:fase/app/globals.dart';
 import 'package:fase/app/utils/router/app_router.dart';
+import 'package:fase/domain/usecases/attendance_usecases.dart';
 import 'package:fase/domain/usecases/course_usecases.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -65,6 +66,7 @@ class _SuccessBody extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final controller = ref.watch(_vsProvider.notifier);
     final courses = ref.watch(_vsProvider.select((state) => state.courses));
     final isCourseListEmpty = courses.isEmpty;
 
@@ -73,7 +75,15 @@ class _SuccessBody extends ConsumerWidget {
         : ListView.builder(
             itemCount: courses.length,
             itemBuilder: (context, index) {
-              return CourseTile(course: courses[index]);
+              final course = courses[index];
+
+              return CourseTile(
+                key: ObjectKey(course),
+                course: course,
+                onPressed: () {
+                  controller.onCourseTapped(course);
+                },
+              );
             },
           );
   }
