@@ -16,9 +16,12 @@ import '../../domain/usecases/system_check_usecases.dart';
 class SystemCheckUsecaseImpl implements SystemCheckUsecase {
   @override
   Future<bool> checkAppUpToDate() async {
+    const maxPossibleBuildNumber = 9223372036854775807;
     final metadata = await MetadataUsecase.instance.getMetadata();
+
+    final minAllowedAppVersion = (metadata?.minAppBuild ?? maxPossibleBuildNumber);
     final currentAppVersion = int.tryParse(FPackageInfoService.instance.buildNumber) ?? 1;
-    final isAppUpToDate = currentAppVersion >= (metadata?.minAppBuild ?? 1);
+    final isAppUpToDate = currentAppVersion >= minAllowedAppVersion;
 
     return isAppUpToDate;
   }
