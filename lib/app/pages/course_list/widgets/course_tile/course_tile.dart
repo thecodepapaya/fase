@@ -20,8 +20,9 @@ class _CourseTileState extends State<CourseTile> with TickerProviderStateMixin {
   final timerDuration = const Duration(seconds: 1);
   late final Duration attendanceDuration;
   late final DateTime attendanceEndTime;
+  late final DateTime? attendanceStartTime;
 
-  late final bool hasNeverStarted;
+  bool hasStarted = false;
   bool hasEnded = true;
   bool isAttendanceWindowActive = false;
 
@@ -39,10 +40,11 @@ class _CourseTileState extends State<CourseTile> with TickerProviderStateMixin {
     final now = DateTime.now();
     attendanceDuration = Duration(minutes: course.attendanceDurationInMinutes);
     attendanceEndTime = course.startTimestamp?.add(attendanceDuration) ?? now.subtract(timerDuration);
+    attendanceStartTime = course.startTimestamp;
 
-    hasNeverStarted = course.startTimestamp == null;
+    hasStarted = course.startTimestamp == null ? false : now.isAfter(course.startTimestamp!);
     hasEnded = attendanceEndTime.isBefore(now);
-    isAttendanceWindowActive = !hasNeverStarted && !hasEnded;
+    isAttendanceWindowActive = hasStarted && !hasEnded;
 
     if (isAttendanceWindowActive) {
       timer = Timer.periodic(timerDuration, updateTimerText);
@@ -100,7 +102,7 @@ class _CourseTileState extends State<CourseTile> with TickerProviderStateMixin {
 
     final now = DateTime.now();
     hasEnded = attendanceEndTime.isBefore(now);
-    isAttendanceWindowActive = !hasNeverStarted && !hasEnded;
+    isAttendanceWindowActive = hasStarted && !hasEnded;
 
     final isFaculty = Globals.profile.isFaculty;
 

@@ -1,6 +1,6 @@
 part of 'view.dart';
 
-final _vsProvider = StateNotifierProvider<_VSController, _ViewState>((ref) {
+final _vsProvider = StateNotifierProvider.autoDispose<_VSController, _ViewState>((ref) {
   final controller = _VSController();
 
   controller._performCheck();
@@ -190,7 +190,6 @@ class _VSController extends StateNotifier<_ViewState> {
     log('onSignOutButtonPressed');
 
     await FirebaseAuthUsecase.instance.logOutUser();
-    appRouter.pushAndPopUntil(const SystemCheckRoute(), predicate: (_) => false);
     _resetAllCheck();
   }
 

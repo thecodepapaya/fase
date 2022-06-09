@@ -1,5 +1,7 @@
+import 'package:fase/app/app.dart';
 import 'package:fase/app/globals.dart';
 import 'package:fase/app/utils/profile/profile.dart';
+import 'package:fase/app/utils/router/app_router.dart';
 import 'package:fase/domain/entities/user.dart';
 import 'package:fase/domain/repositories/authentication_repository.dart';
 import 'package:fase/domain/usecases/auth_usecases.dart';
@@ -19,5 +21,7 @@ class AuthUsecaseImpl implements AuthUsecase {
   @override
   void logOut() {
     Globals.profile = Profile.dummy();
+    Globals.registration = null;
+    appRouter.pushAndPopUntil(const SystemCheckRoute(), predicate: (_) => false);
   }
 }
