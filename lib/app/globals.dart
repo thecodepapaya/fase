@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class Globals {
   Globals._();
 
-  static const baseURL = 'https://fase.thecodepapaya.dev/api/v1';
+  static const baseURL = 'https://fase.thecodepapaya.dev';
   static const iiitvDomain = 'iiitvadodara.ac.in';
 
   static var profile = Profile.dummy();

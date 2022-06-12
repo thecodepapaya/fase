@@ -89,7 +89,13 @@ class _CourseTileState extends State<CourseTile> with TickerProviderStateMixin {
                   WindowTimer(timerText: timerText),
                 ],
               ),
-              ActionButton(course: course, isEnabled: isEnabled),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  DownloadButton(course: course),
+                  ActionButton(course: course, isEnabled: isEnabled),
+                ],
+              ),
             ],
           ),
         ),

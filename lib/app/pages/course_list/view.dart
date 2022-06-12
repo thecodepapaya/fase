@@ -18,6 +18,7 @@ part 'controller.dart';
 part 'widgets/course_tile/action_button.dart';
 part 'widgets/course_tile/course_details.dart';
 part 'widgets/course_tile/course_tile.dart';
+part 'widgets/course_tile/download_button.dart';
 part 'widgets/course_tile/window_timer.dart';
 part 'widgets/create_course_button.dart';
 part 'widgets/empty_course_list.dart';

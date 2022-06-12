@@ -101,4 +101,19 @@ class _VSController extends StateNotifier<_ViewState> {
   void onCreateCourse() {
     appRouter.navigate(CreateCourseRoute());
   }
+
+  void onDownloadAttendance(Course course) async {
+    bool isSuccess = false;
+    final courseID = course.id;
+
+    if (courseID != null) {
+      isSuccess = await AttendanceUsecases.instance.downloadAttendanceSpreadsheet(courseID);
+    } else {
+      isSuccess = false;
+    }
+
+    if (!isSuccess) {
+      Globals.showSnackbar('Unable to download attendance. Please try using a web browser');
+    }
+  }
 }

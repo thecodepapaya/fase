@@ -9,4 +9,6 @@ abstract class AttendanceUsecases {
   Future<bool> markAttendance(int courseId);
 
   Future<List<Attendance>> attendanceList(int courseId);
+
+  Future<bool> downloadAttendanceSpreadsheet(int courseId);
 }

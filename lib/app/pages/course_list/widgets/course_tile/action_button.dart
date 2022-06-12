@@ -14,22 +14,19 @@ class ActionButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(_vsProvider.notifier);
 
-    return Container(
-      alignment: Alignment.bottomRight,
-      child: TextButton(
-        onPressed: isEnabled
-            ? () {
-                final isFaculty = Globals.profile.isFaculty;
+    return TextButton(
+      onPressed: isEnabled
+          ? () {
+              final isFaculty = Globals.profile.isFaculty;
 
-                if (isFaculty) {
-                  controller.onStartAttendanceWindow(course);
-                } else {
-                  controller.onMarkAttendance(course);
-                }
+              if (isFaculty) {
+                controller.onStartAttendanceWindow(course);
+              } else {
+                controller.onMarkAttendance(course);
               }
-            : null,
-        child: Text(actionButtonText),
-      ),
+            }
+          : null,
+      child: Text(actionButtonText),
     );
   }
 
