@@ -9,12 +9,6 @@ import 'package:fase/domain/services/dio/dio_service.dart';
 
 class AttendanceRepositoryImpl implements AttendanceRepository {
   @override
-  Future<List<Attendance>?> getAttendanceList(int courseId) {
-    // TODO: implement getAttendanceList
-    throw UnimplementedError();
-  }
-
-  @override
   Future<Attendance?> markAttendance(int courseId) async {
     const endPoint = Endpoints.markAttendance;
     final payload = <String, dynamic>{
