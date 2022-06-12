@@ -23,4 +23,8 @@ class FTextStyle {
   static const heading5 = TextStyle(
     fontSize: 14,
   );
+
+  static const small = TextStyle(
+    fontSize: 12,
+  );
 }

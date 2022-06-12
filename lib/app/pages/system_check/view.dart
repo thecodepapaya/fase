@@ -10,6 +10,7 @@ import 'package:fase/app/utils/enums.dart';
 import 'package:fase/app/utils/router/app_router.dart';
 import 'package:fase/device/repositories/connectivity/connectivity.dart';
 import 'package:fase/domain/services/connectivity/connectivity_service.dart';
+import 'package:fase/domain/services/package_info/package_info_service.dart';
 import 'package:fase/domain/usecases/firebase_auth_usecases.dart';
 import 'package:fase/domain/usecases/registration_usecases.dart';
 import 'package:fase/domain/usecases/system_check_usecases.dart';

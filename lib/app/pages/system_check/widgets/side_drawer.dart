@@ -12,6 +12,8 @@ class SideDrawer extends ConsumerWidget {
 
     final photoUrl = Globals.profile.displayPicture ?? _generatePhotoUrlFromName(displayName);
 
+    final appVersion = FPackageInfoService.instance.version;
+
     return Drawer(
       child: Column(
         children: [
@@ -33,6 +35,10 @@ class SideDrawer extends ConsumerWidget {
             title: const Text('Sign out'),
             trailing: const Icon(Icons.logout),
             onTap: controller.onSignOutButtonPressed,
+          ),
+          const Spacer(),
+          ListTile(
+            title: Text('Version $appVersion', style: FTextStyle.small),
           ),
         ],
       ),
