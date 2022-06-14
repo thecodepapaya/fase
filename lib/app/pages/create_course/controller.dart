@@ -58,7 +58,6 @@ class _ViewState {
     String? selectedSemester,
     String? selectedAcademicYear,
     List<String>? academicYearsList,
-    String? description,
   }) {
     return _ViewState(
       apiStatus: apiStatus ?? this.apiStatus,
@@ -171,7 +170,7 @@ class _VSController extends StateNotifier<_ViewState> {
 
   void onCourseCodeChanged(String courseCode) {}
 
-  void onSectionChanged(String description) {}
+  void onSectionChanged(String section) {}
 
   void onSemesterDropDownChanged(String? selectedSemester) {
     state = state.copyWith(selectedSemester: selectedSemester);

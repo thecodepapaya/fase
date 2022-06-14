@@ -37,7 +37,7 @@ class Course {
     DateTime? startTimestamp,
     int? attendanceDurationInMinutes,
     bool? isAlreadyMarked,
-    String? description,
+    String? section,
   }) =>
       Course(
         id: id ?? this.id,
@@ -49,7 +49,7 @@ class Course {
         startTimestamp: startTimestamp ?? this.startTimestamp,
         attendanceDurationInMinutes: attendanceDurationInMinutes ?? this.attendanceDurationInMinutes,
         isAlreadyMarked: isAlreadyMarked ?? this.isAlreadyMarked,
-        section: description ?? this.section,
+        section: section ?? this.section,
       );
 
   factory Course.fromJson(String str) => Course.fromMap(json.decode(str));
