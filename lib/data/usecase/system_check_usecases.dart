@@ -5,7 +5,6 @@ import 'package:fase/domain/usecases/metadata_usecases.dart';
 import 'package:fase/domain/usecases/registration_usecases.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../../app/utils/access_point_list.dart';
 import '../../device/repositories/connectivity/connectivity.dart';
 import '../../domain/services/connectivity/connectivity_service.dart';
 import '../../domain/services/permission/permission_service.dart';
@@ -88,9 +87,16 @@ class SystemCheckUsecaseImpl implements SystemCheckUsecase {
 
   @override
   Future<bool> checkIfIIITVWifiConnected() async {
-    final currentBSSID = await FWifiInfoService.instance.wifiBSSID;
+    final bool isConnectedToIIITVAP;
+    final currentBSSID = await FWifiInfoService.instance.wifiBSSID ?? '00:00:00:00:00:00';
+    final currentBSSIDPrefix = currentBSSID.substring(0, 8);
 
-    final isConnectedToIIITVAP = AccessPoints.list.contains(currentBSSID);
+    final accessPointData = await MetadataRepository.instance.getAccessPointData();
+
+    final hasAccessPoint = accessPointData?.accessPointsList.contains(currentBSSID) ?? false;
+    final hasAccessPointPrefix = accessPointData?.accessPointsPrefix.contains(currentBSSIDPrefix) ?? false;
+
+    isConnectedToIIITVAP = hasAccessPoint || hasAccessPointPrefix;
 
     return isConnectedToIIITVAP;
   }
