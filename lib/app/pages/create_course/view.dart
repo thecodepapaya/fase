@@ -16,7 +16,7 @@ part 'controller.dart';
 part 'helper.dart';
 part 'widgets/course_code_field.dart';
 part 'widgets/course_name_field.dart';
-part 'widgets/description_field.dart';
+part 'widgets/section_field.dart';
 part 'widgets/semester_drop_down.dart';
 part 'widgets/year_drop_down.dart';
 
@@ -104,7 +104,7 @@ class _SuccessBody extends ConsumerWidget {
             SizedBox(height: 30),
             YearDropDown(),
             SizedBox(height: 30),
-            DescriptionField(),
+            SectionField(),
           ],
         ),
       ),

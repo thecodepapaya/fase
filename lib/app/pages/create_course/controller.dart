@@ -76,12 +76,12 @@ class _VSController extends StateNotifier<_ViewState> {
 
   late final TextEditingController courseCodeController;
   late final TextEditingController courseNameController;
-  late final TextEditingController descriptionController;
+  late final TextEditingController sectionController;
 
   Future<void> initState() async {
     courseCodeController = TextEditingController();
     courseNameController = TextEditingController();
-    descriptionController = TextEditingController();
+    sectionController = TextEditingController();
 
     _populateAcademicYears();
     await _fetchCourseDetails();
@@ -116,7 +116,7 @@ class _VSController extends StateNotifier<_ViewState> {
   void _populateCourseDataInTextFields(Course course) {
     courseCodeController.text = course.courseCode;
     courseNameController.text = course.courseName;
-    descriptionController.text = course.description ?? '';
+    sectionController.text = course.section ?? '';
 
     state = state.copyWith(
       selectedSemester: course.semester.capitalize,
@@ -139,7 +139,7 @@ class _VSController extends StateNotifier<_ViewState> {
       courseCode: courseCodeController.text,
       courseName: courseNameController.text,
       semester: state.selectedSemester.toLowerCase(),
-      description: descriptionController.text,
+      section: sectionController.text,
       attendanceDurationInMinutes: state.course?.attendanceDurationInMinutes ?? 5,
     );
 
@@ -171,7 +171,7 @@ class _VSController extends StateNotifier<_ViewState> {
 
   void onCourseCodeChanged(String courseCode) {}
 
-  void onDescriptionChanged(String description) {}
+  void onSectionChanged(String description) {}
 
   void onSemesterDropDownChanged(String? selectedSemester) {
     state = state.copyWith(selectedSemester: selectedSemester);

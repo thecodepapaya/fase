@@ -14,6 +14,7 @@ class CourseCodeField extends ConsumerWidget {
       autocorrect: true,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       onChanged: controller.onCourseCodeChanged,
+      maxLength: 20,
       decoration: InputDecoration(
         labelText: 'Course Code',
         hintText: 'Eg. CS101',

@@ -75,6 +75,10 @@ class _CourseTileState extends State<CourseTile> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final isEnabled = _isEnabled;
 
+    final infoRowTextStyle = FTextStyle.small.copyWith(
+      color: Colors.grey,
+    );
+
     return Opacity(
       opacity: isEnabled ? 1 : 0.5,
       child: Card(
@@ -88,6 +92,25 @@ class _CourseTileState extends State<CourseTile> with TickerProviderStateMixin {
                   CourseDetails(course: course),
                   WindowTimer(timerText: timerText),
                 ],
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  children: [
+                    Text(
+                      '${course.semester.capitalize} (${course.academicYear})',
+                      style: infoRowTextStyle,
+                    ),
+                    
+                    const Text(' - '),
+                    Expanded(
+                      child: Text(
+                        course.section ?? '',
+                        style: infoRowTextStyle,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

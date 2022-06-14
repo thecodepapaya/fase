@@ -14,6 +14,7 @@ class CourseNameField extends ConsumerWidget {
       autocorrect: true,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       onChanged: controller.onCourseNameChanged,
+      maxLength: 80,
       decoration: InputDecoration(
         labelText: 'Course Name',
         hintText: 'Eg. Introduction to Quantum Computing',

@@ -1,7 +1,7 @@
 part of '../view.dart';
 
-class DescriptionField extends ConsumerWidget {
-  const DescriptionField({Key? key}) : super(key: key);
+class SectionField extends ConsumerWidget {
+  const SectionField({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -10,13 +10,14 @@ class DescriptionField extends ConsumerWidget {
     final controller = ref.watch(_vsProvider(params).notifier);
 
     return TextFormField(
-      controller: controller.descriptionController,
+      controller: controller.sectionController,
       autocorrect: true,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      onChanged: controller.onDescriptionChanged,
+      onChanged: controller.onSectionChanged,
+      maxLength: 25,
       decoration: InputDecoration(
-        hintText: 'Eg. Section A',
-        labelText: 'Description',
+        hintText: 'Eg. Section A/Lab Group B',
+        labelText: 'Section (Optional)',
         border: textFieldBorder,
       ),
       keyboardType: TextInputType.text,

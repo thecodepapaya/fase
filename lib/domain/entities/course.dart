@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final course = courseFromMap(jsonString);
-
 import 'dart:convert';
 
 import 'package:fase/domain/entities/user.dart';
@@ -17,7 +13,7 @@ class Course {
     this.startTimestamp,
     this.attendanceDurationInMinutes = 5,
     this.isAlreadyMarked = false,
-    this.description,
+    this.section,
   });
 
   final int? id;
@@ -29,7 +25,7 @@ class Course {
   final DateTime? startTimestamp;
   final int attendanceDurationInMinutes;
   final bool isAlreadyMarked;
-  final String? description;
+  final String? section;
 
   Course copyWith({
     int? id,
@@ -53,7 +49,7 @@ class Course {
         startTimestamp: startTimestamp ?? this.startTimestamp,
         attendanceDurationInMinutes: attendanceDurationInMinutes ?? this.attendanceDurationInMinutes,
         isAlreadyMarked: isAlreadyMarked ?? this.isAlreadyMarked,
-        description: description ?? this.description,
+        section: description ?? this.section,
       );
 
   factory Course.fromJson(String str) => Course.fromMap(json.decode(str));
@@ -71,7 +67,7 @@ class Course {
         startTimestamp: json['start_timestamp'] == null ? null : DateTime.parse(json['start_timestamp']).toLocal(),
         attendanceDurationInMinutes: json['attendance_duration_in_minutes'],
         isAlreadyMarked: json['is_already_marked'],
-        description: json['description'],
+        section: json['section'],
       );
 
   Map<String, dynamic> toMap() => {
@@ -84,6 +80,6 @@ class Course {
         'start_timestamp': startTimestamp?.toIso8601String(),
         'attendance_duration_in_minutes': attendanceDurationInMinutes,
         'is_already_marked': isAlreadyMarked,
-        'description': description,
+        'section': section,
       };
 }

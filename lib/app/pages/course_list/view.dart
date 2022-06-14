@@ -4,6 +4,7 @@ import 'package:fase/app/core_widgets/refresh_button.dart';
 import 'package:fase/app/core_widgets/scaffold.dart';
 import 'package:fase/app/core_widgets/text_styles.dart';
 import 'package:fase/app/globals.dart';
+import 'package:fase/app/utils/extensions.dart';
 import 'package:fase/app/utils/router/app_router.dart';
 import 'package:fase/domain/usecases/attendance_usecases.dart';
 import 'package:fase/domain/usecases/course_usecases.dart';
