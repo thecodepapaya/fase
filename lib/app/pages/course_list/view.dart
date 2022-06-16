@@ -21,6 +21,7 @@ part 'widgets/course_tile/course_details.dart';
 part 'widgets/course_tile/course_tile.dart';
 part 'widgets/course_tile/download_button.dart';
 part 'widgets/course_tile/window_timer.dart';
+part 'widgets/course_tile/course_info_row.dart';
 part 'widgets/create_course_button.dart';
 part 'widgets/empty_course_list.dart';
 
@@ -37,7 +38,9 @@ class CourseListView extends ConsumerWidget {
       title: 'Courses',
       appBarActionButton: RefreshButton(onRefresh: controller.refresh),
       body: RefreshIndicator(
-        onRefresh: controller.refresh,
+        onRefresh: () async {
+          await controller.refresh(silent: true);
+        },
         child: () {
           late Widget widget;
 

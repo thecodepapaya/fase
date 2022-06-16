@@ -93,10 +93,9 @@ class SystemCheckUsecaseImpl implements SystemCheckUsecase {
 
     final accessPointData = await MetadataRepository.instance.getAccessPointData();
 
-    final hasAccessPoint = accessPointData?.accessPointsList.contains(currentBSSID) ?? false;
     final hasAccessPointPrefix = accessPointData?.accessPointsPrefix.contains(currentBSSIDPrefix) ?? false;
 
-    isConnectedToIIITVAP = hasAccessPoint || hasAccessPointPrefix;
+    isConnectedToIIITVAP = hasAccessPointPrefix;
 
     return isConnectedToIIITVAP;
   }

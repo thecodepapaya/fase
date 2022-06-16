@@ -38,9 +38,12 @@ class _CourseTileState extends State<CourseTile> with TickerProviderStateMixin {
   void initialize() {
     course = widget.course;
     final now = DateTime.now();
+
     attendanceDuration = Duration(minutes: course.attendanceDurationInMinutes);
     attendanceEndTime = course.startTimestamp?.add(attendanceDuration) ?? now.subtract(timerDuration);
     attendanceStartTime = course.startTimestamp;
+
+    timerText = _getTimeRepresentationOfDuration(attendanceDuration);
 
     hasStarted = course.startTimestamp == null ? false : now.isAfter(course.startTimestamp!);
     hasEnded = attendanceEndTime.isBefore(now);
@@ -60,24 +63,28 @@ class _CourseTileState extends State<CourseTile> with TickerProviderStateMixin {
       timer.cancel();
     }
 
+    setState(() {
+      timerText = _getTimeRepresentationOfDuration(timeLeft);
+    });
+  }
+
+  String _getTimeRepresentationOfDuration(Duration timeLeft) {
+    String displayString = '';
+
     final minutesLeft = timeLeft.inMinutes;
     final secondsLeft = timeLeft.inSeconds % 60;
 
     final padLeftMinute = minutesLeft < 10 ? '0' : '';
     final padLeftSeconds = secondsLeft < 10 ? '0' : '';
 
-    setState(() {
-      timerText = '$padLeftMinute$minutesLeft:$padLeftSeconds$secondsLeft';
-    });
+    displayString = '$padLeftMinute$minutesLeft:$padLeftSeconds$secondsLeft';
+
+    return displayString;
   }
 
   @override
   Widget build(BuildContext context) {
     final isEnabled = _isEnabled;
-
-    final infoRowTextStyle = FTextStyle.small.copyWith(
-      color: Colors.grey,
-    );
 
     return Opacity(
       opacity: isEnabled ? 1 : 0.5,
@@ -93,25 +100,7 @@ class _CourseTileState extends State<CourseTile> with TickerProviderStateMixin {
                   WindowTimer(timerText: timerText),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                  children: [
-                    Text(
-                      '${course.semester.capitalize} (${course.academicYear})',
-                      style: infoRowTextStyle,
-                    ),
-                    
-                    const Text(' - '),
-                    Expanded(
-                      child: Text(
-                        course.section ?? '',
-                        style: infoRowTextStyle,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              CourseInfoRow(course: course),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
