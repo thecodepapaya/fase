@@ -19,7 +19,7 @@ class EmptyCourseList extends ConsumerWidget {
 
     final text = isFaculty
         ? 'You have not created any course yet. Please create a course or ask the admin to create a course and enroll students.'
-        : 'It looks lik you are not enrolled in any course. Please contact your respective course instructors.';
+        : 'It looks like you are not enrolled in any course. Please contact your respective course instructors.';
 
     return text;
   }
