@@ -50,6 +50,10 @@ class _CourseTileState extends State<CourseTile> with TickerProviderStateMixin {
     isAttendanceWindowActive = hasStarted && !hasEnded;
 
     if (isAttendanceWindowActive) {
+      // If attendance has started, show duration left instead of total duration in initial frame
+    final timeLeft = attendanceEndTime.difference(now);
+      timerText = _getTimeRepresentationOfDuration(timeLeft);
+      
       timer = Timer.periodic(timerDuration, updateTimerText);
     }
   }
