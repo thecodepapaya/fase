@@ -101,13 +101,7 @@ class _CourseTileState extends State<CourseTile> with TickerProviderStateMixin {
                 ],
               ),
               CourseInfoRow(course: course),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  DownloadButton(course: course),
-                  ActionButton(course: course, isEnabled: isEnabled),
-                ],
-              ),
+              ButtonRow(course: course, isEnabled: isEnabled),
             ],
           ),
         ),

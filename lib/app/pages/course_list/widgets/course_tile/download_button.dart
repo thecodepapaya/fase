@@ -11,16 +11,13 @@ class DownloadButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(_vsProvider.notifier);
-    final showDownloadButton = Globals.profile.isFaculty;
 
-    return showDownloadButton
-        ? IconButton(
-            tooltip: 'Download attendance for ${course.courseCode} as spreadsheet',
-            icon: const Icon(Icons.file_download),
-            onPressed: () {
-              controller.onDownloadAttendance(course);
-            },
-          )
-        : const SizedBox();
+    return IconButton(
+      tooltip: 'Download attendance for ${course.courseCode} as spreadsheet',
+      icon: const Icon(Icons.file_download),
+      onPressed: () {
+        controller.onDownloadAttendance(course);
+      },
+    );
   }
 }

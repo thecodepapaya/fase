@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:fase/domain/entities/user.dart';
+import 'package:fase/app/utils/extensions.dart';
+import 'package:flutter/material.dart';
 
 class Course {
   Course({
@@ -14,6 +16,7 @@ class Course {
     this.attendanceDurationInMinutes = 5,
     this.isAlreadyMarked = false,
     this.section,
+    this.color,
   });
 
   final int? id;
@@ -26,6 +29,7 @@ class Course {
   final int attendanceDurationInMinutes;
   final bool isAlreadyMarked;
   final String? section;
+  final Color? color;
 
   Course copyWith({
     int? id,
@@ -38,6 +42,7 @@ class Course {
     int? attendanceDurationInMinutes,
     bool? isAlreadyMarked,
     String? section,
+    Color? color,
   }) =>
       Course(
         id: id ?? this.id,
@@ -50,6 +55,7 @@ class Course {
         attendanceDurationInMinutes: attendanceDurationInMinutes ?? this.attendanceDurationInMinutes,
         isAlreadyMarked: isAlreadyMarked ?? this.isAlreadyMarked,
         section: section ?? this.section,
+        color: color??this.color,
       );
 
   factory Course.fromJson(String str) => Course.fromMap(json.decode(str));
@@ -68,6 +74,7 @@ class Course {
         attendanceDurationInMinutes: json['attendance_duration_in_minutes'],
         isAlreadyMarked: json['is_already_marked'],
         section: json['section'],
+        color: ((json['color'] ?? '') as String).getColorFromHex,
       );
 
   Map<String, dynamic> toMap() => {
