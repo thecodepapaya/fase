@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fase/app/app.dart';
+import 'package:fase/app/core_widgets/logo.dart';
 import 'package:fase/app/core_widgets/refresh_button.dart';
 import 'package:fase/app/core_widgets/scaffold.dart';
 import 'package:fase/app/core_widgets/text_styles.dart';

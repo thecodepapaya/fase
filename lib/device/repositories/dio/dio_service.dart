@@ -6,6 +6,7 @@ import 'package:fase/app/globals.dart';
 
 import '../../../app/utils/interceptors/auth_interceptor.dart';
 import '../../../app/utils/interceptors/header_interceptor.dart';
+import '../../../app/utils/interceptors/performance_interceptor.dart';
 import '../../../app/utils/interceptors/request_logger.dart';
 import '../../../domain/services/dio/dio_service.dart';
 
@@ -36,6 +37,7 @@ class FDioServiceImpl implements FDioService {
       RequestLogger(),
       AuthHeader(),
       AuthStatusCode(),
+      NetworkPerformance(),
     ]);
 
     // For accepting self signed certificates

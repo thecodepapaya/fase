@@ -193,6 +193,24 @@ class _VSController extends StateNotifier<_ViewState> {
     _resetAllCheck();
   }
 
+  @Deprecated('Not showing about dialog right now')
+  Future<void> onAboutPressed() async {
+    log('onAboutPressed');
+
+    final currentContext = appRouter.navigatorKey.currentContext;
+
+    if (currentContext != null) {
+      showAboutDialog(
+        context: currentContext,
+        applicationVersion: FPackageInfoService.instance.version,
+        applicationIcon: const Logo(size: 30),
+        applicationName: FPackageInfoService.instance.appName,
+        applicationLegalese:
+            'Attendance system for IIITV. Made by Ashutosh Singh and Tanmay Ambadkar.',
+      );
+    }
+  }
+
   Future<void> onActionButtonPressed() async {
     final allCheckPassed = state.allChecksPassed;
     final isRegistrationPending = state.everythingExceptRegistrationPassed;

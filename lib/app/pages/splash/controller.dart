@@ -42,6 +42,8 @@ class _VSController extends StateNotifier<_ViewState> {
     FPermissionService.instance,
     FDioService.instance,
     FRemoteDatabaseService.instance,
+    FErrorReportingService.instance,
+    FAnalyticsService.instance,
   ]);
 
   Future<void> _startUpProcesses() async {
