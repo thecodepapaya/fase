@@ -36,9 +36,14 @@ class SideDrawer extends ConsumerWidget {
             trailing: const Icon(Icons.logout),
             onTap: controller.onSignOutButtonPressed,
           ),
+          // ListTile(
+          //   title: const Text('About'),
+          //   onTap: controller.onAboutPressed,
+          // ),
           const Spacer(),
           ListTile(
             title: Text('Version $appVersion', style: FTextStyle.small),
+            onTap: controller.onAboutPressed,
           ),
         ],
       ),
