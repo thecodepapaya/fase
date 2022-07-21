@@ -14,11 +14,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "11202985363-ftvn8nkkloj44etsqp7ketejs6a9ua8u.apps.googleusercontent.com",
+          "client_id": "11202985363-4q844sbvkmolnd8k4dbtenbp8is2rpil.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "dev.thecodepapaya.fase",
-            "certificate_hash": "5795cacaa2282d631e6751283401584bff0fe294"
+            "certificate_hash": "9f4d99324eb4f50aef81f372f07f70abb61b3f55"
+          }
+        },
+        {
+          "client_id": "11202985363-vi954j00k5krehvcr7a3ng01c33ct2db.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.thecodepapaya.fase",
+            "certificate_hash": "ed12cd0f7b117a9e40ae8c8df030ac5a448c9af4"
           }
         },
         {
