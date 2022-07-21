@@ -36,6 +36,8 @@ class FSafeDeviceServiceImpl implements FSafeDeviceService {
 
     // Extras
     _isDevelopmentDevice = Platform.isAndroid ? await SafeDevice.isDevelopmentModeEnable : false;
-    _canMockLocation = await SafeDevice.canMockLocation;
+
+    // Mock location test is only supported on Android
+    _canMockLocation = Platform.isAndroid ? await SafeDevice.canMockLocation : true;
   }
 }

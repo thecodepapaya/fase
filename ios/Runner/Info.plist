@@ -45,5 +45,32 @@
 	<false/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<!-- Put me in the [my_project]/ios/Runner/Info.plist file -->
+	<!-- Google Sign-in Section -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
+				<string>com.googleusercontent.apps.11202985363-cktmo09c4asm0bddreu53ihdduicbmbu</string>
+			</array>
+		</dict>
+	</array>
+	<!-- End of the Google Sign-in Section -->
+	<key>NSLocationUsageDescription</key>
+    <string>Location is required to verify your presence in the classroom</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Location is required to verify your presence in the classroom</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Location is required to verify your presence in the classroom</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+    <string>Bluetooth is required to verify your presence in the classroom</string>
+    <key>NSBluetoothPeripheralUsageDescription</key>
+    <string>Bluetooth is required to verify your presence in the classroom</string>
+	<key>PermissionGroupNotification</key>
+    <string>Norification permission is required for attendance related alerts</string>
 </dict>
 </plist>
